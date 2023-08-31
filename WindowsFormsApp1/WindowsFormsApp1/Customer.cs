@@ -20,6 +20,7 @@ namespace WindowsFormsApp1
             return email;
         }
 
+        
         public String toString()
         {
             return "Email: " + email;
