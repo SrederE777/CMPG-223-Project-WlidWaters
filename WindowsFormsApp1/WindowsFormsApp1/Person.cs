@@ -13,6 +13,10 @@ namespace WindowsFormsApp1
         public string Contact { get; private set; }
         public DateTime Birthday { get; private set; }
 
+        public Person() : this("", "", DateTime.Now)
+        {
+
+        }
         // Constructors
         public Person(string name, string contact, DateTime birthday)
         {

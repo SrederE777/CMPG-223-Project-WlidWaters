@@ -7,38 +7,41 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1
 {
-    class login
+    static class login
     {
-        private string connectionString; // Database connection string
+        private static Employee currentUser;
 
-        public login(string connectionString)
+        public static Employee getValue()
         {
-            this.connectionString = connectionString;
+            return currentUser;
         }
 
-        public bool Authenticate(string username, string password)
+        public static bool Authenticate(string username, string password)
         {
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
                 return false;
             }
 
-            // Assuming you have a database table named "Users" with columns "Username" and "Password"
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            string sql =  "";
+            SqlParameter[] parameters =
             {
-                connection.Open();
+                new SqlParameter("@username", username),
+                new SqlParameter("@password", password)
+            };
 
-                string query = "SELECT COUNT(*) FROM Users WHERE Username = @Username AND Password = @Password";
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@Username", username);
-                    command.Parameters.AddWithValue("@Password", password);
+            currentUser = DataBaseFuncitons.getUser<Employee>(sql, parameters);
 
-                    int matchingUserCount = (int)command.ExecuteScalar();
-
-                    return matchingUserCount > 0;
-                }
+            if (currentUser != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
+
+
     }
 }

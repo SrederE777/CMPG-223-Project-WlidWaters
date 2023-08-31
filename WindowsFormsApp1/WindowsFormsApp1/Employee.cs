@@ -6,16 +6,22 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1
 {
-    class Employee
+    class Employee : Person
     {
         // Properties
-        public string EmergencyContact { get; private set; }
-        private string Password { get; set; }
-        public string Ride { get; private set; }
+        private string EmergencyContact;
+        private string Password;
+        private string Ride;
+        public Employee() : this("","","")
+        {
+            // Initialize properties with default values if desired
+           
+        }
 
         // Constructors
-        public Employee(string emergencyContact, string password, string ride)
+        public Employee(string emergencyContact, string password, string ride) : base()
         {
+            
             EmergencyContact = emergencyContact;
             Password = password;
             Ride = ride;
@@ -52,23 +58,12 @@ namespace WindowsFormsApp1
         {
             return EmergencyContact;
         }
-
-        // Method to check if a provided password matches the stored password
-        public bool CheckPassword(string password)
-        {
-            return Password == password;
-        }
-
-        // Method to assign an employee to a ride
-        public void AssignToRide(string ride)
-        {
-            Ride = ride;
-        }
-
+        
         // Override ToString() method
         public override string ToString()
         {
             return $"Emergency Contact: {EmergencyContact}\nRide: {Ride}";
         }
+
     }
 }
