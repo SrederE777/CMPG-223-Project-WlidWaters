@@ -30,7 +30,7 @@ namespace WindowsFormsApp1
                 new SqlParameter("@password", password)
             };
 
-            currentUser = DataBaseFuncitons.getUser<Employee>(sql, parameters);
+            currentUser = DataBaseFuncitons.GetData<Employee>(sql, parameters);
 
             if (currentUser != null)
             {

@@ -10,17 +10,21 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
-    public partial class MDIParent : Form
+    public partial class TestForm_CanBeDeleted_ : Form
     {
-        public MDIParent()
+        public TestForm_CanBeDeleted_()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void groupBox1_Enter(object sender, EventArgs e)
         {
-            GenericFunctions.CreateForm<TestForm_CanBeDeleted_>("Test", this);
-            
+
+        }
+
+        private void TestForm_CanBeDeleted__Load(object sender, EventArgs e)
+        {
+            GenericFunctions.CreateInputs<Employee>(groupBox1);
         }
     }
 }

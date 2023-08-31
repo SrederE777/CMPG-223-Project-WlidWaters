@@ -5,13 +5,73 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Reflection;
+using System.Windows.Forms;
+using System.Drawing;
 
 namespace WindowsFormsApp1
 {
     static class GenericFunctions
     {
 
-        
+        public static void CreateForm<T>(String title, MDIParent parentForm) where T : Form, new()
+        {
+            //Create an instance of the form
+            T form = new T();
+            //This was used instead of new beacause it is more generic and allows for multiple form to be made according to a preset
+
+            //set the configuration for the forms made with this method
+            form.MdiParent = parentForm;
+            form.WindowState = FormWindowState.Maximized;
+            form.ControlBox = false;
+            form.Show();
+            form.Text = title;
+        }
+
+        public static void CreateInputs<T>(GroupBox outputOn)
+        {
+            Size groupBoxSize = outputOn.Size;
+            //foreach (T item in input)
+            {
+                
+                // Get the properties of the class
+                PropertyInfo[] properties = typeof(T).GetProperties();
+                int amount = properties.Length;
+                int inc = 1;
+                // Loop through the properties
+                foreach (PropertyInfo property in properties)
+                {
+                    int height = (groupBoxSize.Height / amount) * inc - 50;
+                    // Get the value of the property
+                    //object value = property.GetValue(item);
+
+                    // Perform different actions based on the type of the property
+                    if (property.PropertyType == typeof(int))
+                    {
+                        
+                        TextBox myText = new TextBox();
+                        myText.Location = new Point(10, height);
+                        outputOn.Controls.Add(myText);
+                        inc++;
+                    }
+                    else if (property.PropertyType == typeof(string))
+                    {
+                        TextBox myText = new TextBox();
+                        myText.Location = new Point(25, height);
+                        outputOn.Controls.Add(myText);
+                        inc++;
+                    }
+                    else if (property.PropertyType == typeof(DateTime))
+                    {
+                        TextBox myText = new TextBox();
+                        myText.Location = new Point(25, height);
+                        outputOn.Controls.Add(myText);
+                        inc++;
+                    }
+
+                }
+            }
+        }
+
         public static List<T> Fill<T>(this SqlDataReader reader) where T : new()
         {
 

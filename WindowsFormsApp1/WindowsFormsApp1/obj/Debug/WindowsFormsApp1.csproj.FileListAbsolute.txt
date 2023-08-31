@@ -1,0 +1,11 @@
+C:\Users\32140274\Source\Repos\SrederE777\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe.config
+C:\Users\32140274\Source\Repos\SrederE777\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe
+C:\Users\32140274\Source\Repos\SrederE777\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.pdb
+C:\Users\32140274\Source\Repos\SrederE777\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.AssemblyReference.cache
+C:\Users\32140274\Source\Repos\SrederE777\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.MDIParent.resources
+C:\Users\32140274\Source\Repos\SrederE777\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Properties.Resources.resources
+C:\Users\32140274\Source\Repos\SrederE777\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.TestForm_CanBeDeleted_.resources
+C:\Users\32140274\Source\Repos\SrederE777\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.GenerateResource.cache
+C:\Users\32140274\Source\Repos\SrederE777\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
+C:\Users\32140274\Source\Repos\SrederE777\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
+C:\Users\32140274\Source\Repos\SrederE777\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb

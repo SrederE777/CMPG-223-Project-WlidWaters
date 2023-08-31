@@ -50,7 +50,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        public static T getUser<T>(string sql, SqlParameter[] parameters) where T : new()
+        public static T GetData<T>(string sql, SqlParameter[] parameters) where T : new()
         {
             try
             {
