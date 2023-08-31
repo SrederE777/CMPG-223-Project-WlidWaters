@@ -32,38 +32,52 @@ namespace WindowsFormsApp1
             Size groupBoxSize = outputOn.Size;
             //foreach (T item in input)
             {
-                
+
                 // Get the properties of the class
-                PropertyInfo[] properties = typeof(T).GetProperties();
-                int amount = properties.Length;
+                FieldInfo[] fields = typeof(T).GetFields(BindingFlags.NonPublic | BindingFlags.Instance); 
+                int amount = fields.Length;
                 int inc = 1;
                 // Loop through the properties
-                foreach (PropertyInfo property in properties)
+                foreach (FieldInfo field in fields)
                 {
-                    int height = (groupBoxSize.Height / amount) * inc - 50;
+                    int spacing = (groupBoxSize.Height - 50) / (amount + 1); ;
                     // Get the value of the property
                     //object value = property.GetValue(item);
 
                     // Perform different actions based on the type of the property
-                    if (property.PropertyType == typeof(int))
+                    if (field.FieldType == typeof(int))
                     {
                         
                         TextBox myText = new TextBox();
-                        myText.Location = new Point(10, height);
+                        myText.Location = new Point(25, spacing * inc);
                         outputOn.Controls.Add(myText);
                         inc++;
                     }
-                    else if (property.PropertyType == typeof(string))
+                    else if (field.FieldType == typeof(string))
                     {
                         TextBox myText = new TextBox();
-                        myText.Location = new Point(25, height);
+                        myText.Location = new Point(25, spacing * inc);
                         outputOn.Controls.Add(myText);
                         inc++;
                     }
-                    else if (property.PropertyType == typeof(DateTime))
+                    else if (field.FieldType == typeof(DateTime))
                     {
                         TextBox myText = new TextBox();
-                        myText.Location = new Point(25, height);
+                        myText.Location = new Point(25, spacing * inc);
+                        outputOn.Controls.Add(myText);
+                        inc++;
+                    }
+                    else if (field.FieldType == typeof(bool))
+                    {
+                        TextBox myText = new TextBox();
+                        myText.Location = new Point(25, spacing * inc);
+                        outputOn.Controls.Add(myText);
+                        inc++;
+                    }
+                    else if (field.FieldType == typeof(double))
+                    {
+                        TextBox myText = new TextBox();
+                        myText.Location = new Point(25, spacing * inc);
                         outputOn.Controls.Add(myText);
                         inc++;
                     }

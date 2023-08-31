@@ -8,58 +8,58 @@ namespace WindowsFormsApp1
 {
     internal class Rides
     {
-        private String rideDescription;
+        private string rideDescription;
         private bool rideAvailability;
         private double rideCost;
         private int rideLength;
-        private String ridePhotoName;
+        private string ridePhotoName;
 
-        public void setRideDescription(String rideDescription)
+        public void SetRideDescription(string rideDescription)
         {
             this.rideDescription = rideDescription;
         }
 
-        public void setRideAvailability(bool rideAvailability)
+        public void SetRideAvailability(bool rideAvailability)
         {
             this.rideAvailability = rideAvailability;
         }
 
-        public void setRideCost(double rideCost)
+        public void SetRideCost(double rideCost)
         {
             this.rideCost = rideCost;
         }
 
-        public void setRideLength(int rideLength)
+        public void SetRideLength(int rideLength)
         {
             this.rideLength = rideLength;
         }
 
-        public void setRidePhotoName(String ridePhotoName)
+        public void SetRidePhotoName(string ridePhotoName)
         {
             this.ridePhotoName = ridePhotoName;
         }
 
-        public String getRideDescription()
+        public string GetRideDescription()
         {
             return rideDescription;
         }
 
-        public bool getRideAvailability()
+        public bool GetRideAvailability()
         {
             return rideAvailability;
         }
 
-        public double getRideCost()
+        public double GetRideCost()
         {
             return rideCost;
         }
 
-        public int getRideLength()
+        public int GetRideLength()
         {
             return rideLength;
         }
 
-        public String getRidePhotoName()
+        public string GetRidePhotoName()
         {
             return ridePhotoName;
         }
@@ -70,7 +70,7 @@ namespace WindowsFormsApp1
         }
 
         
-        public String toString()
+        public string toString()
         {
             return "Ride Description: " + rideDescription + "\n"
                     + "Ride Availability: " + rideAvailability + "\n"

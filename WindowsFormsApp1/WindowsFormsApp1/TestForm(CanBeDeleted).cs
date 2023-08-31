@@ -24,7 +24,8 @@ namespace WindowsFormsApp1
 
         private void TestForm_CanBeDeleted__Load(object sender, EventArgs e)
         {
-            GenericFunctions.CreateInputs<Employee>(groupBox1);
+            GenericFunctions.CreateInputs<Rides>(groupBox1);
+            GenericFunctions.CreateInputs<Employee>(groupBox2);
         }
     }
 }
