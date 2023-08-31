@@ -20,8 +20,8 @@ namespace WindowsFormsApp1
             return email;
         }
 
-        @Override
-    public String toString()
+        
+        public String toString()
         {
             return "Email: " + email;
         }
