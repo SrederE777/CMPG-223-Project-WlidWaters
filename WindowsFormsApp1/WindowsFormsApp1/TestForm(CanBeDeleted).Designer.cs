@@ -35,7 +35,7 @@ namespace WindowsFormsApp1
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(51, 45);
+            this.groupBox1.Location = new System.Drawing.Point(12, 45);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(276, 293);
             this.groupBox1.TabIndex = 0;
@@ -45,7 +45,7 @@ namespace WindowsFormsApp1
             // 
             // groupBox2
             // 
-            this.groupBox2.Location = new System.Drawing.Point(357, 45);
+            this.groupBox2.Location = new System.Drawing.Point(294, 45);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(276, 293);
             this.groupBox2.TabIndex = 1;

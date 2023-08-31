@@ -12,6 +12,14 @@ namespace WindowsFormsApp1
 {
     static class GenericFunctions
     {
+        static Dictionary<Type, Type> types = new Dictionary<Type, Type>
+        {
+            { typeof(int), typeof(NumericUpDown) },
+            { typeof(string), typeof(TextBox) },
+            { typeof(bool), typeof(ComboBox)},
+            { typeof(DateTime), typeof(DateTimePicker)},
+            { typeof(double), typeof(NumericUpDown)},
+        };
 
         public static void CreateForm<T>(String title, MDIParent parentForm) where T : Form, new()
         {
@@ -27,60 +35,61 @@ namespace WindowsFormsApp1
             form.Text = title;
         }
 
-        public static void CreateInputs<T>(GroupBox outputOn)
+        public static void SetGroupBoxInputsLook(Control control)
+        {
+            control.Size = new Size(170, 50);
+        }
+
+        public static void CreateInput(Type dataType, Point location, Control container)
+        {
+            
+            Control control = (Control)Activator.CreateInstance(dataType);
+            control.Location = location;
+            container.Controls.Add(control);
+            SetGroupBoxInputsLook(control);
+        }
+
+        public static void CreateDisplay(Type dataType, Point location, Control container, string text)
+        {
+
+            Control control = (Control)Activator.CreateInstance(dataType);
+            control.Location = location;
+            container.Controls.Add(control);
+            control.Text = text;
+        }
+
+        public static void CreateInputs<T>(Control outputOn, int widthMargin, int heightMargin) where T : class
         {
             Size groupBoxSize = outputOn.Size;
             //foreach (T item in input)
             {
 
                 // Get the properties of the class
-                FieldInfo[] fields = typeof(T).GetFields(BindingFlags.NonPublic | BindingFlags.Instance); 
-                int amount = fields.Length;
+                List<FieldInfo> fields = new List<FieldInfo>();
+                Type type = typeof(T);
+                while (type != null)
+                {
+                    fields.AddRange(type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance));
+                    type = type.BaseType;
+                }
+                int amount = fields.Count;
                 int inc = 1;
                 // Loop through the properties
                 foreach (FieldInfo field in fields)
                 {
-                    int spacing = (groupBoxSize.Height - 50) / (amount + 1); ;
-                    // Get the value of the property
-                    //object value = property.GetValue(item);
+                    int spacingWidth = (groupBoxSize.Width - widthMargin)/4;
+                    int spacingHight = (groupBoxSize.Height + heightMargin) / (amount); 
+                    Point location = new Point(spacingWidth, spacingHight * inc/2);
 
-                    // Perform different actions based on the type of the property
-                    if (field.FieldType == typeof(int))
-                    {
-                        
-                        TextBox myText = new TextBox();
-                        myText.Location = new Point(25, spacing * inc);
-                        outputOn.Controls.Add(myText);
-                        inc++;
-                    }
-                    else if (field.FieldType == typeof(string))
-                    {
-                        TextBox myText = new TextBox();
-                        myText.Location = new Point(25, spacing * inc);
-                        outputOn.Controls.Add(myText);
-                        inc++;
-                    }
-                    else if (field.FieldType == typeof(DateTime))
-                    {
-                        TextBox myText = new TextBox();
-                        myText.Location = new Point(25, spacing * inc);
-                        outputOn.Controls.Add(myText);
-                        inc++;
-                    }
-                    else if (field.FieldType == typeof(bool))
-                    {
-                        TextBox myText = new TextBox();
-                        myText.Location = new Point(25, spacing * inc);
-                        outputOn.Controls.Add(myText);
-                        inc++;
-                    }
-                    else if (field.FieldType == typeof(double))
-                    {
-                        TextBox myText = new TextBox();
-                        myText.Location = new Point(25, spacing * inc);
-                        outputOn.Controls.Add(myText);
-                        inc++;
-                    }
+
+                    Type controlType = types[field.FieldType];
+                    CreateInput(controlType, location, outputOn);
+                    location.X /= 8;
+                    controlType = typeof(Label);
+                    CreateDisplay(controlType, location, outputOn, "Label " + inc);
+                    
+                    inc++;
+                    
 
                 }
             }
