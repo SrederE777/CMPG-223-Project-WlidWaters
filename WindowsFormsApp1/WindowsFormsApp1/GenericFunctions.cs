@@ -55,7 +55,7 @@ namespace WindowsFormsApp1
             control.Text = text;
         }
 
-        public static void CreateMenu(Type dataType, Point location, Control container, string text)
+        public static Control CreateMenu(Type dataType, Point location, Control container, string text)
         {
 
             Control control = (Control)Activator.CreateInstance(dataType);
@@ -63,7 +63,9 @@ namespace WindowsFormsApp1
             container.Controls.Add(control);
             GenericLooks.SetMenuLooks(control);
             control.Text = text;
+            return control;
         }
+
 
         public static void CreateInputs<T>(Control outputOn, int widthMargin, int heightMargin) where T : class
         {

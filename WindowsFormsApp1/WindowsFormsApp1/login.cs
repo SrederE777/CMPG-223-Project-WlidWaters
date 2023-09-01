@@ -10,6 +10,7 @@ namespace WindowsFormsApp1
     static class login
     {
         private static Employee currentUser;
+        //Dictionary<string, >
 
         public static Employee getValue()
         {
