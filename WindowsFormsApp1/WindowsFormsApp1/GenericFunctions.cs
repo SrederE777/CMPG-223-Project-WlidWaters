@@ -21,6 +21,7 @@ namespace WindowsFormsApp1
             { typeof(double), typeof(NumericUpDown)},
         };
 
+        //This may not be needed.... Which would suck a bit but hey if it works right
         public static void CreateForm<T>(String title, MDIParent parentForm) where T : Form, new()
         {
             //Create an instance of the form
@@ -55,7 +56,7 @@ namespace WindowsFormsApp1
             control.Text = text;
         }
 
-        public static Control CreateMenu(Type dataType, Point location, Control container, string text)
+        public static Control CreateMenuItem(Type dataType, Point location, Control container, string text)
         {
 
             Control control = (Control)Activator.CreateInstance(dataType);
@@ -64,6 +65,17 @@ namespace WindowsFormsApp1
             GenericLooks.SetMenuLooks(control);
             control.Text = text;
             return control;
+        }
+        public static List<Control> CreateMenu(List<string> options, ContainerControl outputOn, Point locaiton, int SpacingBetweenButtons = 0)
+        {
+            int inc = 0;
+            List<Control> controls = new List<Control>();
+            foreach (string option in options)
+            {
+                controls.Add(CreateMenuItem(typeof(Button), new Point(locaiton.X, locaiton.Y + inc), outputOn, option));
+                inc += GenericLooks.GetSize(typeof(Button)).Height + SpacingBetweenButtons;
+            }
+            return controls;
         }
 
 
@@ -107,16 +119,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        public static void CreateMenu(List<string> options, ContainerControl outputOn, int xAxisPlacement, int yAxisPlacement)
-        {
-            int inc = 1;
-            foreach (string option in options)
-            {
-                CreateMenu(typeof(Button), new Point(xAxisPlacement, yAxisPlacement + inc), outputOn, option);
-                inc += 50;
-            }
-            
-        }
+        
         public static List<T> Fill<T>(this SqlDataReader reader) where T : new()
         {
 

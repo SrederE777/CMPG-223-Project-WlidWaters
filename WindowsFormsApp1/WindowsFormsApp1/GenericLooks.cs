@@ -14,7 +14,7 @@ namespace WindowsFormsApp1
     {
         static Dictionary<Type, Size> sizes = new Dictionary<Type, Size>
         {
-            {typeof(Button), new Size(170, 50)}
+            {typeof(Button), new Size(300, 100)}
         };
         public static void SetInputsLook(Control control)
         {
@@ -33,7 +33,13 @@ namespace WindowsFormsApp1
             }
         }
 
-        
+        public static void ScaleControls(List<Control> controls, float scaleFactor)
+        {
+            foreach (Control control in controls)
+            {
+                control.Scale(new SizeF(scaleFactor, scaleFactor));
+            }
+        }
 
         public static void SetMenuLooks(Control control)
         {
