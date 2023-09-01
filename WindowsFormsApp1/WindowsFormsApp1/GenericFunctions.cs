@@ -35,18 +35,15 @@ namespace WindowsFormsApp1
             form.Text = title;
         }
 
-        public static void SetGroupBoxInputsLook(Control control)
-        {
-            control.Size = new Size(170, 50);
-        }
+        
+
 
         public static void CreateInput(Type dataType, Point location, Control container)
         {
-            
             Control control = (Control)Activator.CreateInstance(dataType);
             control.Location = location;
             container.Controls.Add(control);
-            SetGroupBoxInputsLook(control);
+            GenericLooks.SetInputsLook(control);
         }
 
         public static void CreateDisplay(Type dataType, Point location, Control container, string text)
@@ -55,6 +52,16 @@ namespace WindowsFormsApp1
             Control control = (Control)Activator.CreateInstance(dataType);
             control.Location = location;
             container.Controls.Add(control);
+            control.Text = text;
+        }
+
+        public static void CreateMenu(Type dataType, Point location, Control container, string text)
+        {
+
+            Control control = (Control)Activator.CreateInstance(dataType);
+            control.Location = location;
+            container.Controls.Add(control);
+            GenericLooks.SetMenuLooks(control);
             control.Text = text;
         }
 
@@ -81,20 +88,33 @@ namespace WindowsFormsApp1
                     int spacingHight = (groupBoxSize.Height + heightMargin) / (amount); 
                     Point location = new Point(spacingWidth, spacingHight * inc/2);
 
+                    if (types.ContainsKey(types[field.FieldType]))
+                    {
+                        Type controlType = types[field.FieldType];
+                        CreateInput(controlType, location, outputOn);
+                        location.X /= 8;
+                        controlType = typeof(Label);
+                        CreateDisplay(controlType, location, outputOn, "Label " + inc);
 
-                    Type controlType = types[field.FieldType];
-                    CreateInput(controlType, location, outputOn);
-                    location.X /= 8;
-                    controlType = typeof(Label);
-                    CreateDisplay(controlType, location, outputOn, "Label " + inc);
+                        inc++;
+                    }
                     
-                    inc++;
                     
 
                 }
             }
         }
 
+        public static void CreateMenu(List<string> options, ContainerControl outputOn, int xAxisPlacement, int yAxisPlacement)
+        {
+            int inc = 1;
+            foreach (string option in options)
+            {
+                CreateMenu(typeof(Button), new Point(xAxisPlacement, yAxisPlacement + inc), outputOn, option);
+                inc += 50;
+            }
+            
+        }
         public static List<T> Fill<T>(this SqlDataReader reader) where T : new()
         {
 
