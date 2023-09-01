@@ -88,7 +88,7 @@ namespace WindowsFormsApp1
                     int spacingHight = (groupBoxSize.Height + heightMargin) / (amount); 
                     Point location = new Point(spacingWidth, spacingHight * inc/2);
 
-                    if (types.ContainsKey(types[field.FieldType]))
+                    //if (types.ContainsKey(types[field.FieldType]))
                     {
                         Type controlType = types[field.FieldType];
                         CreateInput(controlType, location, outputOn);
