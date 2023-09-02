@@ -72,7 +72,7 @@ namespace WindowsFormsApp1
                 int i = 0;
                 foreach (MethodInfo eventinfo in eventinfos)
                 {
-                    if (eventinfo.Name.StartsWith(tag + menuOption))
+                    if (eventinfo.Name.Contains(tag + menuOption))
                     {
                         if (!buttonEvents.ContainsKey(MenuOptions[i]))
                         {
@@ -93,7 +93,7 @@ namespace WindowsFormsApp1
             List<string> MenuOptions = new List<string>
             {
                 "Maintain Rides",
-                "Maintain Employees",
+                "Maintain Employees", 
                 "Maintain Customers",
                 "Sell Tickets",
                 "Allocate Employees",
@@ -284,6 +284,11 @@ namespace WindowsFormsApp1
         private void MenuMaintainDeleteRideEvent(object sender, EventArgs e)
         {
 
+        }
+
+        private void MainMenuMaintainEmployeesEvent(object sender, EventArgs e)
+        { 
+            NewMenuMaintainEmployees();
         }
 
         private void MenuMaintainAddEmployeesEvent(object sender, EventArgs e)
