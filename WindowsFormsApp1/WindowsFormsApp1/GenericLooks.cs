@@ -33,7 +33,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        public static void ScaleControls(List<Control> controls, float scaleFactor)
+        public static void ScaleControls(Control.ControlCollection controls, float scaleFactor)
         {
             foreach (Control control in controls)
             {
