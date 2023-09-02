@@ -24,6 +24,7 @@ namespace WindowsFormsApp1
         private Dictionary<string, Delegate> menuDictionary = new Dictionary<string, Delegate>();
 
         delegate void MenuDelegate();
+        delegate void EventHandlerFunction(object sender, EventArgs e);
 
         private void NewMenuStartCode()
         {
@@ -57,6 +58,33 @@ namespace WindowsFormsApp1
 
         }
 
+        private void GetEvents(string tag, List<string> MenuOptions)
+        {
+            List<string> searchOptions = MenuOptions.Select(t => t.Replace(" ", "")).ToList();
+
+
+
+            MethodInfo[] eventinfos = typeof(mainForm).GetMethods(BindingFlags.NonPublic | BindingFlags.Instance);
+
+
+            foreach (string menuOption in searchOptions)
+            {
+                int i = 0;
+                foreach (MethodInfo eventinfo in eventinfos)
+                {
+                    if (eventinfo.Name.StartsWith(tag + menuOption))
+                    {
+                        if (!buttonEvents.ContainsKey(MenuOptions[i]))
+                        {
+                            EventHandler temp = (EventHandler)Delegate.CreateDelegate(typeof(EventHandler), this, eventinfo.Name);
+                            buttonEvents.Add(MenuOptions[i], temp);
+                        }
+                        
+                    }
+                }
+                i++;
+            }
+        }
         private void NewMenuMain()
         {
             NewMenuStartCode();
@@ -72,9 +100,10 @@ namespace WindowsFormsApp1
                 "Reports"
             };
 
-            //add Menu Events
-            buttonEvents.Add(MenuOptions[0], OpenMaintainRidesEvent);
-            
+            //subscribes to the events named acccording to the naming convention
+            GetEvents("MainMenu", MenuOptions);
+
+
             //create menu
             Point location = new Point(this.Right - GenericLooks.GetSize(typeof(Button)).Width - margins, this.Top + margins);
             GenericFunctions.CreateMenu(MenuOptions, this, location, 4);
@@ -96,7 +125,47 @@ namespace WindowsFormsApp1
             };
 
             //add Menu Events
-            buttonEvents.Add(MenuOptions[0], AddRideEvent);
+            GetEvents("MenuMaintain", MenuOptions);
+
+            //create menu
+            Point location = new Point(this.Right - GenericLooks.GetSize(typeof(Button)).Width - margins, this.Top + margins);
+            GenericFunctions.CreateMenu(MenuOptions, this, location, 4);
+            NewMenuEndCode();
+        }
+
+        private void NewMenuMaintainEmployees()
+        {
+            NewMenuStartCode();
+
+            List<string> MenuOptions = new List<string>
+            {
+                "Add Employees",
+                "Update Employees",
+                "Delete Employees"
+            };
+
+            //add Menu Events
+            GetEvents("MenuMaintain", MenuOptions);
+
+            //create menu
+            Point location = new Point(this.Right - GenericLooks.GetSize(typeof(Button)).Width - margins, this.Top + margins);
+            GenericFunctions.CreateMenu(MenuOptions, this, location, 4);
+            NewMenuEndCode();
+        }
+
+        private void NewMenuMaintainCustomers()
+        {
+            NewMenuStartCode();
+
+            List<string> MenuOptions = new List<string>
+            {
+                "Add Employees",
+                "Update Employees",
+                "Delete Employees"
+            };
+
+            //add Menu Events
+            GetEvents("MenuMaintain", MenuOptions);
 
             //create menu
             Point location = new Point(this.Right - GenericLooks.GetSize(typeof(Button)).Width - margins, this.Top + margins);
@@ -149,10 +218,10 @@ namespace WindowsFormsApp1
             this.ControlBox = false;
             //MessageBox.Show(Screen.PrimaryScreen.WorkingArea.ToString());
             this.Show();
-            Type type = typeof(mainForm);
+            
 
             // Get all the private instance methods of the current type
-            MethodInfo[] methods = type.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo[] methods = typeof(mainForm).GetMethods(BindingFlags.NonPublic | BindingFlags.Instance);
 
             // Loop through each method
             foreach (MethodInfo method in methods)
@@ -197,12 +266,37 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void OpenMaintainRidesEvent(object sender, EventArgs e)
+        private void MainMenuMaintainRidesEvent(object sender, EventArgs e)
         {
             NewMenuMaintainRide();
         }
 
-        private void AddRideEvent(object sender, EventArgs e)
+        private void MenuMaintainAddRideEvent(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MenuMaintainUpdateRideEvent(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MenuMaintainDeleteRideEvent(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MenuMaintainAddEmployeesEvent(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MenuMaintainUpdateEmployeesEvent(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MenuMaintainDeleteEmployeesEvent(object sender, EventArgs e)
         {
 
         }
