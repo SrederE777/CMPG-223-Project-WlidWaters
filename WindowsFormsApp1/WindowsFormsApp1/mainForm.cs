@@ -102,6 +102,9 @@ namespace WindowsFormsApp1
                 "Reports"
             };
 
+
+
+
             //subscribes to the events named acccording to the naming convention
             GetEvents("MainMenu", MenuOptions);
 
@@ -123,7 +126,7 @@ namespace WindowsFormsApp1
             {
                 "Add Ride",
                 "Update Ride",
-                "Delete Ride"
+                "Delete Selected Ride"
             };
 
             //add Menu Events
@@ -135,6 +138,53 @@ namespace WindowsFormsApp1
             NewMenuEndCode();
         }
 
+        private void NewMenuAddMaintainRide()
+        {
+            NewMenuStartCode();
+
+            List<string> MenuOptions = new List<string>
+            {
+                "Add New Ride",
+                "Enter New Ride",
+            };
+            List<Type> MenuType = new List<Type>
+            {
+                typeof(Button),
+                typeof(GroupBox)
+            };
+
+            Dictionary<string, Type> MenuOptionType = MenuOptions.Zip(MenuType, (k, v) => new { Key = k, Value = v })
+                                         .ToDictionary(x => x.Key, x => x.Value);
+            //add Menu Events
+            GetEvents("MenuMaintain", MenuOptions);
+
+            
+
+            //create menu
+            Point location = new Point(this.Right - GenericLooks.GetSize(typeof(Button)).Width - margins, this.Top + margins);
+            GenericFunctions.CreateMenu(MenuOptionType, this, location, 4);
+
+            GenericFunctions.CreateInputs<Employee>(this.Controls.OfType<GroupBox>().FirstOrDefault(), -100, 5);
+
+            MenuOptions.Clear();
+            MenuType.Clear();
+            MenuOptions.Add("Rides");
+            MenuType.Add(typeof(DataGridView));
+
+            MenuOptionType = MenuOptions.Zip(MenuType, (k, v) => new { Key = k, Value = v })
+                                         .ToDictionary(x => x.Key, x => x.Value);
+
+            GetEvents("MenuMaintain", MenuOptions);
+
+            //create menu
+            location = new Point(this.Left + margins, this.Top + margins);
+
+            GenericFunctions.CreateMenu(MenuOptionType, this, location);
+
+
+            NewMenuEndCode();
+        }
+
         private void NewMenuMaintainEmployees()
         {
             NewMenuStartCode();
@@ -143,7 +193,7 @@ namespace WindowsFormsApp1
             {
                 "Add Employees",
                 "Update Employees",
-                "Delete Employees"
+                "Delete Selected Employees"
             };
 
             //add Menu Events
@@ -161,9 +211,9 @@ namespace WindowsFormsApp1
 
             List<string> MenuOptions = new List<string>
             {
-                "Add Employees",
-                "Update Employees",
-                "Delete Employees"
+                "Add Customers",
+                "Update Customers",
+                "Delete Selected Customers"
             };
 
             //add Menu Events
@@ -183,7 +233,12 @@ namespace WindowsFormsApp1
             {
                 if (control is Button button && buttonEvents.ContainsKey(button.Text))
                 {
-                    button.Click += buttonEvents[button.Text];
+                    button.Click += (sender, e) =>
+                    {
+                        
+                        buttonEvents[button.Text]?.Invoke(this,EventArgs.Empty);
+                        
+                    }; 
                 }
             }
 
@@ -230,17 +285,24 @@ namespace WindowsFormsApp1
             {
                 // Get the name of the method
                 string name = method.Name;
-
+                MenuDelegate menuDelegate;
+                Type delegateType = typeof(MenuDelegate);
+                Type[] neededParameterTypes = delegateType.GetMethod("Invoke").GetParameters().Select(p => p.ParameterType).ToArray();
+                Type[] actualParameterTypes = method.GetParameters().Select(p => p.ParameterType).ToArray();
                 // Check if the name starts with "NewMenu"
-                if (name.StartsWith("NewMenu"))
+                if (name.StartsWith("NewMenu") && neededParameterTypes.SequenceEqual(actualParameterTypes))
                 {
+                    
+                    
                     // Create an instance of the delegate and assign it to the method
-                    MenuDelegate menuDelegate = (MenuDelegate)Delegate.CreateDelegate(typeof(MenuDelegate), this, method);
+                    menuDelegate = (MenuDelegate)Delegate.CreateDelegate(typeof(MenuDelegate), this, method);
 
                     // Add the delegate to the dictionary with the name as the key
                     menuDictionary.Add(name, menuDelegate);
                 }
             }
+
+
 
 
         }
@@ -275,7 +337,7 @@ namespace WindowsFormsApp1
 
         private void MenuMaintainAddRideEvent(object sender, EventArgs e)
         {
-
+            NewMenuAddMaintainRide();
         }
 
         private void MenuMaintainUpdateRideEvent(object sender, EventArgs e)
