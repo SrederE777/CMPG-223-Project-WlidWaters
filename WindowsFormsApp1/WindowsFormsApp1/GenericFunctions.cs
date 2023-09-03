@@ -144,7 +144,7 @@ namespace WindowsFormsApp1
             control.Location = location;
             container.Controls.Add(control);
             GenericLooks.SetInputsLook(control);
-            MessageBox.Show(control.Size.ToString());
+            //MessageBox.Show(control.Size.ToString());
             
             
         }

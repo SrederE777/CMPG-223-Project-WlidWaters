@@ -32,7 +32,7 @@ namespace WindowsFormsApp1
             this.Controls.Clear();
             buttonEvents.Clear();
 
-            Point location = new Point(this.Right - GenericLooks.GetSize(typeof(Button)).Width - margins, this.Bottom - GenericLooks.GetSize(typeof(Button)).Height - margins);
+            Point location = new Point(Right - GenericLooks.GetSize(typeof(Button)).Width - margins, Bottom - GenericLooks.GetSize(typeof(Button)).Height - margins);
             if (navigationHistory.Count == 0)
             {
                 buttonEvents.Add("Exit", ExitClickedEvent);
@@ -110,12 +110,54 @@ namespace WindowsFormsApp1
 
 
             //create menu
-            Point location = new Point(this.Right - GenericLooks.GetSize(typeof(Button)).Width - margins, this.Top + margins);
+            Point location = new Point(Right - GenericLooks.GetSize(typeof(Button)).Width - margins, Top + margins);
             GenericFunctions.CreateMenu(MenuOptions, this, location, 4);
 
             
 
             NewMenuEndCode();
+        }
+
+        private void NewMaintainMenuOperation<T>(string menuName) where T : class
+        {
+
+            List<string> MenuOptions = new List<string>
+            {
+                "Add " + menuName,
+                "Enter " + menuName,
+            };
+            List<Type> MenuType = new List<Type>
+            {
+                typeof(Button),
+                typeof(GroupBox)
+            };
+
+            Dictionary<string, Type> MenuOptionType = MenuOptions.Zip(MenuType, (k, v) => new { Key = k, Value = v })
+                                             .ToDictionary(x => x.Key, x => x.Value);
+            //add Menu Events
+            GetEvents("MenuMaintain" + menuName, MenuOptions);
+
+            //create menu
+            Point location = new Point(Right - GenericLooks.GetSize(typeof(Button)).Width - margins, Top + margins);
+            GenericFunctions.CreateMenu(MenuOptionType, this, location, 4);
+
+            GenericFunctions.CreateInputs<T>(Controls.OfType<GroupBox>().FirstOrDefault(), -100, 5);
+
+            MenuOptions.Clear();
+            MenuType.Clear();
+            MenuOptions.Add(menuName);
+            MenuType.Add(typeof(DataGridView));
+
+            MenuOptionType = MenuOptions.Zip(MenuType, (k, v) => new { Key = k, Value = v })
+                                             .ToDictionary(x => x.Key, x => x.Value);
+
+            GetEvents("DataGridView", MenuOptions);
+
+            //create menu
+            location = new Point(Left + margins, Top + margins);
+
+            GenericFunctions.CreateMenu(MenuOptionType, this, location);
+            
         }
 
         private void NewMenuMaintainRide()
@@ -133,7 +175,7 @@ namespace WindowsFormsApp1
             GetEvents("MenuMaintain", MenuOptions);
 
             //create menu
-            Point location = new Point(this.Right - GenericLooks.GetSize(typeof(Button)).Width - margins, this.Top + margins);
+            Point location = new Point(Right - GenericLooks.GetSize(typeof(Button)).Width - margins, Top + margins);
             GenericFunctions.CreateMenu(MenuOptions, this, location, 4);
             NewMenuEndCode();
         }
@@ -141,48 +183,17 @@ namespace WindowsFormsApp1
         private void NewMenuAddMaintainRide()
         {
             NewMenuStartCode();
-
-            List<string> MenuOptions = new List<string>
-            {
-                "Add New Ride",
-                "Enter New Ride",
-            };
-            List<Type> MenuType = new List<Type>
-            {
-                typeof(Button),
-                typeof(GroupBox)
-            };
-
-            Dictionary<string, Type> MenuOptionType = MenuOptions.Zip(MenuType, (k, v) => new { Key = k, Value = v })
-                                         .ToDictionary(x => x.Key, x => x.Value);
-            //add Menu Events
-            GetEvents("MenuMaintain", MenuOptions);
-
-            
-
-            //create menu
-            Point location = new Point(this.Right - GenericLooks.GetSize(typeof(Button)).Width - margins, this.Top + margins);
-            GenericFunctions.CreateMenu(MenuOptionType, this, location, 4);
-
-            GenericFunctions.CreateInputs<Employee>(this.Controls.OfType<GroupBox>().FirstOrDefault(), -100, 5);
-
-            MenuOptions.Clear();
-            MenuType.Clear();
-            MenuOptions.Add("Rides");
-            MenuType.Add(typeof(DataGridView));
-
-            MenuOptionType = MenuOptions.Zip(MenuType, (k, v) => new { Key = k, Value = v })
-                                         .ToDictionary(x => x.Key, x => x.Value);
-
-            GetEvents("MenuMaintain", MenuOptions);
-
-            //create menu
-            location = new Point(this.Left + margins, this.Top + margins);
-
-            GenericFunctions.CreateMenu(MenuOptionType, this, location);
-
-
+            string menuName = "New Ride";
+            NewMaintainMenuOperation<Rides>(menuName);
             NewMenuEndCode();
+        }
+
+        private void NewMenuUpdateMaintainRide()
+        {
+            NewMenuStartCode();
+
+            string menuName = "Current Ride";
+            NewMaintainMenuOperation<Rides>(menuName); NewMenuEndCode();
         }
 
         private void NewMenuMaintainEmployees()
@@ -200,8 +211,30 @@ namespace WindowsFormsApp1
             GetEvents("MenuMaintain", MenuOptions);
 
             //create menu
-            Point location = new Point(this.Right - GenericLooks.GetSize(typeof(Button)).Width - margins, this.Top + margins);
+            Point location = new Point(Right - GenericLooks.GetSize(typeof(Button)).Width - margins, Top + margins);
             GenericFunctions.CreateMenu(MenuOptions, this, location, 4);
+            NewMenuEndCode();
+
+
+        }
+
+        private void NewMenuAddMaintainEmployee()
+        {
+            NewMenuStartCode();
+
+            string menuName = "New Employee";
+            NewMaintainMenuOperation<Employee>(menuName);
+
+            NewMenuEndCode();
+        }
+
+        private void NewMenuUpdateMaintainEmployee()
+        {
+            NewMenuStartCode();
+
+            string menuName = "Current Employee";
+            NewMaintainMenuOperation<Employee>(menuName);
+
             NewMenuEndCode();
         }
 
@@ -220,11 +253,28 @@ namespace WindowsFormsApp1
             GetEvents("MenuMaintain", MenuOptions);
 
             //create menu
-            Point location = new Point(this.Right - GenericLooks.GetSize(typeof(Button)).Width - margins, this.Top + margins);
+            Point location = new Point(Right - GenericLooks.GetSize(typeof(Button)).Width - margins, Top + margins);
             GenericFunctions.CreateMenu(MenuOptions, this, location, 4);
             NewMenuEndCode();
         }
 
+        private void NewMenuAddMaintainCustomers()
+        {
+            NewMenuStartCode();
+
+            String menuName = "New Customers";
+            NewMaintainMenuOperation<Customer>(menuName);
+
+            NewMenuEndCode();
+        }
+
+        private void NewMenuUpdateMaintainCustomers()
+        {
+            NewMenuStartCode();
+            String menuName = "Current Customers";
+            NewMaintainMenuOperation<Customer>(menuName); 
+            NewMenuEndCode();
+        }
         private void NewMenuEndCode()
         {
 
@@ -268,13 +318,13 @@ namespace WindowsFormsApp1
         private void mainForm_Load(object sender, EventArgs e)
         {
             //this is how the form looks
-            this.Text = "FunTimeWaterPark";
+            Text = "FunTimeWaterPark";
             FormBorderStyle = FormBorderStyle.None;
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.WindowState = FormWindowState.Maximized;
-            this.ControlBox = false;
+            StartPosition = FormStartPosition.CenterScreen;
+            WindowState = FormWindowState.Maximized;
+            ControlBox = false;
             //MessageBox.Show(Screen.PrimaryScreen.WorkingArea.ToString());
-            this.Show();
+            Show();
             
 
             // Get all the private instance methods of the current type
@@ -342,7 +392,7 @@ namespace WindowsFormsApp1
 
         private void MenuMaintainUpdateRideEvent(object sender, EventArgs e)
         {
-
+            NewMenuUpdateMaintainRide();
         }
 
         private void MenuMaintainDeleteRideEvent(object sender, EventArgs e)
@@ -357,12 +407,12 @@ namespace WindowsFormsApp1
 
         private void MenuMaintainAddEmployeesEvent(object sender, EventArgs e)
         {
-
+            NewMenuAddMaintainEmployee();
         }
 
         private void MenuMaintainUpdateEmployeesEvent(object sender, EventArgs e)
         {
-
+            NewMenuUpdateMaintainEmployee();
         }
 
         private void MenuMaintainDeleteEmployeesEvent(object sender, EventArgs e)
@@ -373,6 +423,21 @@ namespace WindowsFormsApp1
         private void MainMenuMaintainCustomersEvent(object sender, EventArgs e)
         {
             NewMenuMaintainCustomers();
+        }
+
+        private void MenuMaintainAddCustomersEvent(object sender, EventArgs e)
+        {
+            NewMenuAddMaintainCustomers();
+        }
+
+        private void MenuMaintainUpdateCustomersEvent(object sender, EventArgs e)
+        {
+            NewMenuUpdateMaintainCustomers();
+        }
+
+        private void MenuMaintainDeleteCustomersEvent(object sender, EventArgs e)
+        {
+
         }
     }
 }
