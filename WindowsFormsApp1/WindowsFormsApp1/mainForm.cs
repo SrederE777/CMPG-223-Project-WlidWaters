@@ -87,6 +87,7 @@ namespace WindowsFormsApp1
                 
             }
         }
+
         private void NewMenuMain()
         {
             NewMenuStartCode();
@@ -275,6 +276,7 @@ namespace WindowsFormsApp1
             NewMaintainMenuOperation<Customer>(menuName); 
             NewMenuEndCode();
         }
+
         private void NewMenuEndCode()
         {
 
