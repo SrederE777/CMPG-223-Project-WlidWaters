@@ -10,3 +10,17 @@ C:\Users\32140274\Source\Repos\SrederE777\CMPG-223-Project-WlidWaters\WindowsFor
 C:\Users\32140274\Source\Repos\SrederE777\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
 C:\Users\32140274\Source\Repos\SrederE777\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
 C:\Users\32140274\source\repos\SrederE777\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.mainForm.resources
+C:\Users\wwwla\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\WildWaters.mdf
+C:\Users\wwwla\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\WildWaters_log.ldf
+C:\Users\wwwla\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe.config
+C:\Users\wwwla\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe
+C:\Users\wwwla\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.pdb
+C:\Users\wwwla\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.AssemblyReference.cache
+C:\Users\wwwla\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.MDIParent.resources
+C:\Users\wwwla\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.mainForm.resources
+C:\Users\wwwla\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Properties.Resources.resources
+C:\Users\wwwla\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.TestForm_CanBeDeleted_.resources
+C:\Users\wwwla\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.GenerateResource.cache
+C:\Users\wwwla\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
+C:\Users\wwwla\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
+C:\Users\wwwla\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
