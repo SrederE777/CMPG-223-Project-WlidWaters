@@ -58,6 +58,7 @@ namespace WindowsFormsApp1
 
         }
 
+        //This is working !!!
         private void GetEvents(string tag, List<string> MenuOptions)
         {
             List<string> searchOptions = MenuOptions.Select(t => t.Replace(" ", "")).ToList();
@@ -66,23 +67,24 @@ namespace WindowsFormsApp1
 
             MethodInfo[] eventinfos = typeof(mainForm).GetMethods(BindingFlags.NonPublic | BindingFlags.Instance);
 
-
-            foreach (string menuOption in searchOptions)
+            int i = 0;
+            foreach ( MethodInfo eventinfo in eventinfos)
             {
-                int i = 0;
-                foreach (MethodInfo eventinfo in eventinfos)
+                
+                foreach (string menuOption in searchOptions)
                 {
-                    if (eventinfo.Name.Contains(tag + menuOption))
+                    if (eventinfo.Name.StartsWith(tag + menuOption))
                     {
-                        if (!buttonEvents.ContainsKey(MenuOptions[i]))
+                        //if (!buttonEvents.ContainsKey(MenuOptions[i]))
                         {
                             EventHandler temp = (EventHandler)Delegate.CreateDelegate(typeof(EventHandler), this, eventinfo.Name);
                             buttonEvents.Add(MenuOptions[i], temp);
+                            i++;
                         }
                         
                     }
                 }
-                i++;
+                
             }
         }
         private void NewMenuMain()
@@ -304,6 +306,11 @@ namespace WindowsFormsApp1
         private void MenuMaintainDeleteEmployeesEvent(object sender, EventArgs e)
         {
 
+        }
+
+        private void MainMenuMaintainCustomersEvent(object sender, EventArgs e)
+        {
+            NewMenuMaintainCustomers();
         }
     }
 }
