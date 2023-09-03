@@ -277,6 +277,14 @@ namespace WindowsFormsApp1
             NewMenuEndCode();
         }
 
+        private void NewMenuSellTicketsTransation()
+        {
+            NewMenuStartCode();
+            string menuName = "Sell Tickets";
+            NewMaintainMenuOperation<Transactions>(menuName);
+            NewMenuEndCode();
+        }
+
         private void NewMenuEndCode()
         {
 
@@ -440,6 +448,11 @@ namespace WindowsFormsApp1
         private void MenuMaintainDeleteCustomersEvent(object sender, EventArgs e)
         {
 
+        }
+
+        private void MainMenuSellTicketsEvent(object sender, EventArgs e)
+        {
+            NewMenuSellTicketsTransation();
         }
     }
 }

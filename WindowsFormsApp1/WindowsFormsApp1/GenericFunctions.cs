@@ -19,6 +19,7 @@ namespace WindowsFormsApp1
             { typeof(bool), typeof(ComboBox)},
             { typeof(DateTime), typeof(DateTimePicker)},
             { typeof(double), typeof(NumericUpDown)},
+            
         };
 
         //This may not be needed.... Which would suck a bit but hey if it works right

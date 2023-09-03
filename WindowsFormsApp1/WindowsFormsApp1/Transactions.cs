@@ -10,7 +10,7 @@ namespace WindowsFormsApp1
     {
         private string customer;
         private DateTime transactionDate;
-        private TimeSpan transactionTime;
+        private string transactionTime;
         private int ticketAmount;
         private double transactionAmount;
 
@@ -24,7 +24,7 @@ namespace WindowsFormsApp1
             this.transactionDate = transactionDate;
         }
 
-        public void SetTransaction_Time(TimeSpan transactionTime)
+        public void SetTransaction_Time(string transactionTime)
         {
             this.transactionTime = transactionTime;
         }
@@ -49,7 +49,7 @@ namespace WindowsFormsApp1
             return transactionDate;
         }
 
-        public TimeSpan GetTransaction_Time()
+        public string GetTransaction_Time()
         {
             return transactionTime;
         }
@@ -79,7 +79,7 @@ namespace WindowsFormsApp1
         {
             return $"Customer: {customer}\n" +
                    $"Transaction Date: {transactionDate.ToString("yyyy-MM-dd")}\n" +
-                   $"Transaction Time: {transactionTime.ToString(@"hh\:mm")}\n" +
+                   $"Transaction Time: {transactionTime}\n" +
                    $"Ticket Amount: {ticketAmount}\n" +
                    $"Transaction Amount: {transactionAmount}";
         }
