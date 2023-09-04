@@ -3,101 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
     internal class Transactions
     {
-        private string customer;
-        private DateTime transactionDate;
-        private string transactionTime;
-        private int ticketAmount;
-        private double transactionAmount;
+        public string Customer { get; set; }
+        public DateTime TransactionDate { get; set; }
+        public string TransactionTime { get; set; }
+        public int TicketAmount { get; set; }
+        public double TransactionAmount { get; set; }
 
-        public void SetCustomer(string customer)
+        // Default constructor
+        public Transactions()
         {
-            try
-            {
-                this.customer = customer;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            // Initialize properties with default values if desired
         }
 
-        public void SetTransaction_Date(DateTime transactionDate)
+        // Constructor that takes parameters for all properties
+        public Transactions(string customer, DateTime transactionDate, string transactionTime, int ticketAmount, double transactionAmount)
         {
-            try
-            {
-                this.transactionDate = transactionDate;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        public void SetTransaction_Time(string transactionTime)
-        {
-            try
-            {
-                this.transactionTime = transactionTime;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        public void SetTicket_Amount(int ticketAmount)
-        {
-            try
-            {
-                this.ticketAmount = ticketAmount;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        public void SetTransaction_Amount(double transactionAmount)
-        {
-            try
-            {
-                this.transactionAmount = transactionAmount;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        public string GetCustomer()
-        {
-            return customer;
-        }
-
-        public DateTime GetTransaction_Date()
-        {
-            return transactionDate;
-        }
-
-        public string GetTransaction_Time()
-        {
-            return transactionTime;
-        }
-
-        public int GetTicket_Amount()
-        {
-            return ticketAmount;
-        }
-
-        public double GetTransaction_Amount()
-        {
-            return transactionAmount;
+            Customer = customer;
+            TransactionDate = transactionDate;
+            TransactionTime = transactionTime;
+            TicketAmount = ticketAmount;
+            TransactionAmount = transactionAmount;
         }
 
         public void SellTicket()
@@ -113,11 +43,13 @@ namespace WindowsFormsApp1
 
         public override string ToString()
         {
-            return $"Customer: {customer}\n" +
-                   $"Transaction Date: {transactionDate.ToString("yyyy-MM-dd")}\n" +
-                   $"Transaction Time: {transactionTime}\n" +
-                   $"Ticket Amount: {ticketAmount}\n" +
-                   $"Transaction Amount: {transactionAmount}";
+            return $"Customer: {Customer}\n" +
+                   $"Transaction Date: {TransactionDate.ToString("yyyy-MM-dd")}\n" +
+                   $"Transaction Time: {TransactionTime}\n" +
+                   $"Ticket Amount: {TicketAmount}\n" +
+                   $"Transaction Amount: {TransactionAmount}";
         }
     }
+
 }
+

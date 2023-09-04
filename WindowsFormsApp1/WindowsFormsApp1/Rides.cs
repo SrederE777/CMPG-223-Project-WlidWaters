@@ -9,111 +9,39 @@ namespace WindowsFormsApp1
 {
     internal class Rides
     {
-        private string rideDescription;
-        private bool rideAvailability;
-        private double rideCost;
-        private int rideLength;
-        private string ridePhotoName;
+        public string RideDescription { get; set; }
+        public bool RideAvailability { get; set; }
+        public double RideCost { get; set; }
+        public int RideLength { get; set; }
+        public string RidePhotoName { get; set; }
 
-        public void SetRideDescription(string rideDescription)
+        // Default constructor
+        public Rides()
         {
-            try
-            {
-                this.rideDescription = rideDescription;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            this.rideDescription = rideDescription;
         }
 
-        public void SetRideAvailability(bool rideAvailability)
+        // Constructor that takes parameters for all properties
+        public Rides(string rideDescription, bool rideAvailability, double rideCost, int rideLength, string ridePhotoName)
         {
-            try
-            {
-                this.rideAvailability = rideAvailability;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            this.rideAvailability = rideAvailability;
         }
 
-        public void SetRideCost(double rideCost)
+        public void ShowPhoto()
         {
-            try
-            {
-                this.rideCost = rideCost;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            this.rideCost = rideCost;
         }
 
-        public void SetRideLength(int rideLength)
+        public override string ToString()
         {
-            try
-            {
-                this.rideLength = rideLength;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            this.rideLength = rideLength;
         }
 
         public void SetRidePhotoName(string ridePhotoName)
         {
-            try
-            {
-                this.ridePhotoName = ridePhotoName;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            this.ridePhotoName = ridePhotoName;
         }
 
-        public string GetRideDescription()
-        {
-            return rideDescription;
-        }
 
-        public bool GetRideAvailability()
-        {
-            return rideAvailability;
-        }
-
-        public double GetRideCost()
-        {
-            return rideCost;
-        }
-
-        public int GetRideLength()
-        {
-            return rideLength;
-        }
-
-        public string GetRidePhotoName()
-        {
-            return ridePhotoName;
-        }
-
-        public void showPhoto()
-        {
-            // Implement logic to display the ride photo
-        }
-
-        
-        public string toString()
-        {
-            return "Ride Description: " + rideDescription + "\n"
-                    + "Ride Availability: " + rideAvailability + "\n"
-                    + "Ride Cost: " + rideCost + "\n"
-                    + "Ride Length: " + rideLength + "\n"
-                    + "Ride Photo Name: " + ridePhotoName;
-        }
-
-    }
 }
+
