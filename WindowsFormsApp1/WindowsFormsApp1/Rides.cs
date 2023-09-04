@@ -8,76 +8,43 @@ namespace WindowsFormsApp1
 {
     internal class Rides
     {
-        private string rideDescription;
-        private bool rideAvailability;
-        private double rideCost;
-        private int rideLength;
-        private string ridePhotoName;
+        public string RideDescription { get; set; }
+        public bool RideAvailability { get; set; }
+        public double RideCost { get; set; }
+        public int RideLength { get; set; }
+        public string RidePhotoName { get; set; }
 
-        public void SetRideDescription(string rideDescription)
+        // Default constructor
+        public Rides()
         {
-            this.rideDescription = rideDescription;
+            // Initialize properties with default values if desired
         }
 
-        public void SetRideAvailability(bool rideAvailability)
+        // Constructor that takes parameters for all properties
+        public Rides(string rideDescription, bool rideAvailability, double rideCost, int rideLength, string ridePhotoName)
         {
-            this.rideAvailability = rideAvailability;
+            RideDescription = rideDescription;
+            RideAvailability = rideAvailability;
+            RideCost = rideCost;
+            RideLength = rideLength;
+            RidePhotoName = ridePhotoName;
         }
 
-        public void SetRideCost(double rideCost)
-        {
-            this.rideCost = rideCost;
-        }
-
-        public void SetRideLength(int rideLength)
-        {
-            this.rideLength = rideLength;
-        }
-
-        public void SetRidePhotoName(string ridePhotoName)
-        {
-            this.ridePhotoName = ridePhotoName;
-        }
-
-        public string GetRideDescription()
-        {
-            return rideDescription;
-        }
-
-        public bool GetRideAvailability()
-        {
-            return rideAvailability;
-        }
-
-        public double GetRideCost()
-        {
-            return rideCost;
-        }
-
-        public int GetRideLength()
-        {
-            return rideLength;
-        }
-
-        public string GetRidePhotoName()
-        {
-            return ridePhotoName;
-        }
-
-        public void showPhoto()
+        public void ShowPhoto()
         {
             // Implement logic to display the ride photo
         }
 
-        
-        public string toString()
+        public override string ToString()
         {
-            return "Ride Description: " + rideDescription + "\n"
-                    + "Ride Availability: " + rideAvailability + "\n"
-                    + "Ride Cost: " + rideCost + "\n"
-                    + "Ride Length: " + rideLength + "\n"
-                    + "Ride Photo Name: " + ridePhotoName;
+            return $"Ride Description: {RideDescription}\n" +
+                   $"Ride Availability: {RideAvailability}\n" +
+                   $"Ride Cost: {RideCost}\n" +
+                   $"Ride Length: {RideLength}\n" +
+                   $"Ride Photo Name: {RidePhotoName}";
         }
-
     }
+
+
 }
+

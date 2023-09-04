@@ -237,7 +237,8 @@ namespace WindowsFormsApp1
                 NewMenuStartCode();
 
                 string menuName = "Current Ride";
-                NewMaintainMenuOperation<Rides>(menuName); NewMenuEndCode();
+                NewMaintainMenuOperation<Rides>(menuName); 
+                NewMenuEndCode();
             }
             catch (Exception ex)
             {
@@ -545,12 +546,45 @@ namespace WindowsFormsApp1
                 MessageBox.Show(ex.Message);
             }
         }
+        private void NewRideNewRideEvent(object sender, EventArgs e)
+        {
+            try
+            {
+                List<Control> controls = GenericFunctions.getInputs(this);
+                Rides ride = GenericFunctions.CreateObjectFromControls<Rides>(controls.ToArray());
+                MessageBox.Show(ride.ToString());
 
+                BackClickedEvent(this, EventArgs.Empty);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void CurrentRideCurrentRideEvent(object sender, EventArgs e)
+        {
+            try
+            {
+                List<Control> controls = GenericFunctions.getInputs(this);
+
+                Rides ride = GenericFunctions.CreateObjectFromControls<Rides>(controls.ToArray());
+                MessageBox.Show(ride.ToString());
+
+                BackClickedEvent(this, EventArgs.Empty);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
         private void MenuMaintainUpdateRideEvent(object sender, EventArgs e)
         {
             try
             {
                 NewMenuUpdateMaintainRide();
+                List<Control> controls = GenericFunctions.getInputs(this);
+                Rides ride = new Rides("Test",false,100,10,"Test");
+                GenericFunctions.PopulateControlsFromObject(controls.ToArray(), ride);
             }
             catch (Exception ex)
             {
@@ -594,11 +628,94 @@ namespace WindowsFormsApp1
             }
         }
 
+        
+        
+
+        private void NewEmployeeNewEmployeeEvent(object sender, EventArgs e)
+        {
+            try
+            {
+                List<Control> controls = GenericFunctions.getInputs(this);
+                Employee employee = GenericFunctions.CreateObjectFromControls<Employee>(controls.ToArray());
+                MessageBox.Show(employee.ToString());
+
+                BackClickedEvent(this, EventArgs.Empty);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void CurrentEmployeeCurrentEmployeeEvent(object sender, EventArgs e)
+        {
+            try
+            {
+                List<Control> controls = GenericFunctions.getInputs(this);
+
+                Employee employee = GenericFunctions.CreateObjectFromControls<Employee>(controls.ToArray());
+                MessageBox.Show(employee.ToString());
+
+                BackClickedEvent(this, EventArgs.Empty);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
         private void MenuMaintainUpdateEmployeesEvent(object sender, EventArgs e)
         {
             try
             {
                 NewMenuUpdateMaintainEmployee();
+                List<Control> controls = GenericFunctions.getInputs(this);
+                Employee employee = new Employee("Test", "Test", DateTime.Now, "Test", "Test,", " Test");
+             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void NewCustomerNewCustomerEvent(object sender, EventArgs e)
+        {
+            try
+            {
+                List<Control> controls = GenericFunctions.getInputs(this);
+                Customer customer = GenericFunctions.CreateObjectFromControls<Customer>(controls.ToArray());
+                MessageBox.Show(customer.ToString());
+
+                BackClickedEvent(this, EventArgs.Empty);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void CurrentCustomersCurrentCustomersEvent(object sender, EventArgs e)
+        {
+            try
+            {
+
+
+                List<Control> controls = GenericFunctions.getInputs(this);
+
+                Customer customer = GenericFunctions.CreateObjectFromControls<Customer>(controls.ToArray());
+                MessageBox.Show(customer.ToString());
+
+                BackClickedEvent(this, EventArgs.Empty);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void MenuMaintainUpdateCustomersEvent(object sender, EventArgs e)
+        {
+            try
+            {
+                NewMenuUpdateMaintainCustomers();
+                List<Control> controls = GenericFunctions.getInputs(this);
+                Customer myObject = new Customer("Test", "Test", DateTime.Now, "Test");
+                GenericFunctions.PopulateControlsFromObject(controls.ToArray(), myObject);
             }
             catch (Exception ex)
             {
@@ -642,49 +759,11 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void NewCustomersNewCustomersEvent(object sender, EventArgs e)
-        {
-            try
-            {
-                List<Control> controls = GenericFunctions.getInputs(this);
-                Customer customer = GenericFunctions.CreateObjectFromControls<Customer>(controls.ToArray());
-                MessageBox.Show(customer.ToString());
+        
 
-                BackClickedEvent(this, EventArgs.Empty);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
+        
 
-        private void MenuMaintainUpdateCustomersEvent(object sender, EventArgs e)
-        {
-            try
-            {
-                NewMenuUpdateMaintainCustomers();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void CurrentCustomersCurrentCustomersEvent(object sender, EventArgs e)
-        {
-            try
-            {
-                List<Control> controls = GenericFunctions.getInputs(this);
-                Customer customer = GenericFunctions.CreateObjectFromControls<Customer>(controls.ToArray());
-                MessageBox.Show(customer.ToString());
-
-                BackClickedEvent(this, EventArgs.Empty);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
+        
 
         private void MenuMaintainDeleteCustomersEvent(object sender, EventArgs e)
         {

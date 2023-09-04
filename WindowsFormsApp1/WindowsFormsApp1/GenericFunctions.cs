@@ -19,6 +19,7 @@ namespace WindowsFormsApp1
             { typeof(bool), typeof(ComboBox)},
             { typeof(DateTime), typeof(DateTimePicker)},
             { typeof(double), typeof(NumericUpDown)},
+            {typeof(decimal), typeof(NumericUpDown) }
             
         };
 
@@ -76,12 +77,24 @@ namespace WindowsFormsApp1
                         }
                         else if (control is NumericUpDown numericUpDown)
                         {
-                            value = numericUpDown.Value;
+                            if (memberType == typeof(double))
+                            {
+                                value = (double)numericUpDown.Value;
+                            }
+                            else if(memberType == typeof(int))
+                            {
+                                value = (int)numericUpDown.Value;
+                            }
+                            else
+                            {
+                                value = numericUpDown.Value;
+                            }
                         }
                         else if (control is ComboBox comboBox)
                         {
-                            value = comboBox.SelectedItem;
+                            value = bool.Parse(comboBox.SelectedItem.ToString());
                         }
+
                         else if (control is DateTimePicker dateTimePicker)
                         {
                             value = dateTimePicker.Value;
@@ -166,6 +179,8 @@ namespace WindowsFormsApp1
                         else if (control is ComboBox comboBox)
                         {
                             comboBox.SelectedItem = value;
+                            
+
                         }
                         else if (control is DateTimePicker dateTimePicker)
                         {
@@ -306,6 +321,13 @@ namespace WindowsFormsApp1
             control.Location = location;
             container.Controls.Add(control);
             GenericLooks.SetInputsLook(control);
+            if (dataType == typeof(ComboBox))
+            {
+                string[] items = new string[] { "True", "False" };
+                ComboBox comboBox = (ComboBox)control;
+                comboBox.DataSource = items;
+            }
+
             //MessageBox.Show(control.Size.ToString());
             return control;
             

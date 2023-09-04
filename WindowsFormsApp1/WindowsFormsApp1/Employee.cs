@@ -9,61 +9,38 @@ namespace WindowsFormsApp1
     class Employee : Person
     {
         // Properties
-        private string EmergencyContact;
-        private string Password;
-        private string Ride;
-        public Employee() : this("","","")
+        public string EmergencyContact { get; set; }
+        public string Password { get; set; }
+        public string Ride { get; set; }
+
+        public Employee() : this("", "", DateTime.Now, "", "", "")
         {
             // Initialize properties with default values if desired
-           
         }
 
         // Constructors
         public Employee(string emergencyContact, string password, string ride) : base()
         {
-            
             EmergencyContact = emergencyContact;
             Password = password;
             Ride = ride;
         }
 
-        // Methods to set properties
-        public void SetEmergencyContact(string emergencyContact)
+        // Constructor that takes parameters for base class properties
+        public Employee(string name, string contact, DateTime birthday, string emergencyContact, string password, string ride) : base(name, contact, birthday)
         {
             EmergencyContact = emergencyContact;
-        }
-
-        public void SetPassword(string password)
-        {
             Password = password;
-        }
-
-        public void SetRide(string ride)
-        {
             Ride = ride;
         }
 
-        // Methods to get properties
-        public string GetPassword()
-        {
-            return Password;
-        }
-
-        public string GetRide()
-        {
-            return Ride;
-        }
-
-        public string GetEmergencyContact()
-        {
-            return EmergencyContact;
-        }
-        
         // Override ToString() method
         public override string ToString()
         {
-            return $"Emergency Contact: {EmergencyContact}\nRide: {Ride}";
+            return base.ToString() + $"\nEmergency Contact: {EmergencyContact}\nPassword: {Password}\nRide: {Ride}";
         }
 
     }
+
+
 }
