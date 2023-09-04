@@ -112,6 +112,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Name = "AssignEmp";
             this.Text = "AssignEmp";
+            this.Load += new System.EventHandler(this.AssignEmp_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -227,8 +227,10 @@ namespace WindowsFormsApp1
                     //if (types.ContainsKey(types[field.FieldType]))
                     {
                         Type controlType = types[field.FieldType];
-                        returnControls.Add(CreateInput(controlType, location, outputOn));
-                        
+                        Control control = CreateInput(controlType, location, outputOn);
+                        control.Name = field.Name; // Set the name of the control
+                        returnControls.Add(control);
+
                         location.X /= 8;
                         
                         controlType = typeof(Label);

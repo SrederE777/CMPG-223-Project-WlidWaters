@@ -17,6 +17,9 @@ namespace WindowsFormsApp1
             InitializeComponent();
         }
 
+        private void AssignEmp_Load(object sender, EventArgs e)
+        {
 
+        }
     }
 }

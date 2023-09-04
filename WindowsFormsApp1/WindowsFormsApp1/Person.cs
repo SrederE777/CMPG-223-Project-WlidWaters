@@ -9,9 +9,9 @@ namespace WindowsFormsApp1
     class Person
     {
         // Properties
-        public string Name { get; private set; }
-        public string Contact { get; private set; }
-        public DateTime Birthday { get; private set; }
+        public string Name { get; set; }
+        public string Contact { get; set; }
+        public DateTime Birthday { get; set; }
 
         public Person() : this("", "", DateTime.Now)
         {
