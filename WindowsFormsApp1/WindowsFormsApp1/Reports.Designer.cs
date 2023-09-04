@@ -91,6 +91,8 @@
             this.Controls.Add(this.lstTransactions);
             this.Name = "Reports";
             this.Text = "Reports";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Reports_FormClosed);
+            this.Load += new System.EventHandler(this.Reports_Load);
             this.ResumeLayout(false);
 
         }

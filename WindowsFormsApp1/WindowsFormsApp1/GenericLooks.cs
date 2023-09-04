@@ -9,7 +9,7 @@ using System.Drawing;
 
 namespace WindowsFormsApp1
 {
-    
+
     static class GenericLooks
     {
         private static Size inputsize = new Size(170, 20);
@@ -49,7 +49,7 @@ namespace WindowsFormsApp1
                     throw new ArgumentException("Type not in GenericLooks Dictionary");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -105,7 +105,39 @@ namespace WindowsFormsApp1
             }
 
         }
+        public static void ScaleControls(Control control, float scaleFactor)
+        {
+            ScaleControl(control, scaleFactor);
 
+            // Recursively scale child controls
+            foreach (Control child in control.Controls)
+            {
+                ScaleControls(child, scaleFactor);
+            }
+        }
+
+        private static void ScaleControl(Control control, float scaleFactor)
+        {
+            control.Size = ScaleSize(control.Size, scaleFactor);
+            control.Location = ScalePoint(control.Location, scaleFactor);
+            control.Font = new Font(control.Font.FontFamily, control.Font.Size * scaleFactor);
+        }
+
+        private static Size ScaleSize(Size size, float scaleFactor)
+        {
+            return new Size((int)(size.Width * scaleFactor), (int)(size.Height * scaleFactor));
+        }
+
+        private static Point ScalePoint(Point point, float scaleFactor)
+        {
+            return new Point((int)(point.X * scaleFactor), (int)(point.Y * scaleFactor));
+        }
 
     }
 }
+
+
+
+            
+        
+    

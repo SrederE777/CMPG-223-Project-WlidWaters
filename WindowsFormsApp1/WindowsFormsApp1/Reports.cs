@@ -300,5 +300,16 @@ namespace WindowsFormsApp1
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void Reports_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Reports_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            mainForm form = (mainForm)this.Owner;
+            form.BackClickedEvent(this, EventArgs.Empty);
+        }
     }
 }

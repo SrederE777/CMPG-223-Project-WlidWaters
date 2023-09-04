@@ -507,7 +507,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void BackClickedEvent(object sender, EventArgs e)
+        public void BackClickedEvent(object sender, EventArgs e)
         {
             try
             {
