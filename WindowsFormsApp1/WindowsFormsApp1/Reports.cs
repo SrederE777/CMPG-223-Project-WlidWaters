@@ -33,22 +33,13 @@ namespace WindowsFormsApp1
             }
         }
 
-        public Reports()
-        {
-            InitializeComponent();
-        }
-
-        private void btnBack_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btngenReports_Click(object sender, EventArgs e)
+        public void getTransactionReports()
         {
             try
             {
                 // Connection string for your SQL Server database
-                string connectionString = "your_connection_string_here";
+                string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\32140274\Documents\CMPG 223\32140274EXAM\32140274EXAM\32140274EXAM\EventsDB.mdf;Integrated Security=True;";
+
 
                 // SQL query to retrieve transactions
                 string sqlQuery = @"
@@ -132,10 +123,26 @@ namespace WindowsFormsApp1
                     lstTransactions.Items.Add(line);
                 }
 
-                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        public void getRidesReport()
+        {
+            try
+            {
+                // Connection string for your SQL Server database
+                string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\32140274\Documents\CMPG 223\32140274EXAM\32140274EXAM\32140274EXAM\EventsDB.mdf;Integrated Security=True;";
+
+
+
+
 
                 // SQL query to retrieve popular rides
-                string sqlQuery2 = @"
+                string sqlQuery = @"
                 SELECT 
                     Ride_ID, 
                     COUNT(*) AS RideCount
@@ -148,7 +155,7 @@ namespace WindowsFormsApp1
             ";
 
                 // Create a StringBuilder to build the report
-                StringBuilder report2 = new StringBuilder();
+                StringBuilder report = new StringBuilder();
 
                 // Report generated on
                 report.AppendLine("Report generated on: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
@@ -190,12 +197,25 @@ namespace WindowsFormsApp1
                 {
                     lstPopularRides.Items.Add(line);
                 }
-            
 
 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
-            // SQL query to retrieve employee ride data
-            string sqlQuery3 = @"
+        public void getEmployeeReports()
+        {
+            try
+            {
+                // Connection string for your SQL Server database
+                string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\32140274\Documents\CMPG 223\32140274EXAM\32140274EXAM\32140274EXAM\EventsDB.mdf;Integrated Security=True;";
+
+
+                // SQL query to retrieve employee ride data
+                string sqlQuery = @"
                 SELECT 
                     E.Employee_Name, 
                     E.Employee_Surname, 
@@ -208,51 +228,73 @@ namespace WindowsFormsApp1
                     Rides AS R ON ER.Ride_ID = R.Ride_ID;
             ";
 
-            // Create a StringBuilder to build the report
-            StringBuilder report3 = new StringBuilder();
+                // Create a StringBuilder to build the report
+                StringBuilder report = new StringBuilder();
 
-            // Report generated on
-            report.AppendLine("Report generated on: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-            report.AppendLine(); // Empty line for separation
+                // Report generated on
+                report.AppendLine("Report generated on: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                report.AppendLine(); // Empty line for separation
 
-            // Title for Employee Report
-            report.AppendLine("Employee Report:");
+                // Title for Employee Report
+                report.AppendLine("Employee Report:");
 
-            // Create a SQL Connection and Command
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                SqlCommand command = new SqlCommand(sqlQuery, connection);
-                SqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
+                // Create a SQL Connection and Command
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string employeeName = reader.GetString(0);
-                    string employeeSurname = reader.GetString(1);
-                    string rideName = reader.GetString(2);
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(sqlQuery, connection);
+                    SqlDataReader reader = command.ExecuteReader();
 
-                    // Display Employee_Name, Employee_Surname, and Ride_Name
-                    report.AppendLine($"Employee Name: {employeeName}");
-                    report.AppendLine($"Employee Surname: {employeeSurname}");
-                    report.AppendLine($"Ride Name: {rideName}");
-                    report.AppendLine(); // Empty line for separation
+                    while (reader.Read())
+                    {
+                        string employeeName = reader.GetString(0);
+                        string employeeSurname = reader.GetString(1);
+                        string rideName = reader.GetString(2);
+
+                        // Display Employee_Name, Employee_Surname, and Ride_Name
+                        report.AppendLine($"Employee Name: {employeeName}");
+                        report.AppendLine($"Employee Surname: {employeeSurname}");
+                        report.AppendLine($"Ride Name: {rideName}");
+                        report.AppendLine(); // Empty line for separation
+                    }
+
+                    // Close the database connection
+                    connection.Close();
                 }
 
-                // Close the database connection
-                connection.Close();
+                // Clear existing items in ListBox3
+                lstEmployeeReport.Items.Clear();
+
+                // Split the report string by newlines and add each line to ListBox3
+                foreach (string line in report.ToString().Split('\n'))
+                {
+                    lstEmployeeReport.Items.Add(line);
+                }
             }
-
-            // Clear existing items in ListBox3
-            lstEmployeeReport.Items.Clear();
-
-            // Split the report string by newlines and add each line to ListBox3
-            foreach (string line in report.ToString().Split('\n'))
+            catch (Exception ex)
             {
-                lstEmployeeReport.Items.Add(line);
+                MessageBox.Show(ex.Message);
             }
         }
 
-        
+        public Reports()
+        {
+            InitializeComponent();
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btngenReports_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                getTransactionReports();
+                getRidesReport();
+                getEmployeeReports();
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);

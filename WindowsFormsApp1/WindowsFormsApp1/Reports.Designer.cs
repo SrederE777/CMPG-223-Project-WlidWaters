@@ -63,7 +63,7 @@
             // 
             this.btngenReports.Location = new System.Drawing.Point(271, 338);
             this.btngenReports.Name = "btngenReports";
-            this.btngenReports.Size = new System.Drawing.Size(131, 56);
+            this.btngenReports.Size = new System.Drawing.Size(258, 79);
             this.btngenReports.TabIndex = 3;
             this.btngenReports.Text = "Generate Reports";
             this.btngenReports.UseVisualStyleBackColor = true;
