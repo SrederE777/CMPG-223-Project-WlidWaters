@@ -22,6 +22,107 @@ namespace WindowsFormsApp1
             
         };
 
+        public class ControlTypeAttribute : Attribute
+        {
+            // Define a property that stores the type of control
+            public Type ControlType { get; set; }
+
+            // Define a constructor that takes the type of control as a parameter
+            public ControlTypeAttribute(Type controlType)
+            {
+                // Assign the parameter to the property
+                ControlType = controlType;
+            }
+        }
+
+        // Define a generic method that takes a type parameter T and an array of controls as parameters
+        public static T CreateObjectFromControls<T>(Control[] controls) where T : new()
+        {
+            // Create an instance of type T using the default constructor
+            T obj = new T();
+
+            // Get the type information of type T using reflection
+            Type type = typeof(T);
+
+            // Get the properties or fields of type T using reflection
+            var members = type.GetMembers(BindingFlags.Public | BindingFlags.Instance);
+            int j = 0;
+            // Loop through the properties or fields
+            for (int i = 0; i < members.Length; i++)
+            {
+                // Get the current property or field
+                var member = members[i];
+
+                // Get the type of the property or field using reflection
+                Type memberType;
+                if (member is PropertyInfo propertyInfo)
+                {
+                    memberType = propertyInfo.PropertyType;
+                }
+                else if (member is FieldInfo fieldInfo)
+                {
+                    memberType = fieldInfo.FieldType;
+                }
+                else
+                {
+                    // If it is not a property or field, then skip it
+                    continue;
+                }
+
+                // Check if the dictionary contains a mapping for the type of the property or field
+                if (types.ContainsKey(memberType))
+                {
+                    // Get the type of control that corresponds to the type of the property or field from the dictionary
+                    Type controlType = types[memberType];
+
+                    // Get the corresponding control from the array of controls using the index i
+                    Control control = controls[j];
+                    j++;
+                    // Check if the control is of the same type as specified by the dictionary
+                    if (control.GetType() == controlType)
+                    {
+                        // Get the value from the control using different properties or methods depending on the type of control
+                        object value;
+                        if (control is TextBox textBox)
+                        {
+                            value = textBox.Text;
+                        }
+                        else if (control is NumericUpDown numericUpDown)
+                        {
+                            value = numericUpDown.Value;
+                        }
+                        else if (control is ComboBox comboBox)
+                        {
+                            value = comboBox.SelectedItem;
+                        }
+                        else if (control is DateTimePicker dateTimePicker)
+                        {
+                            value = dateTimePicker.Value;
+                        }
+                        else
+                        {
+                            // If none of these types match, then use null as a default value
+                            value = null;
+                        }
+
+                        // Assign the value to the property or field using reflection
+                        if (member is PropertyInfo propertyInfoes)
+                        {
+                            propertyInfoes.SetValue(obj, value);
+                        }
+                        else if (member is FieldInfo fieldInfo)
+                        {
+                            fieldInfo.SetValue(obj, value);
+                        }
+                    }
+                }
+            }
+
+            // Return the object of type T
+            return obj;
+        }
+
+
         //This may not be needed.... Which would suck a bit but hey if it works right
         public static void CreateForm<T>(String title, MDIParent parentForm) where T : Form, new()
         {
@@ -55,6 +156,7 @@ namespace WindowsFormsApp1
             container.Controls.Add(control);
             GenericLooks.SetMenuLooks(control);
             control.Text = text;
+            control.Name = text.Replace(" ", "");
             return control;
         }
         public static List<Control> CreateMenu(Dictionary<string,Type> options, ContainerControl outputOn, Point locaiton, int SpacingBetweenButtons = 0)
@@ -92,13 +194,14 @@ namespace WindowsFormsApp1
         }
 
 
-        public static void CreateInputs<T>(Control outputOn, int widthMargin, int heightMargin) where T : class
+        public static List<Control> CreateInputs<T>(Control outputOn, int widthMargin, int heightMargin) where T : class
         {
             
             //foreach (T item in input)
             {
 
                 // Get the properties of the class
+                List<Control> returnControls = new List<Control>();
                 List<FieldInfo> fields = new List<FieldInfo>();
                 Type type = typeof(T);
                 while (type != null)
@@ -124,7 +227,7 @@ namespace WindowsFormsApp1
                     //if (types.ContainsKey(types[field.FieldType]))
                     {
                         Type controlType = types[field.FieldType];
-                        CreateInput(controlType, location, outputOn);
+                        returnControls.Add(CreateInput(controlType, location, outputOn));
                         
                         location.X /= 8;
                         
@@ -137,16 +240,17 @@ namespace WindowsFormsApp1
                     
 
                 }
+                return returnControls;
             }
         }
-        public static void CreateInput(Type dataType, Point location, Control container)
+        public static Control CreateInput(Type dataType, Point location, Control container)
         {
             Control control = (Control)Activator.CreateInstance(dataType);
             control.Location = location;
             container.Controls.Add(control);
             GenericLooks.SetInputsLook(control);
             //MessageBox.Show(control.Size.ToString());
-            
+            return control;
             
         }
 

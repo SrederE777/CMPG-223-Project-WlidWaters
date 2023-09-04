@@ -136,7 +136,7 @@ namespace WindowsFormsApp1
             Dictionary<string, Type> MenuOptionType = MenuOptions.Zip(MenuType, (k, v) => new { Key = k, Value = v })
                                              .ToDictionary(x => x.Key, x => x.Value);
             //add Menu Events
-            GetEvents("MenuMaintain" + menuName, MenuOptions);
+            GetEvents("Add" + menuName.Replace(" ",""), MenuOptions);
 
             //create menu
             Point location = new Point(Right - GenericLooks.GetSize(typeof(Button)).Width - margins, Top + margins);
@@ -247,7 +247,8 @@ namespace WindowsFormsApp1
             {
                 "Add Customers",
                 "Update Customers",
-                "Delete Selected Customers"
+                "Delete Selected Customers",
+                "Test"
             };
 
             //add Menu Events
@@ -272,7 +273,7 @@ namespace WindowsFormsApp1
         private void NewMenuUpdateMaintainCustomers()
         {
             NewMenuStartCode();
-            String menuName = "Current Customers";
+            String menuName = "CurrentCustomers";
             NewMaintainMenuOperation<Customer>(menuName); 
             NewMenuEndCode();
         }
@@ -280,7 +281,7 @@ namespace WindowsFormsApp1
         private void NewMenuSellTicketsTransation()
         {
             NewMenuStartCode();
-            string menuName = "Sell Tickets";
+            string menuName = "SellTickets";
             NewMaintainMenuOperation<Transactions>(menuName);
             NewMenuEndCode();
         }
@@ -393,6 +394,7 @@ namespace WindowsFormsApp1
         private void MainMenuMaintainRidesEvent(object sender, EventArgs e)
         {
             NewMenuMaintainRide();
+            //Control controls = 
         }
 
         private void MenuMaintainAddRideEvent(object sender, EventArgs e)
@@ -433,14 +435,58 @@ namespace WindowsFormsApp1
         private void MainMenuMaintainCustomersEvent(object sender, EventArgs e)
         {
             NewMenuMaintainCustomers();
+            
         }
 
         private void MenuMaintainAddCustomersEvent(object sender, EventArgs e)
         {
             NewMenuAddMaintainCustomers();
+            
+
+
         }
 
-        private void MenuMaintainUpdateCustomersEvent(object sender, EventArgs e)
+        private void AddNewCustomersEnterNewCustomersEvent(object sender, EventArgs e)
+        {
+            
+            
+
+            GroupBox inputs = new GroupBox();
+            foreach (Control c in Controls)
+            {
+                if (c is GroupBox)
+                {
+                    inputs = (GroupBox)c;
+                }
+            }
+
+            List<Control> controls = new List<Control>();
+            foreach (Control c in inputs.Controls)
+            {
+                if (c is TextBox)
+                {
+                    controls.Add((TextBox)c);
+                }
+                else if (c is NumericUpDown)
+                {
+                    controls.Add((NumericUpDown)c);
+                }
+                else if (c is ComboBox)
+                {
+                    controls.Add((ComboBox)c);
+                }
+                else if (c is DateTimePicker)
+                {
+                    controls.Add((DateTimePicker)c);
+                }
+            }
+            Customer customer = GenericFunctions.CreateObjectFromControls<Customer>(controls.ToArray());
+            MessageBox.Show(customer.ToString());
+
+            NewMenuAddMaintainCustomers();
+        }
+
+            private void MenuMaintainUpdateCustomersEvent(object sender, EventArgs e)
         {
             NewMenuUpdateMaintainCustomers();
         }

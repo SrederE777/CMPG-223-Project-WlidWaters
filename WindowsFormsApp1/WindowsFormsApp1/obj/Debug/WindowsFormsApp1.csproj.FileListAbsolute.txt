@@ -21,3 +21,6 @@ C:\Users\Lenovo1\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\W
 C:\Users\Lenovo1\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
 C:\Users\Lenovo1\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
 C:\Users\Lenovo1\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
+C:\Users\32140274\source\repos\SrederE777\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.mainForm.resources
+C:\Users\32140274\source\repos\SrederE777\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\WildWaters.mdf
+C:\Users\32140274\source\repos\SrederE777\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\WildWaters_log.ldf
