@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
@@ -16,20 +17,43 @@ namespace WindowsFormsApp1
         public Customer() : base()
         {
             // Do some initialization here
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
-        // Define a constructor that takes an email parameter
+        // Define a constructor that takes an email parameters
         public Customer(string email) : base()
         {
-            // Assign the email parameter to the email property
-            Email = email;
+            try
+            {
+                // Assign the email parameter to the email property
+                Email = email;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         // Define a constructor that takes name, contact, birthday, and email parameters
         public Customer(string name, string contact, DateTime birthday, string email) : base(name, contact, birthday)
         {
-            // Assign the email parameter to the email property
-            Email = email;
+            try
+            {
+                // Assign the email parameter to the email property
+                Email = email;
+            }
+            catch (Exception ex) 
+            { 
+                MessageBox.Show(ex.Message); 
+            }
         }
 
         // Override the ToString() method using the string interpolation syntax

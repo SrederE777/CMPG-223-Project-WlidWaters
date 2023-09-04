@@ -38,44 +38,72 @@ namespace WindowsFormsApp1
 
         public static void SetSize(Type type, Size size)
         {
-            if (sizes.ContainsKey(type))
+            try
             {
-                sizes[type] = size;
+                if (sizes.ContainsKey(type))
+                {
+                    sizes[type] = size;
+                }
+                else
+                {
+                    throw new ArgumentException("Type not in GenericLooks Dictionary");
+                }
             }
-            else
+            catch(Exception ex)
             {
-                throw new ArgumentException("Type not in GenericLooks Dictionary");
+                MessageBox.Show(ex.Message);
             }
         }
 
         public static void ScaleControls(Control.ControlCollection controls, float scaleFactor)
         {
-            foreach (Control control in controls)
+            try
             {
-                control.Scale(new SizeF(scaleFactor, scaleFactor));
+                foreach (Control control in controls)
+                {
+                    control.Scale(new SizeF(scaleFactor, scaleFactor));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
         public static void SetInputsLook(Control control)
         {
-            
-            if (sizes.ContainsKey(control.GetType()))
+
+            try
             {
-                control.Size = sizes[control.GetType()];
+                if (sizes.ContainsKey(control.GetType()))
+                {
+                    control.Size = sizes[control.GetType()];
+                }
+                else
+                {
+                    throw new ArgumentException("Type not in GenericLooks Dictionary");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                throw new ArgumentException("Type not in GenericLooks Dictionary");
+                MessageBox.Show(ex.Message);
             }
         }
 
         public static void SetMenuLooks(Control control)
         {
-            if (sizes.ContainsKey(control.GetType()))
+            try
             {
-                control.Size = sizes[control.GetType()];
+                if (sizes.ContainsKey(control.GetType()))
+                {
+                    control.Size = sizes[control.GetType()];
+                }
             }
-            
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
 
