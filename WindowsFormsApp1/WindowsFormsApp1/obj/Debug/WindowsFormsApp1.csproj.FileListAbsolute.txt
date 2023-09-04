@@ -44,3 +44,4 @@ C:\Users\OEM\Source\Repos\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFo
 C:\Users\OEM\Source\Repos\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
 C:\Users\OEM\Source\Repos\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
 C:\Users\OEM\Source\Repos\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
+C:\Users\Lenovo1\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Reports.resources
