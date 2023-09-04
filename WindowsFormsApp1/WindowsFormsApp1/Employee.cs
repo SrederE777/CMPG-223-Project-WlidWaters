@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
@@ -15,32 +16,63 @@ namespace WindowsFormsApp1
         public Employee() : this("","","")
         {
             // Initialize properties with default values if desired
-           
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         // Constructors
         public Employee(string emergencyContact, string password, string ride) : base()
         {
-            
-            EmergencyContact = emergencyContact;
-            Password = password;
-            Ride = ride;
+            try
+            {
+                EmergencyContact = emergencyContact;
+                Password = password;
+                Ride = ride;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         // Methods to set properties
         public void SetEmergencyContact(string emergencyContact)
         {
-            EmergencyContact = emergencyContact;
+            try
+            {
+                EmergencyContact = emergencyContact;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public void SetPassword(string password)
         {
-            Password = password;
+            try
+            {
+                Password = password;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public void SetRide(string ride)
         {
-            Ride = ride;
+            try
+            {
+                Ride = ride;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         // Methods to get properties

@@ -126,31 +126,43 @@ namespace WindowsFormsApp1
         //This may not be needed.... Which would suck a bit but hey if it works right
         public static void CreateForm<T>(String title, MDIParent parentForm) where T : Form, new()
         {
-            //Create an instance of the form
-            T form = new T();
-            //This was used instead of new beacause it is more generic and allows for multiple form to be made according to a preset
+            try
+            {
+                //Create an instance of the form
+                T form = new T();
+                //This was used instead of new beacause it is more generic and allows for multiple form to be made according to a preset
 
-            //set the configuration for the forms made with this method
-            form.MdiParent = parentForm;
-            form.WindowState = FormWindowState.Maximized;
-            form.ControlBox = false;
-            form.Show();
-            form.Text = title;
+                //set the configuration for the forms made with this method
+                form.MdiParent = parentForm;
+                form.WindowState = FormWindowState.Maximized;
+                form.ControlBox = false;
+                form.Show();
+                form.Text = title;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
 
         public static void CreateDisplay(Type dataType, Point location, Control container, string text)
         {
-
-            Control control = (Control)Activator.CreateInstance(dataType);
+            try
+            {
+                 Control control = (Control)Activator.CreateInstance(dataType);
             control.Location = location;
             container.Controls.Add(control);
             control.Text = text;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public static Control CreateMenuItem(Type dataType, Point location, Control container, string text)
         {
-
             Control control = (Control)Activator.CreateInstance(dataType);
             control.Location = location;
             container.Controls.Add(control);
