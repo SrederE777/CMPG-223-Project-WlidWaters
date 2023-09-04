@@ -190,7 +190,67 @@ namespace WindowsFormsApp1
                 {
                     lstPopularRides.Items.Add(line);
                 }
+            
+
+
+
+            // SQL query to retrieve employee ride data
+            string sqlQuery3 = @"
+                SELECT 
+                    E.Employee_Name, 
+                    E.Employee_Surname, 
+                    R.Ride_Name
+                FROM 
+                    Employees AS E
+                INNER JOIN 
+                    EmployeeRides AS ER ON E.Employee_ID = ER.Employee_ID
+                INNER JOIN 
+                    Rides AS R ON ER.Ride_ID = R.Ride_ID;
+            ";
+
+            // Create a StringBuilder to build the report
+            StringBuilder report3 = new StringBuilder();
+
+            // Report generated on
+            report.AppendLine("Report generated on: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            report.AppendLine(); // Empty line for separation
+
+            // Title for Employee Report
+            report.AppendLine("Employee Report:");
+
+            // Create a SQL Connection and Command
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(sqlQuery, connection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    string employeeName = reader.GetString(0);
+                    string employeeSurname = reader.GetString(1);
+                    string rideName = reader.GetString(2);
+
+                    // Display Employee_Name, Employee_Surname, and Ride_Name
+                    report.AppendLine($"Employee Name: {employeeName}");
+                    report.AppendLine($"Employee Surname: {employeeSurname}");
+                    report.AppendLine($"Ride Name: {rideName}");
+                    report.AppendLine(); // Empty line for separation
+                }
+
+                // Close the database connection
+                connection.Close();
             }
+
+            // Clear existing items in ListBox3
+            lstEmployeeReport.Items.Clear();
+
+            // Split the report string by newlines and add each line to ListBox3
+            foreach (string line in report.ToString().Split('\n'))
+            {
+                lstEmployeeReport.Items.Add(line);
+            }
+        }
 
         
             catch (Exception ex)
