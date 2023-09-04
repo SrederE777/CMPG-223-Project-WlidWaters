@@ -203,11 +203,11 @@ namespace WindowsFormsApp1
                 //This was used instead of new beacause it is more generic and allows for multiple form to be made according to a preset
 
                 //set the configuration for the forms made with this method
-                form.ShowDialog();
+                
                 form.WindowState = FormWindowState.Maximized;
                 form.ControlBox = false;
-                form.Show();
                 form.Text = title;
+                form.ShowDialog(parentForm);
             }
             catch (Exception ex)
             {
