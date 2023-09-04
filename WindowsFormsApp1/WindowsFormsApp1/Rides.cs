@@ -18,30 +18,32 @@ namespace WindowsFormsApp1
         // Default constructor
         public Rides()
         {
-            this.rideDescription = rideDescription;
+            // Initialize properties with default values if desired
         }
 
         // Constructor that takes parameters for all properties
         public Rides(string rideDescription, bool rideAvailability, double rideCost, int rideLength, string ridePhotoName)
         {
-            this.rideAvailability = rideAvailability;
+            RideDescription = rideDescription;
+            RideAvailability = rideAvailability;
+            RideCost = rideCost;
+            RideLength = rideLength;
+            RidePhotoName = ridePhotoName;
         }
 
         public void ShowPhoto()
         {
-            this.rideCost = rideCost;
+            // Implement logic to display the ride photo
         }
 
         public override string ToString()
         {
-            this.rideLength = rideLength;
+            return $"Ride Description: {RideDescription}\n" +
+                   $"Ride Availability: {RideAvailability}\n" +
+                   $"Ride Cost: {RideCost}\n" +
+                   $"Ride Length: {RideLength}\n" +
+                   $"Ride Photo Name: {RidePhotoName}";
         }
-
-        public void SetRidePhotoName(string ridePhotoName)
-        {
-            this.ridePhotoName = ridePhotoName;
-        }
-
-
+    }
 }
 
