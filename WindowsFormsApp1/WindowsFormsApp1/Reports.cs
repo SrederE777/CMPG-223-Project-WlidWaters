@@ -13,6 +13,26 @@ namespace WindowsFormsApp1
 {
     public partial class Reports : Form
     {
+        // Function to retrieve ride name based on Ride_ID (replace with your table and column names)
+        private string GetRideName(int rideID, SqlConnection connection)
+        {
+            string sqlQuery = @"
+                SELECT 
+                    Ride_Name
+                FROM 
+                    Rides
+                WHERE 
+                    Ride_ID = @RideID;
+                ";
+
+            using (SqlCommand command = new SqlCommand(sqlQuery, connection))
+            {
+                command.Parameters.AddWithValue("@RideID", rideID);
+                object result = command.ExecuteScalar();
+                return result != null ? result.ToString() : "Unknown Ride";
+            }
+        }
+
         public Reports()
         {
             InitializeComponent();
@@ -111,7 +131,68 @@ namespace WindowsFormsApp1
                 {
                     lstTransactions.Items.Add(line);
                 }
+
+                
+
+                // SQL query to retrieve popular rides
+                string sqlQuery2 = @"
+                SELECT 
+                    Ride_ID, 
+                    COUNT(*) AS RideCount
+                FROM 
+                    Transactions
+                GROUP BY 
+                    Ride_ID
+                ORDER BY 
+                    RideCount DESC;
+            ";
+
+                // Create a StringBuilder to build the report
+                StringBuilder report2 = new StringBuilder();
+
+                // Report generated on
+                report.AppendLine("Report generated on: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                report.AppendLine(); // Empty line for separation
+
+                // Title for popular rides
+                report.AppendLine("Popular rides:");
+
+                // Create a SQL Connection and Command
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(sqlQuery, connection);
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        int rideID = reader.GetInt32(0);
+                        int rideCount = reader.GetInt32(1);
+
+                        // Retrieve the ride name from the rides table (replace with your table name)
+                        string rideName = GetRideName(rideID, connection);
+
+                        // Display the ride name and ride count
+                        report.AppendLine($"Ride Name: {rideName}");
+                        report.AppendLine($"Ride Count: {rideCount}");
+                        report.AppendLine(); // Empty line for separation
+                    }
+
+                    // Close the database connection
+                    connection.Close();
+                }
+
+                // Clear existing items in ListBox2
+                lstPopularRides.Items.Clear();
+
+                // Split the report string by newlines and add each line to ListBox2
+                foreach (string line in report.ToString().Split('\n'))
+                {
+                    lstPopularRides.Items.Add(line);
+                }
             }
+
+        
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
