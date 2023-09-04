@@ -146,7 +146,7 @@ namespace WindowsFormsApp1
             {
                 List<string> MenuOptions = new List<string>
                 {
-                "Add " + menuName,
+                 menuName,
                 "Enter " + menuName,
                 };
                 List<Type> MenuType = new List<Type>
@@ -158,7 +158,7 @@ namespace WindowsFormsApp1
                 Dictionary<string, Type> MenuOptionType = MenuOptions.Zip(MenuType, (k, v) => new { Key = k, Value = v })
                                                  .ToDictionary(x => x.Key, x => x.Value);
                 //add Menu Events
-                GetEvents("Add" + menuName.Replace(" ", ""), MenuOptions);
+                GetEvents(menuName.Replace(" ", ""), MenuOptions);
 
                 //create menu
                 Point location = new Point(Right - GenericLooks.GetSize(typeof(Button)).Width - margins, Top + margins);
@@ -357,7 +357,7 @@ namespace WindowsFormsApp1
             try
             {
                 NewMenuStartCode();
-                String menuName = "CurrentCustomers";
+                String menuName = "Current Customers";
                 NewMaintainMenuOperation<Customer>(menuName);
                 NewMenuEndCode();
 
@@ -373,7 +373,7 @@ namespace WindowsFormsApp1
             try
             {
                 NewMenuStartCode();
-                string menuName = "SellTickets";
+                string menuName = "Sell Tickets";
                 NewMaintainMenuOperation<Transactions>(menuName);
                 NewMenuEndCode();
             }
@@ -642,7 +642,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void AddNewCustomersEnterNewCustomersEvent(object sender, EventArgs e)
+        private void NewCustomersNewCustomersEvent(object sender, EventArgs e)
         {
             try
             {
@@ -659,6 +659,18 @@ namespace WindowsFormsApp1
         }
 
         private void MenuMaintainUpdateCustomersEvent(object sender, EventArgs e)
+        {
+            try
+            {
+                NewMenuUpdateMaintainCustomers();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void CurrentCustomersCurrentCustomersEvent(object sender, EventArgs e)
         {
             try
             {
