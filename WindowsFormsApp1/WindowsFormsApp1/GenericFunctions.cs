@@ -256,6 +256,40 @@ namespace WindowsFormsApp1
             
         }
 
+        public static List<Control> getInputs(Form parent)
+        {
+            GroupBox inputs = new GroupBox();
+            foreach (Control c in parent.Controls)
+            {
+                if (c is GroupBox)
+                {
+                    inputs = (GroupBox)c;
+                }
+            }
+
+            List<Control> controls = new List<Control>();
+            foreach (Control c in inputs.Controls)
+            {
+                if (c is TextBox)
+                {
+                    controls.Add((TextBox)c);
+                }
+                else if (c is NumericUpDown)
+                {
+                    controls.Add((NumericUpDown)c);
+                }
+                else if (c is ComboBox)
+                {
+                    controls.Add((ComboBox)c);
+                }
+                else if (c is DateTimePicker)
+                {
+                    controls.Add((DateTimePicker)c);
+                }
+            }
+            return controls;
+        }
+
         
         public static List<T> Fill<T>(this SqlDataReader reader) where T : new()
         {
@@ -289,5 +323,7 @@ namespace WindowsFormsApp1
 
             return res;
         }
+
     }
+
 }

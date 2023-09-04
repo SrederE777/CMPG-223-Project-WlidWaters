@@ -247,8 +247,7 @@ namespace WindowsFormsApp1
             {
                 "Add Customers",
                 "Update Customers",
-                "Delete Selected Customers",
-                "Test"
+                "Delete Selected Customers"
             };
 
             //add Menu Events
@@ -448,42 +447,11 @@ namespace WindowsFormsApp1
 
         private void AddNewCustomersEnterNewCustomersEvent(object sender, EventArgs e)
         {
-            
-            
-
-            GroupBox inputs = new GroupBox();
-            foreach (Control c in Controls)
-            {
-                if (c is GroupBox)
-                {
-                    inputs = (GroupBox)c;
-                }
-            }
-
-            List<Control> controls = new List<Control>();
-            foreach (Control c in inputs.Controls)
-            {
-                if (c is TextBox)
-                {
-                    controls.Add((TextBox)c);
-                }
-                else if (c is NumericUpDown)
-                {
-                    controls.Add((NumericUpDown)c);
-                }
-                else if (c is ComboBox)
-                {
-                    controls.Add((ComboBox)c);
-                }
-                else if (c is DateTimePicker)
-                {
-                    controls.Add((DateTimePicker)c);
-                }
-            }
+            List<Control> controls = GenericFunctions.getInputs(this);
             Customer customer = GenericFunctions.CreateObjectFromControls<Customer>(controls.ToArray());
             MessageBox.Show(customer.ToString());
 
-            NewMenuAddMaintainCustomers();
+            BackClickedEvent(this, EventArgs.Empty); 
         }
 
             private void MenuMaintainUpdateCustomersEvent(object sender, EventArgs e)
