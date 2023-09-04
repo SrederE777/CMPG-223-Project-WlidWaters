@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
@@ -16,27 +17,62 @@ namespace WindowsFormsApp1
 
         public void SetRideDescription(string rideDescription)
         {
-            this.rideDescription = rideDescription;
+            try
+            {
+                this.rideDescription = rideDescription;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public void SetRideAvailability(bool rideAvailability)
         {
-            this.rideAvailability = rideAvailability;
+            try
+            {
+                this.rideAvailability = rideAvailability;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public void SetRideCost(double rideCost)
         {
-            this.rideCost = rideCost;
+            try
+            {
+                this.rideCost = rideCost;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public void SetRideLength(int rideLength)
         {
-            this.rideLength = rideLength;
+            try
+            {
+                this.rideLength = rideLength;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public void SetRidePhotoName(string ridePhotoName)
         {
-            this.ridePhotoName = ridePhotoName;
+            try
+            {
+                this.ridePhotoName = ridePhotoName;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public string GetRideDescription()

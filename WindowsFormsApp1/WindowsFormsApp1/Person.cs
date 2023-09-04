@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
@@ -28,17 +29,38 @@ namespace WindowsFormsApp1
         // Methods to set properties
         public void SetName(string name)
         {
-            Name = name;
+            try
+            {
+                Name = name;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public void SetContact(string contact)
         {
-            Contact = contact;
+            try
+            {
+                Contact = contact;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public void SetBirthday(DateTime birthday)
         {
-            Birthday = birthday;
+            try
+            {
+                Birthday = birthday;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         // Methods to get properties

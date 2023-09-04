@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
@@ -16,27 +17,62 @@ namespace WindowsFormsApp1
 
         public void SetCustomer(string customer)
         {
-            this.customer = customer;
+            try
+            {
+                this.customer = customer;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public void SetTransaction_Date(DateTime transactionDate)
         {
-            this.transactionDate = transactionDate;
+            try
+            {
+                this.transactionDate = transactionDate;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public void SetTransaction_Time(string transactionTime)
         {
-            this.transactionTime = transactionTime;
+            try
+            {
+                this.transactionTime = transactionTime;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public void SetTicket_Amount(int ticketAmount)
         {
-            this.ticketAmount = ticketAmount;
+            try
+            {
+                this.ticketAmount = ticketAmount;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public void SetTransaction_Amount(double transactionAmount)
         {
-            this.transactionAmount = transactionAmount;
+            try
+            {
+                this.transactionAmount = transactionAmount;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public string GetCustomer()
