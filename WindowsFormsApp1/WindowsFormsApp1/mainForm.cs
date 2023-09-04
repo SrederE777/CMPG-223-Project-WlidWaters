@@ -815,19 +815,13 @@ namespace WindowsFormsApp1
             //NewMenuRequestReports();
         }
 
-        bool flagtest = true;
+        
         private void MainMenuReportsEvent(object sender, EventArgs e)
         {
-            if (flagtest)
-            {
-                NewMenuRequestReports();
-                flagtest = false;
-            }
-            else
-            {
-                flagtest = true;
-            }
 
+                NewMenuRequestReports();
+                
+     
         }
     }
 }
