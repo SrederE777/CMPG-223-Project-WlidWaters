@@ -6,11 +6,17 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1
 {
-    internal class Customer
+    internal class Customer : Person
     {
+        
         private String email;
 
-        public void setEmail(String email)
+        public Customer(string email) : base()
+        {
+
+        }
+
+        public void setEmail(String email) 
         {
             this.email = email;
         }

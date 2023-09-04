@@ -19,8 +19,10 @@ namespace WindowsFormsApp1
             { typeof(bool), typeof(ComboBox)},
             { typeof(DateTime), typeof(DateTimePicker)},
             { typeof(double), typeof(NumericUpDown)},
+            
         };
 
+        //This may not be needed.... Which would suck a bit but hey if it works right
         public static void CreateForm<T>(String title, MDIParent parentForm) where T : Form, new()
         {
             //Create an instance of the form
@@ -35,16 +37,6 @@ namespace WindowsFormsApp1
             form.Text = title;
         }
 
-        
-
-
-        public static void CreateInput(Type dataType, Point location, Control container)
-        {
-            Control control = (Control)Activator.CreateInstance(dataType);
-            control.Location = location;
-            container.Controls.Add(control);
-            GenericLooks.SetInputsLook(control);
-        }
 
         public static void CreateDisplay(Type dataType, Point location, Control container, string text)
         {
@@ -55,7 +47,7 @@ namespace WindowsFormsApp1
             control.Text = text;
         }
 
-        public static void CreateMenu(Type dataType, Point location, Control container, string text)
+        public static Control CreateMenuItem(Type dataType, Point location, Control container, string text)
         {
 
             Control control = (Control)Activator.CreateInstance(dataType);
@@ -63,11 +55,46 @@ namespace WindowsFormsApp1
             container.Controls.Add(control);
             GenericLooks.SetMenuLooks(control);
             control.Text = text;
+            return control;
         }
+        public static List<Control> CreateMenu(Dictionary<string,Type> options, ContainerControl outputOn, Point locaiton, int SpacingBetweenButtons = 0)
+        {
+            int inc = 0;
+            List<Control> controls = new List<Control>();
+            foreach (string option in options.Keys)
+            {
+                Type currentType = options[option];
+
+                controls.Add(CreateMenuItem(currentType, new Point(locaiton.X, locaiton.Y + inc), outputOn, option));
+                inc += GenericLooks.GetSize(currentType).Height + SpacingBetweenButtons;
+
+ 
+                
+            }
+            return controls;
+        }
+
+        public static List<Control> CreateMenu(List<string> options, ContainerControl outputOn, Point locaiton, int SpacingBetweenButtons = 0)
+        {
+            int inc = 0;
+            List<Control> controls = new List<Control>();
+            foreach (string option in options)
+            {
+                Type currentType = typeof(Button);
+
+                controls.Add(CreateMenuItem(currentType, new Point(locaiton.X, locaiton.Y + inc), outputOn, option));
+                inc += GenericLooks.GetSize(currentType).Height + SpacingBetweenButtons;
+
+
+
+            }
+            return controls;
+        }
+
 
         public static void CreateInputs<T>(Control outputOn, int widthMargin, int heightMargin) where T : class
         {
-            Size groupBoxSize = outputOn.Size;
+            
             //foreach (T item in input)
             {
 
@@ -79,23 +106,31 @@ namespace WindowsFormsApp1
                     fields.AddRange(type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance));
                     type = type.BaseType;
                 }
-                int amount = fields.Count;
+         
                 int inc = 1;
+                
                 // Loop through the properties
                 foreach (FieldInfo field in fields)
                 {
-                    int spacingWidth = (groupBoxSize.Width - widthMargin)/4;
-                    int spacingHight = (groupBoxSize.Height + heightMargin) / (amount); 
-                    Point location = new Point(spacingWidth, spacingHight * inc/2);
+                    fields.Count();
+                    
+                    
+                    int spacingHight = (heightMargin + GenericLooks.GetSize(types[field.FieldType]).Height);
+                    outputOn.Size = new Size(outputOn.Size.Width, spacingHight + outputOn.Size.Height);
+                    Size groupBoxSize = outputOn.Size;
+                    int spacingWidth = (groupBoxSize.Width - widthMargin) / 4;
+                    Point location = new Point(spacingWidth, spacingHight * inc);
 
-                    if (types.ContainsKey(types[field.FieldType]))
+                    //if (types.ContainsKey(types[field.FieldType]))
                     {
                         Type controlType = types[field.FieldType];
                         CreateInput(controlType, location, outputOn);
+                        
                         location.X /= 8;
+                        
                         controlType = typeof(Label);
                         CreateDisplay(controlType, location, outputOn, "Label " + inc);
-
+                        
                         inc++;
                     }
                     
@@ -104,17 +139,18 @@ namespace WindowsFormsApp1
                 }
             }
         }
-
-        public static void CreateMenu(List<string> options, ContainerControl outputOn, int xAxisPlacement, int yAxisPlacement)
+        public static void CreateInput(Type dataType, Point location, Control container)
         {
-            int inc = 1;
-            foreach (string option in options)
-            {
-                CreateMenu(typeof(Button), new Point(xAxisPlacement, yAxisPlacement + inc), outputOn, option);
-                inc += 50;
-            }
+            Control control = (Control)Activator.CreateInstance(dataType);
+            control.Location = location;
+            container.Controls.Add(control);
+            GenericLooks.SetInputsLook(control);
+            //MessageBox.Show(control.Size.ToString());
+            
             
         }
+
+        
         public static List<T> Fill<T>(this SqlDataReader reader) where T : new()
         {
 
