@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.lstTransactions = new System.Windows.Forms.ListBox();
-            this.lstRides = new System.Windows.Forms.ListBox();
-            this.lstEmployee = new System.Windows.Forms.ListBox();
+            this.lstPopularRides = new System.Windows.Forms.ListBox();
+            this.lstEmployeeReport = new System.Windows.Forms.ListBox();
             this.btngenReports = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -43,21 +43,21 @@
             this.lstTransactions.Size = new System.Drawing.Size(253, 303);
             this.lstTransactions.TabIndex = 0;
             // 
-            // lstRides
+            // lstPopularRides
             // 
-            this.lstRides.FormattingEnabled = true;
-            this.lstRides.Location = new System.Drawing.Point(271, 12);
-            this.lstRides.Name = "lstRides";
-            this.lstRides.Size = new System.Drawing.Size(258, 303);
-            this.lstRides.TabIndex = 1;
+            this.lstPopularRides.FormattingEnabled = true;
+            this.lstPopularRides.Location = new System.Drawing.Point(271, 12);
+            this.lstPopularRides.Name = "lstPopularRides";
+            this.lstPopularRides.Size = new System.Drawing.Size(258, 303);
+            this.lstPopularRides.TabIndex = 1;
             // 
-            // lstEmployee
+            // lstEmployeeReport
             // 
-            this.lstEmployee.FormattingEnabled = true;
-            this.lstEmployee.Location = new System.Drawing.Point(535, 12);
-            this.lstEmployee.Name = "lstEmployee";
-            this.lstEmployee.Size = new System.Drawing.Size(253, 303);
-            this.lstEmployee.TabIndex = 2;
+            this.lstEmployeeReport.FormattingEnabled = true;
+            this.lstEmployeeReport.Location = new System.Drawing.Point(535, 12);
+            this.lstEmployeeReport.Name = "lstEmployeeReport";
+            this.lstEmployeeReport.Size = new System.Drawing.Size(253, 303);
+            this.lstEmployeeReport.TabIndex = 2;
             // 
             // btngenReports
             // 
@@ -86,8 +86,8 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btngenReports);
-            this.Controls.Add(this.lstEmployee);
-            this.Controls.Add(this.lstRides);
+            this.Controls.Add(this.lstEmployeeReport);
+            this.Controls.Add(this.lstPopularRides);
             this.Controls.Add(this.lstTransactions);
             this.Name = "Reports";
             this.Text = "Reports";
@@ -98,8 +98,8 @@
         #endregion
 
         private System.Windows.Forms.ListBox lstTransactions;
-        private System.Windows.Forms.ListBox lstRides;
-        private System.Windows.Forms.ListBox lstEmployee;
+        private System.Windows.Forms.ListBox lstPopularRides;
+        private System.Windows.Forms.ListBox lstEmployeeReport;
         private System.Windows.Forms.Button btngenReports;
         private System.Windows.Forms.Button btnBack;
     }
