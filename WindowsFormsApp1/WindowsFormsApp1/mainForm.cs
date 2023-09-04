@@ -82,9 +82,10 @@ namespace WindowsFormsApp1
 
                     foreach (string menuOption in searchOptions)
                     {
+                        
                         if (eventinfo.Name.StartsWith(tag + menuOption))
                         {
-                            //if (!buttonEvents.ContainsKey(MenuOptions[i]))
+                            
                             {
                                 EventHandler temp = (EventHandler)Delegate.CreateDelegate(typeof(EventHandler), this, eventinfo.Name);
                                 buttonEvents.Add(MenuOptions[i], temp);
@@ -382,6 +383,22 @@ namespace WindowsFormsApp1
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void NewMenuRequestReports()
+        {
+            NewMenuStartCode();
+            List<string> MenuOptions = new List<string>
+            {
+
+            };
+            GetEvents("Reports", MenuOptions);
+            NewMenuEndCode();
+            GenericFunctions.CreateForm<Reports>("Reports", this);
+            
+            
+            
+            
         }
 
         private void NewMenuEndCode()
@@ -791,6 +808,26 @@ namespace WindowsFormsApp1
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void MainMenuAllocateEmployeesEvent(object sender, EventArgs e)
+        {
+            //NewMenuRequestReports();
+        }
+
+        bool flagtest = true;
+        private void MainMenuReportsEvent(object sender, EventArgs e)
+        {
+            if (flagtest)
+            {
+                NewMenuRequestReports();
+                flagtest = false;
+            }
+            else
+            {
+                flagtest = true;
+            }
+
         }
     }
 }
