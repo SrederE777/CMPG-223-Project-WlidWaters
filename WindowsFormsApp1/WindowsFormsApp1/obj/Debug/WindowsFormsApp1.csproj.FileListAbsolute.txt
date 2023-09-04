@@ -25,3 +25,7 @@ C:\Users\32140274\source\repos\SrederE777\CMPG-223-Project-WlidWaters\WindowsFor
 C:\Users\32140274\source\repos\SrederE777\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\WildWaters.mdf
 C:\Users\32140274\source\repos\SrederE777\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\WildWaters_log.ldf
 C:\Users\32140274\source\repos\SrederE777\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.AssignEmp.resources
+C:\Users\Lenovo1\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\WildWaters.mdf
+C:\Users\Lenovo1\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\WildWaters_log.ldf
+C:\Users\Lenovo1\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.AssignEmp.resources
+C:\Users\Lenovo1\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.mainForm.resources
