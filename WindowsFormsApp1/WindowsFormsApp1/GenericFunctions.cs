@@ -22,19 +22,6 @@ namespace WindowsFormsApp1
             
         };
 
-        public class ControlTypeAttribute : Attribute
-        {
-            // Define a property that stores the type of control
-            public Type ControlType { get; set; }
-
-            // Define a constructor that takes the type of control as a parameter
-            public ControlTypeAttribute(Type controlType)
-            {
-                // Assign the parameter to the property
-                ControlType = controlType;
-            }
-        }
-
         // Define a generic method that takes a type parameter T and an array of controls as parameters
         public static T CreateObjectFromControls<T>(Control[] controls) where T : new()
         {
@@ -121,6 +108,74 @@ namespace WindowsFormsApp1
             // Return the object of type T
             return obj;
         }
+
+        public static void PopulateControlsFromObject<T>(Control[] controls, T obj)
+        {
+            // Get the type information of type T using reflection
+            Type type = typeof(T);
+
+            // Get the properties or fields of type T using reflection
+            var members = type.GetMembers(BindingFlags.Public | BindingFlags.Instance);
+            int j = 0;
+            // Loop through the properties or fields
+            for (int i = 0; i < members.Length; i++)
+            {
+                // Get the current property or field
+                var member = members[i];
+
+                // Get the type of the property or field using reflection
+                Type memberType;
+                object value;
+                if (member is PropertyInfo propertyInfo)
+                {
+                    memberType = propertyInfo.PropertyType;
+                    value = propertyInfo.GetValue(obj);
+                }
+                else if (member is FieldInfo fieldInfo)
+                {
+                    memberType = fieldInfo.FieldType;
+                    value = fieldInfo.GetValue(obj);
+                }
+                else
+                {
+                    // If it is not a property or field, then skip it
+                    continue;
+                }
+
+                // Check if the dictionary contains a mapping for the type of the property or field
+                if (types.ContainsKey(memberType))
+                {
+                    // Get the type of control that corresponds to the type of the property or field from the dictionary
+                    Type controlType = types[memberType];
+
+                    // Get the corresponding control from the array of controls using the index i
+                    Control control = controls[j];
+                    j++;
+                    // Check if the control is of the same type as specified by the dictionary
+                    if (control.GetType() == controlType)
+                    {
+                        // Set the value of the control using different properties or methods depending on the type of control
+                        if (control is TextBox textBox)
+                        {
+                            textBox.Text = value.ToString();
+                        }
+                        else if (control is NumericUpDown numericUpDown)
+                        {
+                            numericUpDown.Value = Convert.ToDecimal(value);
+                        }
+                        else if (control is ComboBox comboBox)
+                        {
+                            comboBox.SelectedItem = value;
+                        }
+                        else if (control is DateTimePicker dateTimePicker)
+                        {
+                            dateTimePicker.Value = Convert.ToDateTime(value);
+                        }
+                    }
+                }
+            }
+        }
+
 
 
         //This may not be needed.... Which would suck a bit but hey if it works right
