@@ -236,7 +236,7 @@ namespace WindowsFormsApp1
             {
                 NewMenuStartCode();
 
-                string menuName = "Current Ride";
+                string menuName = "Add Ride";
                 NewMaintainMenuOperation<Rides>(menuName); 
                 NewMenuEndCode();
             }
@@ -342,7 +342,7 @@ namespace WindowsFormsApp1
             {
                 NewMenuStartCode();
 
-                String menuName = "New Customers";
+                String menuName = "Current Customers";
                 NewMaintainMenuOperation<Customer>(menuName);
 
                 NewMenuEndCode();
@@ -358,7 +358,7 @@ namespace WindowsFormsApp1
             try
             {
                 NewMenuStartCode();
-                String menuName = "Current Customers";
+                String menuName = "Add Customers";
                 NewMaintainMenuOperation<Customer>(menuName);
                 NewMenuEndCode();
 
@@ -669,7 +669,9 @@ namespace WindowsFormsApp1
                 NewMenuUpdateMaintainEmployee();
                 List<Control> controls = GenericFunctions.getInputs(this);
                 Employee employee = new Employee("Test", "Test", DateTime.Now, "Test", "Test,", " Test");
-             }
+
+                GenericFunctions.PopulateControlsFromObject(controls.ToArray(), employee);
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -679,12 +681,16 @@ namespace WindowsFormsApp1
         {
             try
             {
+
+
                 List<Control> controls = GenericFunctions.getInputs(this);
+
                 Customer customer = GenericFunctions.CreateObjectFromControls<Customer>(controls.ToArray());
                 MessageBox.Show(customer.ToString());
 
                 BackClickedEvent(this, EventArgs.Empty);
             }
+            
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -694,10 +700,7 @@ namespace WindowsFormsApp1
         {
             try
             {
-
-
                 List<Control> controls = GenericFunctions.getInputs(this);
-
                 Customer customer = GenericFunctions.CreateObjectFromControls<Customer>(controls.ToArray());
                 MessageBox.Show(customer.ToString());
 
@@ -713,9 +716,6 @@ namespace WindowsFormsApp1
             try
             {
                 NewMenuUpdateMaintainCustomers();
-                List<Control> controls = GenericFunctions.getInputs(this);
-                Customer myObject = new Customer("Test", "Test", DateTime.Now, "Test");
-                GenericFunctions.PopulateControlsFromObject(controls.ToArray(), myObject);
             }
             catch (Exception ex)
             {
@@ -752,6 +752,10 @@ namespace WindowsFormsApp1
             try
             {
                 NewMenuAddMaintainCustomers();
+                List<Control> controls = GenericFunctions.getInputs(this);
+                Customer myObject = new Customer("Test", "Test", DateTime.Now, "Test");
+                GenericFunctions.PopulateControlsFromObject(controls.ToArray(), myObject);
+            
             }
             catch (Exception ex)
             {
