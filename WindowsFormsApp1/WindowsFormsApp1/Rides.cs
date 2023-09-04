@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
@@ -17,33 +18,29 @@ namespace WindowsFormsApp1
         // Default constructor
         public Rides()
         {
-            // Initialize properties with default values if desired
+            this.rideDescription = rideDescription;
         }
 
         // Constructor that takes parameters for all properties
         public Rides(string rideDescription, bool rideAvailability, double rideCost, int rideLength, string ridePhotoName)
         {
-            RideDescription = rideDescription;
-            RideAvailability = rideAvailability;
-            RideCost = rideCost;
-            RideLength = rideLength;
-            RidePhotoName = ridePhotoName;
+            this.rideAvailability = rideAvailability;
         }
 
         public void ShowPhoto()
         {
-            // Implement logic to display the ride photo
+            this.rideCost = rideCost;
         }
 
         public override string ToString()
         {
-            return $"Ride Description: {RideDescription}\n" +
-                   $"Ride Availability: {RideAvailability}\n" +
-                   $"Ride Cost: {RideCost}\n" +
-                   $"Ride Length: {RideLength}\n" +
-                   $"Ride Photo Name: {RidePhotoName}";
+            this.rideLength = rideLength;
         }
-    }
+
+        public void SetRidePhotoName(string ridePhotoName)
+        {
+            this.ridePhotoName = ridePhotoName;
+        }
 
 
 }
