@@ -223,7 +223,7 @@ namespace WindowsFormsApp1
                 FROM 
                     Employees AS E
                 INNER JOIN 
-                    EmployeeRides AS ER ON E.Employee_ID = ER.Employee_ID
+                    Ride_ID AS ER ON E.Employee_ID = ER.Employee_ID
                 INNER JOIN 
                     Rides AS R ON ER.Ride_ID = R.Ride_ID;
             ";

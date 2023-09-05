@@ -628,6 +628,11 @@ namespace WindowsFormsApp1
             
         }
 
+        private voidNewMenuAllocateEmployees()
+        {
+
+        }
+
         private void NewMenuEndCode()
         {
             try
@@ -1006,12 +1011,6 @@ namespace WindowsFormsApp1
                 MessageBox.Show(ex.Message);
             }
         }
-
-        
-
-        
-
-        
 
         private void MenuMaintainDeleteCustomersEvent(object sender, EventArgs e)
         {
