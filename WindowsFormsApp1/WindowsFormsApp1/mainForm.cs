@@ -227,8 +227,20 @@ namespace WindowsFormsApp1
 
                 //create menu
                 location = new Point(Left + margins, Top + margins);
+                DataGridView dataGridView = null;
+                List<Control> datagrid = GenericFunctions.CreateMenu(MenuOptionType, this, location);
+                foreach (Control control in datagrid)
+                {
+                    if (control is DataGridView)
+                    {
+                        dataGridView = (DataGridView)control;
+                        break;
+                    }
+                }
+                string sql = "SELECT * FROM Rides";
+                SqlParameter[] parameters = new SqlParameter[0];
 
-                GenericFunctions.CreateMenu(MenuOptionType, this, location);
+                DataBaseFuncitons.DisplayData(sql, dataGridView, parameters, "Rides");
                 NewMenuEndCode();
             }
             catch (Exception ex)
@@ -316,6 +328,38 @@ namespace WindowsFormsApp1
                 //create menu
                 Point location = new Point(Right - GenericLooks.GetSize(typeof(Button)).Width - margins, Top + margins);
                 GenericFunctions.CreateMenu(MenuOptions, this, location, 4);
+
+                List<Type> MenuType = new List<Type>
+                {
+                typeof(Button),
+                typeof(GroupBox)
+                };
+                MenuOptions.Clear();
+                MenuType.Clear();
+                MenuOptions.Add("DataGridView");
+                MenuType.Add(typeof(DataGridView));
+
+                Dictionary<string, Type> MenuOptionType = MenuOptions.Zip(MenuType, (k, v) => new { Key = k, Value = v })
+                                                 .ToDictionary(x => x.Key, x => x.Value);
+
+                GetEvents("DataGridView", MenuOptions);
+
+                //create menu
+                location = new Point(Left + margins, Top + margins);
+                DataGridView dataGridView = null;
+                List<Control> datagrid = GenericFunctions.CreateMenu(MenuOptionType, this, location);
+                foreach (Control control in datagrid)
+                {
+                    if (control is DataGridView)
+                    {
+                        dataGridView = (DataGridView)control;
+                        break;
+                    }
+                }
+                string sql = "SELECT * FROM Employees";
+                SqlParameter[] parameters = new SqlParameter[0];
+
+                DataBaseFuncitons.DisplayData(sql, dataGridView, parameters, "Employees");
                 NewMenuEndCode();
 
 
@@ -405,6 +449,37 @@ namespace WindowsFormsApp1
                 //create menu
                 Point location = new Point(Right - GenericLooks.GetSize(typeof(Button)).Width - margins, Top + margins);
                 GenericFunctions.CreateMenu(MenuOptions, this, location, 4);
+                List<Type> MenuType = new List<Type>
+                {
+                typeof(Button),
+                typeof(GroupBox)
+                };
+                MenuOptions.Clear();
+                MenuType.Clear();
+                MenuOptions.Add("DataGridView");
+                MenuType.Add(typeof(DataGridView));
+
+                Dictionary<string, Type> MenuOptionType = MenuOptions.Zip(MenuType, (k, v) => new { Key = k, Value = v })
+                                                 .ToDictionary(x => x.Key, x => x.Value);
+
+                GetEvents("DataGridView", MenuOptions);
+
+                //create menu
+                location = new Point(Left + margins, Top + margins);
+                DataGridView dataGridView = null;
+                List<Control> datagrid = GenericFunctions.CreateMenu(MenuOptionType, this, location);
+                foreach (Control control in datagrid)
+                {
+                    if (control is DataGridView)
+                    {
+                        dataGridView = (DataGridView)control;
+                        break;
+                    }
+                }
+                string sql = "SELECT * FROM Customers";
+                SqlParameter[] parameters = new SqlParameter[0];
+
+                DataBaseFuncitons.DisplayData(sql, dataGridView, parameters, "Customers");
                 NewMenuEndCode();
             }
             catch (Exception ex)
@@ -477,7 +552,73 @@ namespace WindowsFormsApp1
             {
                 NewMenuStartCode();
                 string menuName = "Sell Tickets";
-                NewMaintainMenuOperation<Transactions>(menuName);
+                List<string> MenuOptions = new List<string>
+                {
+                 menuName,
+                "Enter " + menuName,
+                };
+                List<Type> MenuType = new List<Type>
+                {
+                typeof(Button),
+                typeof(GroupBox)
+                };
+
+                Dictionary<string, Type> MenuOptionType = MenuOptions.Zip(MenuType, (k, v) => new { Key = k, Value = v })
+                                                 .ToDictionary(x => x.Key, x => x.Value);
+                //add Menu Events
+                GetEvents(menuName.Replace(" ", ""), MenuOptions);
+
+                //create menu
+                Point location = new Point(Right - GenericLooks.GetSize(typeof(Button)).Width - margins, Top + margins);
+                GenericFunctions.CreateMenu(MenuOptionType, this, location, 4);
+
+                GenericFunctions.CreateInputs<Transactions>(Controls.OfType<GroupBox>().FirstOrDefault(), -100, 5);
+
+                MenuOptions.Clear();
+                MenuType.Clear();
+                MenuOptions.Add(menuName);
+                MenuType.Add(typeof(DataGridView));
+
+                MenuOptionType = MenuOptions.Zip(MenuType, (k, v) => new { Key = k, Value = v })
+                                                 .ToDictionary(x => x.Key, x => x.Value);
+
+                GetEvents("DataGridView", MenuOptions);
+
+                //create menu
+                location = new Point(Left + margins, Top + margins);
+
+                GenericFunctions.CreateMenu(MenuOptionType, this, location);
+                MenuType = new List<Type>
+                {
+                typeof(Button),
+                typeof(GroupBox)
+                };
+                MenuOptions.Clear();
+                MenuType.Clear();
+                MenuOptions.Add("DataGridView");
+                MenuType.Add(typeof(DataGridView));
+
+                MenuOptionType = MenuOptions.Zip(MenuType, (k, v) => new { Key = k, Value = v })
+                                                 .ToDictionary(x => x.Key, x => x.Value);
+
+                GetEvents("DataGridView", MenuOptions);
+
+                //create menu
+                location = new Point(Left + margins, Top + margins);
+                DataGridView dataGridView = null;
+                List<Control> datagrid = GenericFunctions.CreateMenu(MenuOptionType, this, location);
+                foreach (Control control in datagrid)
+                {
+                    if (control is DataGridView)
+                    {
+                        dataGridView = (DataGridView)control;
+                        break;
+                    }
+                }
+                string sql = "SELECT * FROM Transactions";
+                SqlParameter[] parameters = new SqlParameter[0];
+
+                DataBaseFuncitons.DisplayData(sql, dataGridView, parameters, "Transactions");
                 NewMenuEndCode();
             }
             catch (Exception ex)
