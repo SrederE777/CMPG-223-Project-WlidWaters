@@ -224,14 +224,20 @@ namespace WindowsFormsApp1
                 NewMenuStartCode();
                 string menuName = "New Ride";
                 NewMaintainMenuOperation<Rides>(menuName);
-                Control[] matches = Controls.Find("DataGridView", true);
-                if (matches.Length > 0 && matches[0] is DataGridView dataGridView)
+                DataGridView dataGridView = null;
+                foreach (Control control in Controls)
                 {
-                    string sql = "SELECT * FROM Rides";
+                    if (control is DataGridView)
+                    {
+                        dataGridView = (DataGridView)control;
+                        break;
+                    }
+                }
+                string sql = "SELECT * FROM Rides";
                     SqlParameter[] parameters = new SqlParameter[0];
 
-                    DataBaseFuncitons.DisplayData(sql, (DataGridView)matches[0], parameters, "Rides");
-                }
+                    DataBaseFuncitons.DisplayData(sql, dataGridView, parameters, "Rides");
+                
                 
                 NewMenuEndCode();
             }
@@ -248,7 +254,21 @@ namespace WindowsFormsApp1
                 NewMenuStartCode();
 
                 string menuName = "Add Ride";
-                NewMaintainMenuOperation<Rides>(menuName); 
+                NewMaintainMenuOperation<Rides>(menuName);
+                DataGridView dataGridView = null;
+                foreach (Control control in Controls)
+                {
+                    if (control is DataGridView)
+                    {
+                        dataGridView = (DataGridView)control;
+                        break;
+                    }
+                }
+                string sql = "SELECT * FROM Rides";
+                SqlParameter[] parameters = new SqlParameter[0];
+
+                DataBaseFuncitons.DisplayData(sql, dataGridView, parameters, "Rides");
+
                 NewMenuEndCode();
             }
             catch (Exception ex)
