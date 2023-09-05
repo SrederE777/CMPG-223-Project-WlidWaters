@@ -25,7 +25,7 @@ namespace WindowsFormsApp1
             try
             {
                 //display rides in datagrid
-                DataBaseFuncitons dataAccess = new DataBaseFuncitons();
+                
 
                 string sqlQuery = "SELECT * FROM Rides";
                 SqlParameter[] parameters = new SqlParameter[0]; 

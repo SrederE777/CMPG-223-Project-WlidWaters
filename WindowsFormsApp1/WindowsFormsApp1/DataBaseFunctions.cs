@@ -15,7 +15,7 @@ using System.Xml.Linq;
 
 namespace WindowsFormsApp1
 {
-    public class DataBaseFuncitons
+    public static class DataBaseFuncitons
     {
         public static string connectionString { get; set; } = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\WildWatersDB.mdf;Integrated Security=True";
         private static SqlDataAdapter adap;
@@ -23,7 +23,7 @@ namespace WindowsFormsApp1
         private static SqlConnection con;
         private static SqlCommand cmd;
 
-        public void Insert<T>(T obj, string connectionString, string tableName) where T : class
+        public static void Insert<T>(T obj, string tableName) where T : class
         {
             // Get the properties of the object
             var properties = typeof(T).GetProperties();

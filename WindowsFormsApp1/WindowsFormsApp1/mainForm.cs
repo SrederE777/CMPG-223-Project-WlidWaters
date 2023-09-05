@@ -810,7 +810,7 @@ namespace WindowsFormsApp1
                 List<Control> controls = GenericFunctions.getInputs(this);
                 Rides ride = GenericFunctions.CreateObjectFromControls<Rides>(controls.ToArray());
                 MessageBox.Show(ride.ToString());
-                DataBaseFuncitons.Insert
+                DataBaseFuncitons.Insert<Rides>(ride, "Rides");
                 BackClickedEvent(this, EventArgs.Empty);
             }
             catch (Exception ex)
@@ -840,7 +840,7 @@ namespace WindowsFormsApp1
             {
                 NewMenuUpdateMaintainRide();
                 List<Control> controls = GenericFunctions.getInputs(this);
-                Rides ride = new Rides("Test",false,100,10,"Test");
+                Rides ride = new Rides("Test","test",true,10.0, 10);
                 GenericFunctions.PopulateControlsFromObject(controls.ToArray(), ride);
             }
             catch (Exception ex)

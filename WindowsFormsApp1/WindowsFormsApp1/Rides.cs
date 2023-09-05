@@ -37,6 +37,18 @@ namespace WindowsFormsApp1
             // Implement logic to display the ride photo
         }
 
+        public List<string> getNames()
+        {
+            List<string> names = new List<string>();
+            names.Add("Ride Name");
+            names.Add("Ride Availability");
+            names.Add("Ride Availability");
+            names.Add("Ride Cost");
+            names.Add("Ride Length");
+            return names;
+
+        }
+
         public override string ToString()
         {
             return $"Ride Name: {Ride_Name}\n" +

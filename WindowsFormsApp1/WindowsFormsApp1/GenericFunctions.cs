@@ -313,10 +313,10 @@ namespace WindowsFormsApp1
                         control.Name = field.Name; // Set the name of the control
                         returnControls.Add(control);
 
-                        location.X /= 8;
+                        location.X /= 16;
                         
                         controlType = typeof(Label);
-                        CreateDisplay(controlType, location, outputOn, "Label " + inc);
+                        CreateDisplay(controlType, location, outputOn, field.Name.Replace("_", " "));
                         
                         inc++;
                     }
