@@ -573,21 +573,6 @@ namespace WindowsFormsApp1
                 GenericFunctions.CreateMenu(MenuOptionType, this, location, 4);
 
                 GenericFunctions.CreateInputs<Transactions>(Controls.OfType<GroupBox>().FirstOrDefault(), -100, 5);
-
-                MenuOptions.Clear();
-                MenuType.Clear();
-                MenuOptions.Add(menuName);
-                MenuType.Add(typeof(DataGridView));
-
-                MenuOptionType = MenuOptions.Zip(MenuType, (k, v) => new { Key = k, Value = v })
-                                                 .ToDictionary(x => x.Key, x => x.Value);
-
-                GetEvents("DataGridView", MenuOptions);
-
-                //create menu
-                location = new Point(Left + margins, Top + margins);
-
-                GenericFunctions.CreateMenu(MenuOptionType, this, location);
                 MenuType = new List<Type>
                 {
                 typeof(Button),
