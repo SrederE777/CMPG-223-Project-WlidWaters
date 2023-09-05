@@ -276,12 +276,15 @@ namespace WindowsFormsApp1
         }
 
 
-        public static List<Control> CreateInputs<T>(Control outputOn, int widthMargin, int heightMargin) where T : class
+        public static List<Control> CreateInputs<T>(Control outputOn, int widthMargin, int heightMargin) where T : class, DataClasses
         {
             
             //foreach (T item in input)
             {
+                T instance = Activator.CreateInstance<T>();
 
+                // Call the getName method on the instance
+                List<string> names = instance.getName();
                 // Get the properties of the class
                 List<Control> returnControls = new List<Control>();
                 List<FieldInfo> fields = new List<FieldInfo>();
@@ -316,7 +319,7 @@ namespace WindowsFormsApp1
                         location.X /= 16;
                         
                         controlType = typeof(Label);
-                        CreateDisplay(controlType, location, outputOn, field.Name.Replace("_", " "));
+                        CreateDisplay(controlType, location, outputOn, names[inc]);
                         
                         inc++;
                     }

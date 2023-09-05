@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
-    internal class Rides
+    internal class Rides : DataClasses
     {
         public string Ride_Name { get; set; }
         public string Ride_Description { get; set; }
@@ -32,12 +32,7 @@ namespace WindowsFormsApp1
             Ride_Length = rideLength;
         }
 
-        public void ShowPhoto()
-        {
-            // Implement logic to display the ride photo
-        }
-
-        public List<string> getNames()
+        public List<string> getName()
         {
             List<string> names = new List<string>();
             names.Add("Ride Name");

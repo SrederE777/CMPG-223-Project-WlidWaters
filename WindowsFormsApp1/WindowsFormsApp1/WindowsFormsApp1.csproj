@@ -71,6 +71,7 @@
     </Compile>
     <Compile Include="Customer.cs" />
     <Compile Include="DataBaseFunctions.cs" />
+    <Compile Include="DataClasses.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
