@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection;
 using System.Diagnostics;
+using System.Data.SqlClient;
 
 
 namespace WindowsFormsApp1
@@ -223,6 +224,15 @@ namespace WindowsFormsApp1
                 NewMenuStartCode();
                 string menuName = "New Ride";
                 NewMaintainMenuOperation<Rides>(menuName);
+                Control[] matches = Controls.Find("DataGridView", true);
+                if (matches.Length > 0 && matches[0] is DataGridView dataGridView)
+                {
+                    string sql = "SELECT * FROM Rides";
+                    SqlParameter[] parameters = new SqlParameter[0];
+
+                    DataBaseFuncitons.DisplayData(sql, (DataGridView)matches[0], parameters, "Rides");
+                }
+                
                 NewMenuEndCode();
             }
             catch (Exception ex)
@@ -284,6 +294,7 @@ namespace WindowsFormsApp1
 
                 string menuName = "New Employee";
                 NewMaintainMenuOperation<Employee>(menuName);
+                var matches = Controls.Find("datgridview", true);
 
                 NewMenuEndCode();
             }

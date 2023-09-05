@@ -20,7 +20,7 @@ namespace WindowsFormsApp1
         private static SqlCommand cmd;
         
 
-        public static void DisplayData(String sql, DataGridView display, SqlParameter[] parameters)
+        public static void DisplayData(String sql, DataGridView display, SqlParameter[] parameters, string tablename)
         {
             try
             {
@@ -34,11 +34,12 @@ namespace WindowsFormsApp1
                         using (adap = new SqlDataAdapter(cmd))
                         {
                             DataSet ds = new DataSet();
-                            adap.Fill(ds);
+                            adap.Fill(ds, tablename);
 
 
-                            display.DataSource = ds.Tables[0];
-                            //display.DataMember = table;
+                            display.DataSource = ds;
+
+                            display.DataMember = tablename;
                         }
                     }
                     con.Close();
