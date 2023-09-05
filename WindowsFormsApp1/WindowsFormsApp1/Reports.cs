@@ -217,15 +217,14 @@ namespace WindowsFormsApp1
                 // SQL query to retrieve employee ride data
                 string sqlQuery = @"
                 SELECT 
-                    E.Employee_Name, 
-                    E.Employee_Surname, 
-                    R.Ride_Name
+                E.Employee_Name, 
+                E.Employee_Surname, 
+                R.Ride_ID
                 FROM 
-                    Employees AS E
+                Employees AS E
                 INNER JOIN 
-                    Ride_ID AS ER ON E.Employee_ID = ER.Employee_ID
-                INNER JOIN 
-                    Rides AS R ON ER.Ride_ID = R.Ride_ID;
+                Rides AS R ON E.Ride_ID = R.Ride_ID;
+
             ";
 
                 // Create a StringBuilder to build the report

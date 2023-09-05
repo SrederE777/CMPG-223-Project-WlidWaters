@@ -10,7 +10,7 @@ using System.Reflection;
 
 namespace WindowsFormsApp1
 {
-    static class DataBaseFuncitons
+    public class DataBaseFuncitons
     {
         public static string connectionString { get; set; } = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\WildWatersDB.mdf;Integrated Security=True";
         private static SqlDataAdapter adap;
