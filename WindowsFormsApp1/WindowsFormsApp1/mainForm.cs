@@ -209,6 +209,26 @@ namespace WindowsFormsApp1
                 //create menu
                 Point location = new Point(Right - GenericLooks.GetSize(typeof(Button)).Width - margins, Top + margins);
                 GenericFunctions.CreateMenu(MenuOptions, this, location, 4);
+
+                List<Type> MenuType = new List<Type>
+                {
+                typeof(Button),
+                typeof(GroupBox)
+                };
+                MenuOptions.Clear();
+                MenuType.Clear();
+                MenuOptions.Add("DataGridView");
+                MenuType.Add(typeof(DataGridView));
+
+                Dictionary<string, Type> MenuOptionType = MenuOptions.Zip(MenuType, (k, v) => new { Key = k, Value = v })
+                                                 .ToDictionary(x => x.Key, x => x.Value);
+
+                GetEvents("DataGridView", MenuOptions);
+
+                //create menu
+                location = new Point(Left + margins, Top + margins);
+
+                GenericFunctions.CreateMenu(MenuOptionType, this, location);
                 NewMenuEndCode();
             }
             catch (Exception ex)
@@ -314,7 +334,20 @@ namespace WindowsFormsApp1
 
                 string menuName = "New Employee";
                 NewMaintainMenuOperation<Employee>(menuName);
-                var matches = Controls.Find("datgridview", true);
+                DataGridView dataGridView = null;
+                foreach (Control control in Controls)
+                {
+                    if (control is DataGridView)
+                    {
+                        dataGridView = (DataGridView)control;
+                        break;
+                    }
+                }
+                string sql = "SELECT * FROM Employees";
+                SqlParameter[] parameters = new SqlParameter[0];
+
+                DataBaseFuncitons.DisplayData(sql, dataGridView, parameters, "Employees");
+
 
                 NewMenuEndCode();
             }
@@ -332,7 +365,19 @@ namespace WindowsFormsApp1
 
                 string menuName = "Current Employee";
                 NewMaintainMenuOperation<Employee>(menuName);
+                DataGridView dataGridView = null;
+                foreach (Control control in Controls)
+                {
+                    if (control is DataGridView)
+                    {
+                        dataGridView = (DataGridView)control;
+                        break;
+                    }
+                }
+                string sql = "SELECT * FROM Employees";
+                SqlParameter[] parameters = new SqlParameter[0];
 
+                DataBaseFuncitons.DisplayData(sql, dataGridView, parameters, "Employees");
                 NewMenuEndCode();
             }
             catch (Exception ex)
@@ -376,7 +421,19 @@ namespace WindowsFormsApp1
 
                 String menuName = "Current Customers";
                 NewMaintainMenuOperation<Customer>(menuName);
+                DataGridView dataGridView = null;
+                foreach (Control control in Controls)
+                {
+                    if (control is DataGridView)
+                    {
+                        dataGridView = (DataGridView)control;
+                        break;
+                    }
+                }
+                string sql = "SELECT * FROM Customers";
+                SqlParameter[] parameters = new SqlParameter[0];
 
+                DataBaseFuncitons.DisplayData(sql, dataGridView, parameters, "Customers");
                 NewMenuEndCode();
             }
             catch (Exception ex)
@@ -392,6 +449,19 @@ namespace WindowsFormsApp1
                 NewMenuStartCode();
                 String menuName = "Add Customers";
                 NewMaintainMenuOperation<Customer>(menuName);
+                DataGridView dataGridView = null;
+                foreach (Control control in Controls)
+                {
+                    if (control is DataGridView)
+                    {
+                        dataGridView = (DataGridView)control;
+                        break;
+                    }
+                }
+                string sql = "SELECT * FROM Customers";
+                SqlParameter[] parameters = new SqlParameter[0];
+
+                DataBaseFuncitons.DisplayData(sql, dataGridView, parameters, "Customers");
                 NewMenuEndCode();
 
             }

@@ -38,7 +38,7 @@ namespace WindowsFormsApp1
             try
             {
                 // Connection string for your SQL Server database
-                string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\32140274\Documents\CMPG 223\32140274EXAM\32140274EXAM\32140274EXAM\EventsDB.mdf;Integrated Security=True;";
+                string connectionString = DataBaseFuncitons.connectionString;
 
 
                 // SQL query to retrieve transactions
@@ -135,7 +135,7 @@ namespace WindowsFormsApp1
             try
             {
                 // Connection string for your SQL Server database
-                string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\32140274\Documents\CMPG 223\32140274EXAM\32140274EXAM\32140274EXAM\EventsDB.mdf;Integrated Security=True;";
+                string connectionString = DataBaseFuncitons.connectionString;
 
 
 
@@ -211,7 +211,7 @@ namespace WindowsFormsApp1
             try
             {
                 // Connection string for your SQL Server database
-                string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\32140274\Documents\CMPG 223\32140274EXAM\32140274EXAM\32140274EXAM\EventsDB.mdf;Integrated Security=True;";
+                string connectionString = DataBaseFuncitons.connectionString;
 
 
                 // SQL query to retrieve employee ride data
