@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
-    class Person
+    class Person : DataClasses
     {
         // Properties
         public string Name { get; set; }
@@ -27,56 +27,14 @@ namespace WindowsFormsApp1
         }
 
         // Methods to set properties
-        public void SetName(string name)
+        public List<string> getName()
         {
-            try
-            {
-                Name = name;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
+            List<string> names = new List<string>();
+            names.Add("Name");
+            names.Add("Contact");
+            names.Add("Birthday");
+            return names;
 
-        public void SetContact(string contact)
-        {
-            try
-            {
-                Contact = contact;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        public void SetBirthday(DateTime birthday)
-        {
-            try
-            {
-                Birthday = birthday;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        // Methods to get properties
-        public string GetName()
-        {
-            return Name;
-        }
-
-        public string GetContact()
-        {
-            return Contact;
-        }
-
-        public DateTime GetBirthday()
-        {
-            return Birthday;
         }
 
         // Override ToString() method
