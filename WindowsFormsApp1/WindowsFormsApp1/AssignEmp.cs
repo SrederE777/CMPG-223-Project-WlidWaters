@@ -11,9 +11,11 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
-    public partial class AssignEmp : Form
+    public partial class c : Form
     {
-        public AssignEmp()
+
+
+        public c()
         {
             InitializeComponent();
         }
@@ -69,6 +71,33 @@ namespace WindowsFormsApp1
         {
             mainForm form = (mainForm)this.Owner;
             form.BackClickedEvent(this, EventArgs.Empty);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string selectedRideName = cmbRideName.Text;
+                string selectedEmployeeName = cmbEmployeeName.Text;
+
+                // Iterate through the DataGridView rows to find the matching ride name
+                foreach (DataGridViewRow row in dataGridView1.Rows)
+                {
+                    if (row.Cells["Ride_Name"].Value != null &&
+                        row.Cells["Ride_Name"].Value.ToString() == selectedRideName)
+                    {
+                        // Update the employee name in the DataGridView
+                        row.Cells["Employee_Name"].Value = selectedEmployeeName;
+
+                        // You may want to implement SQL update logic here to update the database
+                        DataBaseFuncitons.UpdateDatabase(selectedRideName, selectedEmployeeName);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

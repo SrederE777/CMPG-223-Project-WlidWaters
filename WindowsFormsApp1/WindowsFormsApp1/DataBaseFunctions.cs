@@ -7,6 +7,11 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Data;
 using System.Reflection;
+using System.Collections;
+using System.Data.Common;
+using System.Security.Cryptography;
+using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace WindowsFormsApp1
 {
@@ -131,6 +136,28 @@ namespace WindowsFormsApp1
             catch (Exception ex)
             {
                 MessageBox.Show("Err: " + ex.Message);
+            }
+        }
+
+        public static void UpdateDatabase(string rideName, string employeeName)
+        {
+            try
+            {
+                using (con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    using (cmd = new SqlCommand("UPDATE YourTableNameHere SET Employee_Name = @EmployeeName WHERE Ride_Name = @RideName", con))
+                    {
+                        cmd.Parameters.AddWithValue("@EmployeeName", employeeName);
+                        cmd.Parameters.AddWithValue("@RideName", rideName);
+                        cmd.ExecuteNonQuery();
+                    }
+                    con.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error updating database: " + ex.Message);
             }
         }
     }
