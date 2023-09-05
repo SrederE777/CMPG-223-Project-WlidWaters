@@ -17,6 +17,28 @@ namespace WindowsFormsApp1
             InitializeComponent();
         }
 
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            string username = txtUsername.Text;
+            string password = txtPassword.Text;
 
+            bool isAuthenticated = login.Authenticate(username, password);
+
+            if (isAuthenticated)
+            {
+                // Successful login
+                Employee currentUser = login.getValue();
+                MessageBox.Show("Login successful! Welcome, " + currentUser.Name);
+
+
+                // Close the login form
+                this.Close();
+            }
+            else
+            {
+                // Failed login
+                MessageBox.Show("Login failed. Please check your username and password.");
+            }
+        }
     }
 }
