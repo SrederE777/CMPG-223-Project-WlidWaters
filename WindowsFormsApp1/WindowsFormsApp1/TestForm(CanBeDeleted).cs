@@ -44,7 +44,7 @@ namespace WindowsFormsApp1
 
             GenericFunctions.CreateMenu(MenuOptionType, this, new Point(groupBox2.Location.X + groupBox2.Size.Width + 10, groupBox2.Location.Y + 5));
             GenericFunctions.CreateInputs<Rides>(groupBox1, -100, 100);
-            GenericFunctions.CreateInputs<Employee>(groupBox2, -100, 100);
+
             
             
         }

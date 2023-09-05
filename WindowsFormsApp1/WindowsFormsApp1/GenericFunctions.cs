@@ -56,13 +56,11 @@ namespace WindowsFormsApp1
                     // If it is not a property or field, then skip it
                     continue;
                 }
-
                 // Check if the dictionary contains a mapping for the type of the property or field
                 if (types.ContainsKey(memberType))
                 {
                     // Get the type of control that corresponds to the type of the property or field from the dictionary
                     Type controlType = types[memberType];
-
                     // Get the corresponding control from the array of controls using the index i
                     Control control = controls[j];
                     j++;
@@ -94,7 +92,6 @@ namespace WindowsFormsApp1
                         {
                             value = bool.Parse(comboBox.SelectedItem.ToString());
                         }
-
                         else if (control is DateTimePicker dateTimePicker)
                         {
                             value = dateTimePicker.Value;
@@ -104,7 +101,6 @@ namespace WindowsFormsApp1
                             // If none of these types match, then use null as a default value
                             value = null;
                         }
-
                         // Assign the value to the property or field using reflection
                         if (member is PropertyInfo propertyInfoes)
                         {
@@ -276,12 +272,15 @@ namespace WindowsFormsApp1
         }
 
 
-        public static List<Control> CreateInputs<T>(Control outputOn, int widthMargin, int heightMargin) where T : class
+        public static List<Control> CreateInputs<T>(Control outputOn, int widthMargin, int heightMargin) where T : class, DataClasses
         {
             
             //foreach (T item in input)
             {
+                T instance = Activator.CreateInstance<T>();
 
+                // Call the getName method on the instance
+                List<string> names = instance.getName();
                 // Get the properties of the class
                 List<Control> returnControls = new List<Control>();
                 List<FieldInfo> fields = new List<FieldInfo>();
@@ -298,25 +297,21 @@ namespace WindowsFormsApp1
                 foreach (FieldInfo field in fields)
                 {
                     fields.Count();
-                    
-                    
                     int spacingHight = (heightMargin + GenericLooks.GetSize(types[field.FieldType]).Height);
                     outputOn.Size = new Size(outputOn.Size.Width, spacingHight + outputOn.Size.Height);
                     Size groupBoxSize = outputOn.Size;
                     int spacingWidth = (groupBoxSize.Width - widthMargin) / 4;
                     Point location = new Point(spacingWidth, spacingHight * inc);
-
-                    //if (types.ContainsKey(types[field.FieldType]))
                     {
                         Type controlType = types[field.FieldType];
                         Control control = CreateInput(controlType, location, outputOn);
                         control.Name = field.Name; // Set the name of the control
                         returnControls.Add(control);
 
-                        location.X /= 8;
+                        location.X /= 16;
                         
                         controlType = typeof(Label);
-                        CreateDisplay(controlType, location, outputOn, "Label " + inc);
+                        CreateDisplay(controlType, location, outputOn, names[inc-1]);
                         
                         inc++;
                     }

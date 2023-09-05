@@ -34,6 +34,19 @@ namespace WindowsFormsApp1
             Ride = ride;
         }
 
+        public override List<string> getName()
+        {
+            List<string> names = new List<string>();
+            names.Add("Name");
+            names.Add("Contact");
+            names.Add("Birthday");
+            names.Add("EmergencyContact");
+            names.Add("Password");
+            names.Add("Ride");
+            return names;
+
+        }
+
         // Override ToString() method
         public override string ToString()
         {

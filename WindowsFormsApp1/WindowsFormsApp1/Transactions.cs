@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1
 {
-    internal class Transactions
+    internal class Transactions : DataClasses
     {
         public string Customer { get; set; }
         public DateTime TransactionDate { get; set; }
@@ -35,6 +35,17 @@ namespace WindowsFormsApp1
             // Implement ticket selling logic here
         }
 
+        public List<string> getName()
+        {
+            List<string> names = new List<string>();
+            names.Add("Customer");
+            names.Add("TransactionDate");
+            names.Add("TransactionTime");
+            names.Add("TicketAmount");
+            names.Add("TransactionAmount");
+            return names;
+    }
+        
         public double CalCost()
         {
             // Implement cost calculation logic here
