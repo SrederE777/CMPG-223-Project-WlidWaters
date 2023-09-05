@@ -219,7 +219,7 @@ namespace WindowsFormsApp1
                 SELECT 
                 E.Employee_Name, 
                 E.Employee_Surname, 
-                R.Ride_ID
+                R.Ride_Name
                 FROM 
                 Employees AS E
                 INNER JOIN 

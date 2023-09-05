@@ -638,7 +638,7 @@ namespace WindowsFormsApp1
             };
             GetEvents("AllocateEmployee", MenuOptions);
             NewMenuEndCode();
-            GenericFunctions.CreateForm<AssignEmp>("Reports", this);
+            GenericFunctions.CreateForm<c>("Reports", this);
         }
 
         private void NewMenuEndCode()
