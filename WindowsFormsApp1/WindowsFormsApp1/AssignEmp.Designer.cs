@@ -31,7 +31,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbxSelectRide = new System.Windows.Forms.ComboBox();
+            this.cmbRideName = new System.Windows.Forms.ComboBox();
             this.cmbxAssEmp = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -64,13 +64,13 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Select Ride";
             // 
-            // cmbxSelectRide
+            // cmbRideName
             // 
-            this.cmbxSelectRide.FormattingEnabled = true;
-            this.cmbxSelectRide.Location = new System.Drawing.Point(701, 75);
-            this.cmbxSelectRide.Name = "cmbxSelectRide";
-            this.cmbxSelectRide.Size = new System.Drawing.Size(121, 21);
-            this.cmbxSelectRide.TabIndex = 3;
+            this.cmbRideName.FormattingEnabled = true;
+            this.cmbRideName.Location = new System.Drawing.Point(701, 75);
+            this.cmbRideName.Name = "cmbRideName";
+            this.cmbRideName.Size = new System.Drawing.Size(121, 21);
+            this.cmbRideName.TabIndex = 3;
             // 
             // cmbxAssEmp
             // 
@@ -106,7 +106,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.cmbxAssEmp);
-            this.Controls.Add(this.cmbxSelectRide);
+            this.Controls.Add(this.cmbRideName);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
@@ -124,7 +124,7 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cmbxSelectRide;
+        private System.Windows.Forms.ComboBox cmbRideName;
         private System.Windows.Forms.ComboBox cmbxAssEmp;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
