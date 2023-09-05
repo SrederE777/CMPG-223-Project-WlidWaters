@@ -22,7 +22,32 @@ namespace WindowsFormsApp1
         private static SqlDataReader reader;
         private static SqlConnection con;
         private static SqlCommand cmd;
-        
+
+        public void Insert<T>(T obj, string connectionString, string tableName) where T : class
+        {
+            // Get the properties of the object
+            var properties = typeof(T).GetProperties();
+
+            // Build the INSERT statement
+            var columns = string.Join(", ", properties.Select(p => $"[{p.Name}]"));
+            var values = string.Join(", ", properties.Select(p => $"@{p.Name}"));
+            var query = $"INSERT INTO [{tableName}] ({columns}) VALUES ({values})";
+
+            // Create a new SqlConnection and SqlCommand
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand(query, connection))
+            {
+                // Add the parameter values
+                foreach (var property in properties)
+                {
+                    command.Parameters.AddWithValue($"@{property.Name}", property.GetValue(obj));
+                }
+
+                // Open the connection and execute the command
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
 
         public static void DisplayData(String sql, DataGridView display, SqlParameter[] parameters, string tablename)
         {

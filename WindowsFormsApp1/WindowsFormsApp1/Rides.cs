@@ -9,11 +9,12 @@ namespace WindowsFormsApp1
 {
     internal class Rides
     {
-        public string RideDescription { get; set; }
-        public bool RideAvailability { get; set; }
-        public double RideCost { get; set; }
-        public int RideLength { get; set; }
-        public string RidePhotoName { get; set; }
+        public string Ride_Name { get; set; }
+        public string Ride_Description { get; set; }
+        public bool Ride_Availability { get; set; }
+        public double Ride_Cost { get; set; }
+        public int Ride_Length { get; set; }
+        
 
         // Default constructor
         public Rides()
@@ -22,13 +23,13 @@ namespace WindowsFormsApp1
         }
 
         // Constructor that takes parameters for all properties
-        public Rides(string rideDescription, bool rideAvailability, double rideCost, int rideLength, string ridePhotoName)
+        public Rides(string rideName, string rideDescription, bool rideAvailability, double rideCost, int rideLength)
         {
-            RideDescription = rideDescription;
-            RideAvailability = rideAvailability;
-            RideCost = rideCost;
-            RideLength = rideLength;
-            RidePhotoName = ridePhotoName;
+            Ride_Name = rideName;
+            Ride_Description = rideDescription;
+            Ride_Availability = rideAvailability;
+            Ride_Cost = rideCost;
+            Ride_Length = rideLength;
         }
 
         public void ShowPhoto()
@@ -38,12 +39,13 @@ namespace WindowsFormsApp1
 
         public override string ToString()
         {
-            return $"Ride Description: {RideDescription}\n" +
-                   $"Ride Availability: {RideAvailability}\n" +
-                   $"Ride Cost: {RideCost}\n" +
-                   $"Ride Length: {RideLength}\n" +
-                   $"Ride Photo Name: {RidePhotoName}";
+            return $"Ride Name: {Ride_Name}\n" +
+                   $"Ride Description: {Ride_Description}\n" +
+                   $"Ride Availability: {Ride_Availability}\n" +
+                   $"Ride Cost: {Ride_Cost}\n" +
+                   $"Ride Length: {Ride_Length}\n";
         }
     }
+
 }
 

@@ -810,7 +810,7 @@ namespace WindowsFormsApp1
                 List<Control> controls = GenericFunctions.getInputs(this);
                 Rides ride = GenericFunctions.CreateObjectFromControls<Rides>(controls.ToArray());
                 MessageBox.Show(ride.ToString());
-
+                DataBaseFuncitons.Insert
                 BackClickedEvent(this, EventArgs.Empty);
             }
             catch (Exception ex)
