@@ -8,16 +8,6 @@ using System.Windows.Forms;
 namespace WindowsFormsApp1
 {
     // Define a class that inherits from the Person class
-    [AttributeUsage(AttributeTargets.Property)]
-    public class ColumnNameAttribute : Attribute
-    {
-        public string Name { get; }
-
-        public ColumnNameAttribute(string name)
-        {
-            Name = name;
-        }
-    }
 
     internal class Customer : Person
     {

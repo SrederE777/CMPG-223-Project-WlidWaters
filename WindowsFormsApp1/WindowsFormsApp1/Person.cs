@@ -11,6 +11,7 @@ namespace WindowsFormsApp1
     abstract class Person : DataClasses
     {
         // Properties
+        
         public string Name { get; set; }
         public string Contact { get; set; }
         public DateTime Birthday { get; set; }
