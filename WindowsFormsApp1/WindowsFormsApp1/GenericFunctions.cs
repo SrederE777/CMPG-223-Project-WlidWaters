@@ -311,7 +311,7 @@ namespace WindowsFormsApp1
                         location.X /= 16;
                         
                         controlType = typeof(Label);
-                        CreateDisplay(controlType, location, outputOn, names[inc]);
+                        CreateDisplay(controlType, location, outputOn, names[inc-1]);
                         
                         inc++;
                     }

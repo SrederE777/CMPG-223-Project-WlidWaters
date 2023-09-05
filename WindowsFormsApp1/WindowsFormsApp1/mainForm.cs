@@ -142,7 +142,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void NewMaintainMenuOperation<T>(string menuName) where T : class
+        private void NewMaintainMenuOperation<T>(string menuName) where T : class , DataClasses
         {
             try
             {
@@ -286,7 +286,7 @@ namespace WindowsFormsApp1
             {
                 NewMenuStartCode();
 
-                string menuName = "Add Ride";
+                string menuName = "Current Ride";
                 NewMaintainMenuOperation<Rides>(menuName);
                 DataGridView dataGridView = null;
                 foreach (Control control in Controls)
@@ -895,7 +895,7 @@ namespace WindowsFormsApp1
                 List<Control> controls = GenericFunctions.getInputs(this);
                 Employee employee = GenericFunctions.CreateObjectFromControls<Employee>(controls.ToArray());
                 MessageBox.Show(employee.ToString());
-
+                DataBaseFuncitons.Insert<Employee>(employee, "Employees");
                 BackClickedEvent(this, EventArgs.Empty);
             }
             catch (Exception ex)

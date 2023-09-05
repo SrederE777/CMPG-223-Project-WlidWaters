@@ -8,6 +8,17 @@ using System.Windows.Forms;
 namespace WindowsFormsApp1
 {
     // Define a class that inherits from the Person class
+    [AttributeUsage(AttributeTargets.Property)]
+    public class ColumnNameAttribute : Attribute
+    {
+        public string Name { get; }
+
+        public ColumnNameAttribute(string name)
+        {
+            Name = name;
+        }
+    }
+
     internal class Customer : Person
     {
         // Use the auto-implemented property syntax for the email property
@@ -54,6 +65,17 @@ namespace WindowsFormsApp1
             { 
                 MessageBox.Show(ex.Message); 
             }
+        }
+
+        public override List<string> getName()
+        {
+            List<string> names = new List<string>();
+            names.Add("Name");
+            names.Add("Contact");
+            names.Add("Birthday");
+            names.Add("Email");
+            return names;
+
         }
 
         // Override the ToString() method using the string interpolation syntax

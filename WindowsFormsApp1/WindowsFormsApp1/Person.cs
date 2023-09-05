@@ -7,7 +7,8 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
-    class Person : DataClasses
+
+    abstract class Person : DataClasses
     {
         // Properties
         public string Name { get; set; }
@@ -27,15 +28,8 @@ namespace WindowsFormsApp1
         }
 
         // Methods to set properties
-        public List<string> getName()
-        {
-            List<string> names = new List<string>();
-            names.Add("Name");
-            names.Add("Contact");
-            names.Add("Birthday");
-            return names;
+        abstract public List<string> getName();
 
-        }
 
         // Override ToString() method
         public override string ToString()

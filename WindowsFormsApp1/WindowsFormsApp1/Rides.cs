@@ -36,7 +36,7 @@ namespace WindowsFormsApp1
         {
             List<string> names = new List<string>();
             names.Add("Ride Name");
-            names.Add("Ride Availability");
+            names.Add("Ride Description");
             names.Add("Ride Availability");
             names.Add("Ride Cost");
             names.Add("Ride Length");
