@@ -21,5 +21,16 @@ namespace WindowsFormsApp1
         {
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void AssignEmp_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            mainForm form = (mainForm)this.Owner;
+            form.BackClickedEvent(this, EventArgs.Empty);
+        }
     }
 }

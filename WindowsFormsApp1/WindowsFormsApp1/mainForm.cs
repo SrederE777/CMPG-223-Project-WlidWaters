@@ -628,9 +628,16 @@ namespace WindowsFormsApp1
             
         }
 
-        private voidNewMenuAllocateEmployees()
+        private void NewMenuAllocateEmployees()
         {
+            NewMenuStartCode();
+            List<string> MenuOptions = new List<string>
+            {
 
+            };
+            GetEvents("AllocateEmployee", MenuOptions);
+            NewMenuEndCode();
+            GenericFunctions.CreateForm<AssignEmp>("Reports", this);
         }
 
         private void NewMenuEndCode()
@@ -1038,7 +1045,7 @@ namespace WindowsFormsApp1
 
         private void MainMenuAllocateEmployeesEvent(object sender, EventArgs e)
         {
-            //NewMenuRequestReports();
+            NewMenuAllocateEmployees();
         }
 
         

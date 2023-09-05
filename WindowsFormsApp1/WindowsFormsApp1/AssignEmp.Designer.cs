@@ -97,6 +97,7 @@
             this.button2.TabIndex = 6;
             this.button2.Text = "Back";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // AssignEmp
             // 
@@ -112,6 +113,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Name = "AssignEmp";
             this.Text = "AssignEmp";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AssignEmp_FormClosed);
             this.Load += new System.EventHandler(this.AssignEmp_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
