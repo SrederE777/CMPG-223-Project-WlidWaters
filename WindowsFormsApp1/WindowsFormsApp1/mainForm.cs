@@ -110,16 +110,35 @@ namespace WindowsFormsApp1
             {
                 NewMenuStartCode();
 
+                List<string> MenuOptions;
                 //create the menu options
-                List<string> MenuOptions = new List<string>
+                if (login.getAccessLevel() == 0)
                 {
-                "Maintain Rides",
-                "Maintain Employees",
-                "Maintain Customers",
-                "Sell Tickets",
-                "Allocate Employees",
-                "Reports"
-                };
+                    MenuOptions = new List<string>
+                    {
+                    "Maintain Rides",
+                    "Maintain Employees",
+                    "Maintain Customers",
+                    "Sell Tickets",
+                    "Allocate Employees",
+                    "Reports"
+                    };
+                }
+                else if (login.getAccessLevel() == 1)
+                {
+                    MenuOptions = new List<string>
+                    {
+                    "Maintain Customers",
+                    "Sell Tickets"
+                    };
+                }
+                else
+                {
+                    MenuOptions = new List<string>
+                    {
+                    };
+                }
+                
 
 
 
