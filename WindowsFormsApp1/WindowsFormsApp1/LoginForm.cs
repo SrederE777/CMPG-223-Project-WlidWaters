@@ -22,23 +22,30 @@ namespace WindowsFormsApp1
             string username = txtUsername.Text;
             string password = txtPassword.Text;
 
-            bool isAuthenticated = login.Authenticate(username, password);
+            
 
-            if (isAuthenticated)
+            if (login.Authenticate(username,password))
             {
                 // Successful login
-                Employee currentUser = login.getValue();
-                MessageBox.Show("Login successful! Welcome, " + currentUser.Name);
+                //Employee currentUser = login.getValue();
+                //MessageBox.Show("Login successful! Welcome, " + currentUser.Name);
 
-
-                // Close the login form
-                this.Close();
+                mainForm MainForm = new mainForm();
+                MainForm.Show();
+                this.Hide();
+                txtUsername.Clear();
+                txtPassword.Clear();
             }
             else
             {
                 // Failed login
                 MessageBox.Show("Login failed. Please check your username and password.");
             }
+        }
+
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

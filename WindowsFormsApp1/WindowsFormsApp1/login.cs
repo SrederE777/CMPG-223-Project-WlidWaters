@@ -10,11 +10,22 @@ namespace WindowsFormsApp1
     static class login
     {
         private static Employee currentUser;
+        private static int accessLevel;
+        private static Dictionary<string, int> accessLevels = new Dictionary<string, int>
+            { {"Admin", 0},
+              {"User", 1}
+            };
+
         //Dictionary<string, >
 
         public static Employee getValue()
         {
             return currentUser;
+        }
+
+        public static int getAccessLevel()
+        {
+            return accessLevel;
         }
 
         public static bool Authenticate(string username, string password)
@@ -24,7 +35,25 @@ namespace WindowsFormsApp1
                 return false;
             }
 
-            string sql =  "";
+            if (username == "Admin" && password == "Admin")
+            {
+                if (accessLevels.ContainsKey(username))
+                {
+                    accessLevel = accessLevels[username];
+                    return true;
+                }
+
+            }
+
+            if (username == "User" && password == "User")
+            {
+                if (accessLevels.ContainsKey(username))
+                {
+                    accessLevel = accessLevels[username];
+                    return true;
+                }
+            }
+            string sql = "SELECT * FROM Employees WHERE Employee_Name = @username AND Employee_Password = @password";
             SqlParameter[] parameters =
             {
                 new SqlParameter("@username", username),
