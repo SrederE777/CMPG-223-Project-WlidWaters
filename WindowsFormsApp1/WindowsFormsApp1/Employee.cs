@@ -13,7 +13,7 @@ namespace WindowsFormsApp1
         public string Password { get; set; }
         public string Ride { get; set; }
 
-        public Employee() : this("", "", DateTime.Now, "", "", "")
+        public Employee() : this("","", "", DateTime.Now, "", "", "")
         {
             // Initialize properties with default values if desired
         }
@@ -27,7 +27,7 @@ namespace WindowsFormsApp1
         }
 
         // Constructor that takes parameters for base class properties
-        public Employee(string name, string contact, DateTime birthday, string emergencyContact, string password, string ride) : base(name, contact, birthday)
+        public Employee(string name, string surname, string contact, DateTime birthday, string emergencyContact, string password, string ride) : base(name ,surname, contact, birthday)
         {
             EmergencyContact = emergencyContact;
             Password = password;
@@ -37,15 +37,27 @@ namespace WindowsFormsApp1
         public override List<string> getName()
         {
             List<string> names = new List<string>();
-            names.Add("Name");
-            names.Add("Contact");
-            names.Add("Birthday");
             names.Add("EmergencyContact");
             names.Add("Password");
             names.Add("Ride");
+            names.Add("Name");
+            names.Add("Surname");
+            names.Add("Contact");
+            names.Add("Birthday");
+            
             return names;
 
         }
+
+        public override Dictionary<string, string> getDataBaseName()
+        {
+            Dictionary<string,string> returnDic = base.getDataBaseName();
+            returnDic["Name"] = "Employee_Name";
+            returnDic["Surname"] = "Employee_Surname";
+            returnDic["birthday"] = "Employee"
+        }
+
+        
 
         // Override ToString() method
         public override string ToString()

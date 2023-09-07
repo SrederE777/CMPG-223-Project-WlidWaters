@@ -15,7 +15,7 @@ using System.Xml.Linq;
 
 namespace WindowsFormsApp1
 {
-    public static class DataBaseFuncitons
+    static class DataBaseFuncitons
     {
         public static string connectionString { get; set; } = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\WildWatersDB.mdf;Integrated Security=True";
         private static SqlDataAdapter adap;
@@ -23,31 +23,36 @@ namespace WindowsFormsApp1
         private static SqlConnection con;
         private static SqlCommand cmd;
 
-        public static void Insert<T>(T obj, string tableName) where T : class
+        public static void Insert<T>(T obj, string tableName) where T : class, DataClasses
         {
-            // Get the properties of the object
-            var properties = typeof(T).GetProperties();
+            // Get the database column names from the object
+            var columnNames = obj.getDataBaseName();
+            var propertyNames = obj.getName();
 
             // Build the INSERT statement
-            var columns = string.Join(", ", properties.Select(p => $"[{p.Name}]"));
-            var values = string.Join(", ", properties.Select(p => $"@{p.Name}"));
+            var columns = string.Join(", ", columnNames.Select(c => $"[{c}]"));
+            var values = string.Join(", ", columnNames.Select(c => $"@{c}"));
             var query = $"INSERT INTO [{tableName}] ({columns}) VALUES ({values})";
 
             // Create a new SqlConnection and SqlCommand
-            using (var connection = new SqlConnection(connectionString))
-            using (var command = new SqlCommand(query, connection))
+            using (con = new SqlConnection(connectionString))
+            using (cmd = new SqlCommand(query, con))
             {
                 // Add the parameter values
-                foreach (var property in properties)
+                foreach (var columnName in columnNames)
                 {
-                    command.Parameters.AddWithValue($"@{property.Name}", property.GetValue(obj));
+                    
+                    cmd.Parameters.AddWithValue($"@{columnName}", obj.GetType().GetProperty(columnName).GetValue(obj));
+                    
+                    
                 }
 
                 // Open the connection and execute the command
-                connection.Open();
-                command.ExecuteNonQuery();
+                con.Open();
+                cmd.ExecuteNonQuery();
             }
         }
+
 
         public static void DisplayData(String sql, DataGridView display, SqlParameter[] parameters, string tablename)
         {

@@ -944,7 +944,7 @@ namespace WindowsFormsApp1
             {
                 NewMenuUpdateMaintainEmployee();
                 List<Control> controls = GenericFunctions.getInputs(this);
-                Employee employee = new Employee("Test", "Test", DateTime.Now, "Test", "Test,", " Test");
+                Employee employee = new Employee("Test","Test", "Test", DateTime.Now, "Test", "Test,", " Test");
 
                 GenericFunctions.PopulateControlsFromObject(controls.ToArray(), employee);
             }
@@ -1029,7 +1029,7 @@ namespace WindowsFormsApp1
             {
                 NewMenuAddMaintainCustomers();
                 List<Control> controls = GenericFunctions.getInputs(this);
-                Customer myObject = new Customer("Test", "Test", DateTime.Now, "Test");
+                Customer myObject = new Customer("Test", "Test", "Test", DateTime.Now, "Test");
                 GenericFunctions.PopulateControlsFromObject(controls.ToArray(), myObject);
             
             }

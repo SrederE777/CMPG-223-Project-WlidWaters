@@ -296,7 +296,7 @@ namespace WindowsFormsApp1
                 // Loop through the properties
                 foreach (FieldInfo field in fields)
                 {
-                    fields.Count();
+                    //fields.Count();
                     int spacingHight = (heightMargin + GenericLooks.GetSize(types[field.FieldType]).Height);
                     outputOn.Size = new Size(outputOn.Size.Width, spacingHight + outputOn.Size.Height);
                     Size groupBoxSize = outputOn.Size;

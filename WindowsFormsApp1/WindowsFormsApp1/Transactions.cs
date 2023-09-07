@@ -44,8 +44,19 @@ namespace WindowsFormsApp1
             names.Add("TicketAmount");
             names.Add("TransactionAmount");
             return names;
-    }
-        
+        }
+
+        public Dictionary<string,string> getDataBaseName()
+        {
+            Dictionary<string,string> colNames = new Dictionary<string, string>();
+            colNames.Add("Customer","Customer_ID");
+            colNames.Add("TransactionDate", "Transaction_Date");
+            colNames.Add("TransactionTime", "Transaction_Time");
+            colNames.Add("TicketAmount", "Ticket_Amount");
+            colNames.Add("TransactionAmount", "Transaction_Amount");
+            return colNames;
+        }
+
         public double CalCost()
         {
             // Implement cost calculation logic here

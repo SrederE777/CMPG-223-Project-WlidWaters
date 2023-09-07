@@ -44,6 +44,17 @@ namespace WindowsFormsApp1
 
         }
 
+        public List<string> getDataBaseName()
+        {
+            List<string> colNames = new List<string>();
+            colNames.Add("Ride_Name");
+            colNames.Add("Ride_Description");
+            colNames.Add("Ride_Availability");
+            colNames.Add("Ride_Cost");
+            colNames.Add("Ride_Length");
+            return colNames;
+        }
+
         public override string ToString()
         {
             return $"Ride Name: {Ride_Name}\n" +

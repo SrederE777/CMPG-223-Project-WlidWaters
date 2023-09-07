@@ -44,7 +44,7 @@ namespace WindowsFormsApp1
         }
 
         // Define a constructor that takes name, contact, birthday, and email parameters
-        public Customer(string name, string contact, DateTime birthday, string email) : base(name, contact, birthday)
+        public Customer(string name, string surname, string contact, DateTime birthday, string email) : base(name, surname, contact, birthday)
         {
             try
             {
@@ -60,12 +60,23 @@ namespace WindowsFormsApp1
         public override List<string> getName()
         {
             List<string> names = new List<string>();
+            names.Add("Email");
             names.Add("Name");
+            names.Add("Surname");
             names.Add("Contact");
             names.Add("Birthday");
-            names.Add("Email");
             return names;
 
+        }
+        public override List<string> getDataBaseName()
+        {
+            List<string> colNames = new List<string>();
+            colNames.Add("Customer_Email");
+            colNames.Add("Customer_Name");
+            colNames.Add("Cusomer_Surname");
+            colNames.Add("Customer_Contact");
+            colNames.Add("Customer_Birthday");
+            return colNames;
         }
 
         // Override the ToString() method using the string interpolation syntax
