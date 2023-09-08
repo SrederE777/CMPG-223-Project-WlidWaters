@@ -9,7 +9,7 @@ namespace WindowsFormsApp1
     interface DataClasses
     {
         List<string> getName();
-        Dictionary<string, string> getDataBaseName();
+        List<string> getDataBaseName();
         
     }
 }

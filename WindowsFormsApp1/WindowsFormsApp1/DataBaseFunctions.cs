@@ -27,7 +27,6 @@ namespace WindowsFormsApp1
         {
             // Get the database column names from the object
             var columnNames = obj.getDataBaseName();
-            var propertyNames = obj.getName();
 
             // Build the INSERT statement
             var columns = string.Join(", ", columnNames.Select(c => $"[{c}]"));
@@ -41,9 +40,13 @@ namespace WindowsFormsApp1
                 // Add the parameter values
                 foreach (var columnName in columnNames)
                 {
-                    
-                    cmd.Parameters.AddWithValue($"@{columnName}", obj.GetType().GetProperty(columnName).GetValue(obj));
-                    
+                    //if (obj.GetType().GetProperty(columnName).GetType() != typeof(Rides))
+                        cmd.Parameters.AddWithValue($"@{columnName}", obj.GetType().GetProperty(columnName).GetValue(obj));
+                    //else
+                    {
+                        //string sql = "Select Ride_ID FROM Rides WHERE Ride_Name = @rideName AND Ride_Description = @rideDescription AND Ride_Availability = @rideAvailability AND Ride_Cost = @rideCost AND Ride_Length = @rideLength";
+
+                    }
                     
                 }
 
@@ -190,5 +193,6 @@ namespace WindowsFormsApp1
                 MessageBox.Show("Error updating database: " + ex.Message);
             }
         }
+
     }
 }

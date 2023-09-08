@@ -6,63 +6,92 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1
 {
-    class Employee : Person
+    class foreignKey
+    {
+        public int value { get; set; }
+        public foreignKey()
+        {
+            
+        }
+
+        public foreignKey(int value)
+        {
+            this.value = value;
+        }
+
+        public override string ToString()
+        {
+            return $"Key: {value}";
+        }
+
+    }
+
+    class Employee : DataClasses
     {
         // Properties
-        public string EmergencyContact { get; set; }
-        public string Password { get; set; }
-        public string Ride { get; set; }
+        public string Employee_Name { get; set; }
+        public string Employee_Surname { get; set; }
+        public string Employee_Emergency_Contact { get; set; }
+        public string Employee_Contact { get; set; }
+        public string Employee_Password { get; set; }
+        public foreignKey Ride_ID { get; set; }
 
-        public Employee() : this("","", "", DateTime.Now, "", "", "")
+        public Employee() : this("","", "", "", "", new foreignKey(1))
         {
             // Initialize properties with default values if desired
         }
 
         // Constructors
-        public Employee(string emergencyContact, string password, string ride) : base()
+        public Employee(string emergencyContact, string password, foreignKey ride) : base()
         {
-            EmergencyContact = emergencyContact;
-            Password = password;
-            Ride = ride;
+            Employee_Emergency_Contact = emergencyContact;
+            Employee_Password = password;
+            Ride_ID = ride;
         }
 
         // Constructor that takes parameters for base class properties
-        public Employee(string name, string surname, string contact, DateTime birthday, string emergencyContact, string password, string ride) : base(name ,surname, contact, birthday)
+        public Employee(string name, string surname, string contact, string emergencyContact, string password, foreignKey ride)
         {
-            EmergencyContact = emergencyContact;
-            Password = password;
-            Ride = ride;
+            Employee_Name = name;
+            Employee_Surname = surname;
+            Employee_Contact = contact;
+            Employee_Emergency_Contact = emergencyContact;
+            Employee_Password = password;
+            Ride_ID = ride;
         }
 
-        public override List<string> getName()
+        public List<string> getName()
         {
             List<string> names = new List<string>();
-            names.Add("EmergencyContact");
-            names.Add("Password");
-            names.Add("Ride");
             names.Add("Name");
             names.Add("Surname");
             names.Add("Contact");
-            names.Add("Birthday");
-            
+            names.Add("Emergency Contact");
+            names.Add("Password");
+            names.Add("Ride");
             return names;
 
         }
 
-        public override Dictionary<string, string> getDataBaseName()
+        public List<string> getDataBaseName()
         {
-            Dictionary<string,string> returnDic = base.getDataBaseName();
-            returnDic["Name"] = "Employee_Name";
-            returnDic["Surname"] = "Employee_Surname";
-            returnDic["birthday"] = "Employee"
+            List<string> names = new List<string>();
+            names.Add("Employee_Name");
+            names.Add("Employee_Surname");
+            names.Add("Employee_Emergency_Contact");
+            names.Add("Employee_Contact");
+            names.Add("Employee_Password");
+            names.Add("Ride_ID");
+            return names;
+
         }
 
-        
+
 
         // Override ToString() method
         public override string ToString()
         {
-            return base.ToString() + $"\nEmergency Contact: {EmergencyContact}\nPassword: {Password}\nRide: {Ride}";
+            return $"Name: {Employee_Name}\nSurname: {Employee_Surname}\nContact: {Employee_Contact}\nEmergency Contact: {Employee_Emergency_Contact}\nPassword: {Employee_Password}\nRide ID: {Ride_ID}";
         }
 
     }

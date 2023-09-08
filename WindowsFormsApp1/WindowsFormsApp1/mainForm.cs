@@ -395,8 +395,9 @@ namespace WindowsFormsApp1
             try
             {
                 NewMenuStartCode();
-
+                string sql = "";
                 string menuName = "New Employee";
+                SqlParameter[] parameters = new SqlParameter[0];
                 NewMaintainMenuOperation<Employee>(menuName);
                 DataGridView dataGridView = null;
                 foreach (Control control in Controls)
@@ -404,11 +405,25 @@ namespace WindowsFormsApp1
                     if (control is DataGridView)
                     {
                         dataGridView = (DataGridView)control;
-                        break;
+                        
+                    }
+                    else if (control is GroupBox)
+                    {
+                        GroupBox inputBox = (GroupBox)control;
+                        ComboBox[] combo = inputBox.Controls.OfType<ComboBox>().ToArray(); 
+                        if (combo != null)
+                        {
+                            //combo[0].Items.Clear();
+                            sql = "SELECT Ride_Name, Ride_ID FROM Rides";
+                            parameters = new SqlParameter[] { };
+                            DataBaseFuncitons.PopulateComboBox(sql, combo[0], parameters, "Ride_Name", "Ride_ID");
+                        }
+                        
+
                     }
                 }
-                string sql = "SELECT * FROM Employees";
-                SqlParameter[] parameters = new SqlParameter[0];
+                sql = "SELECT * FROM Employees";
+                parameters = new SqlParameter[0];
 
                 DataBaseFuncitons.DisplayData(sql, dataGridView, parameters, "Employees");
 
@@ -914,7 +929,18 @@ namespace WindowsFormsApp1
                 List<Control> controls = GenericFunctions.getInputs(this);
                 Employee employee = GenericFunctions.CreateObjectFromControls<Employee>(controls.ToArray());
                 MessageBox.Show(employee.ToString());
-                DataBaseFuncitons.Insert<Employee>(employee, "Employees");
+
+                string sql = "INSERT INTO Employees(Employee_Name, Employee_Surname, Employee_Emergency_Contact, Employee_Contact, Employee_Password, Ride_ID) VALUES(@Employee_Name, @Employee_Surname, @Employee_Emergency_Contact, @Employee_Contact, @Employee_Password, @Ride_ID)";
+                SqlParameter[] parameters = new SqlParameter[]
+                {
+                    new SqlParameter("@Employee_Name", employee.Employee_Name),
+                    new SqlParameter("@Employee_Surname", employee.Employee_Surname),
+                    new SqlParameter("@Employee_Emergency_Contact", employee.Employee_Emergency_Contact),
+                    new SqlParameter("@Employee_Contact", employee.Employee_Contact),
+                    new SqlParameter("@Employee_Password", employee.Employee_Password),
+                    new SqlParameter("@Ride_ID", employee.Ride_ID.value)
+                };
+                DataBaseFuncitons.ChangeData(sql, parameters);
                 BackClickedEvent(this, EventArgs.Empty);
             }
             catch (Exception ex)
@@ -944,7 +970,7 @@ namespace WindowsFormsApp1
             {
                 NewMenuUpdateMaintainEmployee();
                 List<Control> controls = GenericFunctions.getInputs(this);
-                Employee employee = new Employee("Test","Test", "Test", DateTime.Now, "Test", "Test,", " Test");
+                Employee employee = new Employee("Test","Test", "Test", "Test", "Test,", new foreignKey(1));
 
                 GenericFunctions.PopulateControlsFromObject(controls.ToArray(), employee);
             }
@@ -963,7 +989,7 @@ namespace WindowsFormsApp1
 
                 Customer customer = GenericFunctions.CreateObjectFromControls<Customer>(controls.ToArray());
                 MessageBox.Show(customer.ToString());
-
+                DataBaseFuncitons.Insert<Customer>(customer, "Customers");
                 BackClickedEvent(this, EventArgs.Empty);
             }
             

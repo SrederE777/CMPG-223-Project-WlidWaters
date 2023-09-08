@@ -46,14 +46,14 @@ namespace WindowsFormsApp1
             return names;
         }
 
-        public Dictionary<string,string> getDataBaseName()
+        public List<string> getDataBaseName()
         {
-            Dictionary<string,string> colNames = new Dictionary<string, string>();
-            colNames.Add("Customer","Customer_ID");
-            colNames.Add("TransactionDate", "Transaction_Date");
-            colNames.Add("TransactionTime", "Transaction_Time");
-            colNames.Add("TicketAmount", "Ticket_Amount");
-            colNames.Add("TransactionAmount", "Transaction_Amount");
+            List<string> colNames = new List<string>();
+            colNames.Add("Customer_ID");
+            colNames.Add("Transaction_Date");
+            colNames.Add("Transaction_Time");
+            colNames.Add("Ticket_Amount");
+            colNames.Add("Transaction_Amount");
             return colNames;
         }
 

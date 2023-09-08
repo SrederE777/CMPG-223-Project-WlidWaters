@@ -32,18 +32,9 @@ namespace WindowsFormsApp1
 
         // Methods to set properties
         abstract public List<string> getName();
-        virtual public Dictionary<string, string> getDataBaseName()
-        {
-            return new Dictionary<string, string>
-            {
-                {"Name" , "Temp"},
-                { "Surname", "Temp"},
-                { "Contact", "Temp"},
-                { "Birthday", "Temp"}
-            };
-        }
+        abstract public List<string> getDataBaseName();
 
-        
+
 
         // Override ToString() method
         public override string ToString()

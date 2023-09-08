@@ -19,8 +19,13 @@ namespace WindowsFormsApp1
             { typeof(bool), typeof(ComboBox)},
             { typeof(DateTime), typeof(DateTimePicker)},
             { typeof(double), typeof(NumericUpDown)},
-            {typeof(decimal), typeof(NumericUpDown) }
-            
+            {typeof(decimal), typeof(NumericUpDown) },
+            {typeof(Rides), typeof(ComboBox) },
+            {typeof(Customer), typeof(ComboBox) },
+            {typeof(Employee), typeof(ComboBox) },
+            {typeof(Transactions), typeof(ComboBox)},
+            {typeof(foreignKey), typeof(ComboBox)}
+
         };
 
         // Define a generic method that takes a type parameter T and an array of controls as parameters
@@ -90,7 +95,20 @@ namespace WindowsFormsApp1
                         }
                         else if (control is ComboBox comboBox)
                         {
-                            value = bool.Parse(comboBox.SelectedItem.ToString());
+                            if (bool.TryParse(comboBox.SelectedItem.ToString(), out bool parsedValue))
+                            {
+                                value = parsedValue;
+                            }
+                            else
+                            {
+                                value = new foreignKey(Convert.ToInt32(comboBox.SelectedValue.ToString()));
+                                //string sql = "SELECT * FROM Rides WHERE Ride_ID = @Ride_ID";
+                                //SqlParameter[] parameters = new SqlParameter[]
+                                {
+                                     //new SqlParameter("@Ride_ID", IDValue)
+                                };
+                                //value = DataBaseFuncitons.GetData<Rides>(sql, parameters);
+                            }
                         }
                         else if (control is DateTimePicker dateTimePicker)
                         {
@@ -332,7 +350,7 @@ namespace WindowsFormsApp1
             {
                 string[] items = new string[] { "True", "False" };
                 ComboBox comboBox = (ComboBox)control;
-                comboBox.DataSource = items;
+                comboBox.Items.AddRange(items);
             }
 
             //MessageBox.Show(control.Size.ToString());
