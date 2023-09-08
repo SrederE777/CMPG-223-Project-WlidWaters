@@ -61,6 +61,12 @@ namespace WindowsFormsApp1
         {
             try
             {
+                display.AllowUserToAddRows = false;
+                display.AllowUserToDeleteRows =false;
+                display.ReadOnly = true;
+                display.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                
+
                 using (con = new SqlConnection(connectionString))
                 {
                     con.Open();
@@ -79,8 +85,11 @@ namespace WindowsFormsApp1
                             display.DataMember = tablename;
                         }
                     }
+
                     con.Close();
                 }
+                display.Columns[0].Visible = false;
+
             }
             catch (Exception ex)
             {

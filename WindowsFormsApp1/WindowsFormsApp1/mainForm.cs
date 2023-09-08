@@ -260,6 +260,7 @@ namespace WindowsFormsApp1
                 SqlParameter[] parameters = new SqlParameter[0];
 
                 DataBaseFuncitons.DisplayData(sql, dataGridView, parameters, "Rides");
+                dataGridView.SelectionChanged += SelectionChangedOnTheDataGridView;
                 NewMenuEndCode();
             }
             catch (Exception ex)
@@ -320,6 +321,9 @@ namespace WindowsFormsApp1
                 SqlParameter[] parameters = new SqlParameter[0];
 
                 DataBaseFuncitons.DisplayData(sql, dataGridView, parameters, "Rides");
+
+
+                
 
                 NewMenuEndCode();
             }
@@ -860,22 +864,62 @@ namespace WindowsFormsApp1
 
                 Rides ride = GenericFunctions.CreateObjectFromControls<Rides>(controls.ToArray());
                 MessageBox.Show(ride.ToString());
+                DataGridView dataGridView = Controls.OfType<DataGridView>().FirstOrDefault();
+                if (dataGridView.SelectedRows.Count > 0)
+                {
+                    DataGridViewRow selectedRow = dataGridView.SelectedRows[0];
+                    int ride_ID = Convert.ToInt32(selectedRow.Cells["Ride_ID"].Value.ToString());
+                    string sql = "UPDATE Rides " + "SET Ride_Description = @RideDescription, " +
+                                             "Ride_Name = @RideName, " +
+                                          "    Ride_Availability = @RideAvailability, " +
+                                          "    Ride_Cost = @RideCost, " +
+                                          "    Ride_Length = @RideLength " +
+                                          "WHERE Ride_ID = @RideID";
+                    SqlParameter[] parameters = new SqlParameter[]
+                    {
+                    new SqlParameter("@RideDescription", ride.Ride_Description),
+                    new SqlParameter("@RideAvailability", ride.Ride_Availability),
+                    new SqlParameter("@RideCost", ride.Ride_Cost),
+                    new SqlParameter("@RideLength", ride.Ride_Length),
+                    new SqlParameter("@RideName", ride.Ride_Name),
+                    new SqlParameter("@RideID", ride_ID)
+                    };
+                    DataBaseFuncitons.ChangeData(sql, parameters);
 
-                BackClickedEvent(this, EventArgs.Empty);
+                    BackClickedEvent(this, EventArgs.Empty);
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
+
         private void MenuMaintainUpdateRideEvent(object sender, EventArgs e)
         {
             try
             {
                 NewMenuUpdateMaintainRide();
                 List<Control> controls = GenericFunctions.getInputs(this);
-                Rides ride = new Rides("Test","test",true,10.0, 10);
-                GenericFunctions.PopulateControlsFromObject(controls.ToArray(), ride);
+                
+                
+                DataGridView dataGridView = Controls.OfType<DataGridView>().FirstOrDefault();
+                if (dataGridView.SelectedRows.Count > 0)
+                {
+                    DataGridViewRow selectedRow = dataGridView.SelectedRows[0];
+                    Rides ride = new Rides()
+                    {
+                        Ride_Name = selectedRow.Cells["Ride_Name"].Value.ToString(),
+                        Ride_Description = selectedRow.Cells["Ride_Description"].Value.ToString(),
+                        Ride_Availability = Convert.ToBoolean(selectedRow.Cells["Ride_Availability"].Value.ToString()),
+                        Ride_Cost = Convert.ToInt32(selectedRow.Cells["Ride_Cost"].Value.ToString()),
+                        Ride_Length = Convert.ToInt32(selectedRow.Cells["Ride_Length"].Value.ToString()),
+                        
+                    };
+                    GenericFunctions.PopulateControlsFromObject(controls.ToArray(), ride);
+                }
+                else
+                    GenericFunctions.PopulateControlsFromObject(controls.ToArray(), new Rides());
             }
             catch (Exception ex)
             {
@@ -1113,5 +1157,34 @@ namespace WindowsFormsApp1
                 
      
         }
+
+        private void SelectionChangedOnTheDataGridView(object sender, EventArgs e)
+        {
+            try
+            {
+                List<Control> controls = GenericFunctions.getInputs(this);
+                DataGridView dataGridView = Controls.OfType<DataGridView>().FirstOrDefault();
+                if (dataGridView != null)
+                    if (dataGridView.SelectedRows.Count > 0)
+                    {
+                        DataGridViewRow selectedRow = dataGridView.SelectedRows[0];
+                        Rides ride = new Rides()
+                        {
+                            Ride_Name = selectedRow.Cells["Ride_Name"].Value.ToString(),
+                            Ride_Description = selectedRow.Cells["Ride_Description"].Value.ToString(),
+                            Ride_Availability = Convert.ToBoolean(selectedRow.Cells["Ride_Availability"].Value.ToString()),
+                            Ride_Cost = Convert.ToInt32(selectedRow.Cells["Ride_Cost"].Value.ToString()),
+                            Ride_Length = Convert.ToInt32(selectedRow.Cells["Ride_Length"].Value.ToString()),
+
+                        };
+                        GenericFunctions.PopulateControlsFromObject(controls.ToArray(), ride);
+                    }
+            
+            }
+            catch (Exception ex)
+            { }
+        }
     }
 }
+
+

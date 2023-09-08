@@ -351,6 +351,7 @@ namespace WindowsFormsApp1
                 string[] items = new string[] { "True", "False" };
                 ComboBox comboBox = (ComboBox)control;
                 comboBox.Items.AddRange(items);
+                comboBox.SelectedIndex = 1;
             }
 
             //MessageBox.Show(control.Size.ToString());
