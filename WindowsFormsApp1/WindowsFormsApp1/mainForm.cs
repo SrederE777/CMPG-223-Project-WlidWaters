@@ -979,7 +979,7 @@ namespace WindowsFormsApp1
                 MessageBox.Show(ex.Message);
             }
         }
-        private void NewCustomerNewCustomerEvent(object sender, EventArgs e)
+        private void AddCustomersAddCustomersEvent(object sender, EventArgs e)
         {
             try
             {
@@ -989,7 +989,18 @@ namespace WindowsFormsApp1
 
                 Customer customer = GenericFunctions.CreateObjectFromControls<Customer>(controls.ToArray());
                 MessageBox.Show(customer.ToString());
-                DataBaseFuncitons.Insert<Customer>(customer, "Customers");
+                string sql = "INSERT INTO Customers (Customer_Name, Customer_Surname, Customer_DOB, Customer_Contact, Customer_Email) " +
+                                    "VALUES (@CustomerName, @CustomerSurname, @CustomerDOB, @CustomerContact, @CustomerEmail)";
+                SqlParameter[] parameters = new SqlParameter[]
+                {
+                    new SqlParameter("@CustomerName", customer.Name),
+                    new SqlParameter("@CustomerSurname", customer.Surname),
+                    new SqlParameter("@CustomerDOB", customer.Birthday),
+                    new SqlParameter("@CustomerContact", customer.Contact),
+                    new SqlParameter("@CustomerEmail", customer.Email)
+                };
+                DataBaseFuncitons.ChangeData(sql, parameters);
+
                 BackClickedEvent(this, EventArgs.Empty);
             }
             
