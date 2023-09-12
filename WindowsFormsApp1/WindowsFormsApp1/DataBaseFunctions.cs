@@ -214,7 +214,7 @@ namespace WindowsFormsApp1
                 using (con = new SqlConnection(connectionString))
                 {
                     con.Open();
-                    using (cmd = new SqlCommand("UPDATE YourTableNameHere SET Employee_Name = @EmployeeName WHERE Ride_Name = @RideName", con))
+                    using (cmd = new SqlCommand("UPDATE Employees SET Employee_Name = @EmployeeName WHERE Ride_Name = @RideName", con))
                     {
                         cmd.Parameters.AddWithValue("@EmployeeName", employeeName);
                         cmd.Parameters.AddWithValue("@RideName", rideName);

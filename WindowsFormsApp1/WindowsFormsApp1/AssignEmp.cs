@@ -35,23 +35,21 @@ namespace WindowsFormsApp1
 
                 //popualate combobox rides
                 
-                string sql2 = "SELECT Ride_ID, Ride_Name FROM Rides"; 
+                string sql2 = "SELECT * FROM Rides"; 
                 
-                SqlParameter[] parameters2 = null;
 
-                DataBaseFuncitons.PopulateComboBox(sql2, cmbRideName, parameters2, "Ride_Name", "Ride_ID");
 
-                cmbRideName.SelectedIndex = 0;
+                DataBaseFuncitons.PopulateComboBox(sql2, cmbEmployeeName, parameters, "Ride_Name", "Ride_ID");
+
+                //cmbRideName.SelectedIndex = 0;
 
                 //populate combobox employees
-                string sql3 = "SELECT Employee_Id, Employee_Name FROM Employees"; 
+                string sql3 = "SELECT * FROM Employees"; 
 
 
-                SqlParameter[] parameters3 = null;
+                DataBaseFuncitons.PopulateComboBox(sql3, cmbRideName, parameters, "Employee_Name", "Employee_ID");
 
-                DataBaseFuncitons.PopulateComboBox(sql3, cmbRideName, parameters3, "Employee_Name", "Employee_ID");
-
-                cmbRideName.SelectedIndex = 0;
+                //cmbRideName.SelectedIndex = 0;
             }
 
 
