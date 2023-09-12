@@ -220,6 +220,7 @@ namespace WindowsFormsApp1
                 //set the configuration for the forms made with this method
                 
                 form.WindowState = FormWindowState.Maximized;
+                form.BackColor = Color.Navy;
                 form.ControlBox = false;
                 form.Text = title;
                 form.ShowDialog(parentForm);

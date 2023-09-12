@@ -65,3 +65,5 @@ C:\Users\32140274\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\
 C:\Users\32140274\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
 C:\Users\32140274\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
 C:\Users\32140274\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
+C:\Users\32140274\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\Resources\OIG1693503495.ico
+C:\Users\32140274\Documents\GitHub\CMPG-223-Project-WlidWaters\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\Resources\OIG.jpeg

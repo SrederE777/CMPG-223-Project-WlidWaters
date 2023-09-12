@@ -17,6 +17,7 @@ namespace WindowsFormsApp1
 {
     static class DataBaseFuncitons
     {
+        //private string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "myDb.WildWatersDB.mdf");
         public static string connectionString { get; set; } = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\WildWatersDB.mdf;Integrated Security=True";
         private static SqlDataAdapter adap;
         private static SqlDataReader reader;

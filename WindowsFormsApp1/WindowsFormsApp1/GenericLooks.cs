@@ -97,6 +97,24 @@ namespace WindowsFormsApp1
                 if (sizes.ContainsKey(control.GetType()))
                 {
                     control.Size = sizes[control.GetType()];
+                    if (control.GetType() == typeof(Button))
+                    {
+                        Button myButton = (Button)control;
+                        // Set the button style to flat
+                        myButton.FlatStyle = FlatStyle.Flat;
+
+                        // Set the button background to transparent
+                        myButton.BackColor = Color.Transparent;
+
+                        // Remove the border around the button
+                        myButton.FlatAppearance.BorderSize = 0;
+
+                        // Set the color that will appear when you hover over the button
+                        myButton.FlatAppearance.MouseOverBackColor = Color.Aquamarine;
+
+                        // Set the color that will appear when you click on the button
+                        myButton.FlatAppearance.MouseDownBackColor = Color.DarkRed;
+                    }
                 }
             }
             catch (Exception ex)

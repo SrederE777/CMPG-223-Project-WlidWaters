@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -150,7 +151,19 @@ namespace WindowsFormsApp1
                 //create menu
                 Point location = new Point(Right - GenericLooks.GetSize(typeof(Button)).Width - margins, Top + margins);
                 GenericFunctions.CreateMenu(MenuOptions, this, location, 4);
+                string imagePath = Path.Combine(Application.StartupPath, "Resources", "OIG.jpeg");
+                // Create a new PictureBox
+                PictureBox pictureBox = new PictureBox
+                {
+                    
+                    Image = Image.FromFile(imagePath),
 
+                    SizeMode = PictureBoxSizeMode.StretchImage,
+                    Dock = DockStyle.Fill
+                };
+
+                // Add the PictureBox to your form
+                this.Controls.Add(pictureBox);
 
 
                 NewMenuEndCode();
