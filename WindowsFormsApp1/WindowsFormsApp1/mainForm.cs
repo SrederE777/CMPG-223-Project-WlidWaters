@@ -260,7 +260,7 @@ namespace WindowsFormsApp1
                 SqlParameter[] parameters = new SqlParameter[0];
 
                 DataBaseFuncitons.DisplayData(sql, dataGridView, parameters, "Rides");
-                dataGridView.SelectionChanged += SelectionChangedOnTheDataGridView;
+                dataGridView.CellClick += SelectionChangedOnTheDataGridViewRides;
                 NewMenuEndCode();
             }
             catch (Exception ex)
@@ -306,7 +306,7 @@ namespace WindowsFormsApp1
             {
                 NewMenuStartCode();
 
-                string menuName = "Current Ride";
+                string menuName = "Change Ride";
                 NewMaintainMenuOperation<Rides>(menuName);
                 DataGridView dataGridView = null;
                 foreach (Control control in Controls)
@@ -321,9 +321,11 @@ namespace WindowsFormsApp1
                 SqlParameter[] parameters = new SqlParameter[0];
 
                 DataBaseFuncitons.DisplayData(sql, dataGridView, parameters, "Rides");
-
-
                 
+                dataGridView.CellClick += SelectionChangedOnTheDataGridViewRides;
+                
+                
+
 
                 NewMenuEndCode();
             }
@@ -372,6 +374,8 @@ namespace WindowsFormsApp1
                 location = new Point(Left + margins, Top + margins);
                 DataGridView dataGridView = null;
                 List<Control> datagrid = GenericFunctions.CreateMenu(MenuOptionType, this, location);
+                string sql;
+                SqlParameter[] parameters;
                 foreach (Control control in datagrid)
                 {
                     if (control is DataGridView)
@@ -379,13 +383,16 @@ namespace WindowsFormsApp1
                         dataGridView = (DataGridView)control;
                         break;
                     }
+                    
                 }
-                string sql = "SELECT * FROM Employees";
-                SqlParameter[] parameters = new SqlParameter[0];
+                sql = "SELECT Employees.Employee_ID, Employees.Employee_Name, Employee_Surname, Employee_Emergency_Contact, Employee_Contact, Rides.Ride_Name, Rides.Ride_ID FROM Employees JOIN Rides ON Employees.Ride_ID = Rides.Ride_ID";
+                parameters = new SqlParameter[0];
 
                 DataBaseFuncitons.DisplayData(sql, dataGridView, parameters, "Employees");
-                NewMenuEndCode();
+                dataGridView.Columns["Ride_ID"].Visible = false;
 
+                dataGridView.CellClick += SelectionChangedOnTheDataGridViewEmployee;
+                NewMenuEndCode();
 
             }
             catch (Exception ex)
@@ -426,12 +433,11 @@ namespace WindowsFormsApp1
 
                     }
                 }
-                sql = "SELECT * FROM Employees";
+                sql = "SELECT Employees.Employee_ID, Employees.Employee_Name, Employee_Surname, Employee_Emergency_Contact, Employee_Contact, Rides.Ride_Name , Rides.Ride_ID FROM Employees JOIN Rides ON Employees.Ride_ID = Rides.Ride_ID";
                 parameters = new SqlParameter[0];
 
                 DataBaseFuncitons.DisplayData(sql, dataGridView, parameters, "Employees");
-
-
+                dataGridView.Columns["Ride_ID"].Visible = false;
                 NewMenuEndCode();
             }
             catch (Exception ex)
@@ -446,21 +452,38 @@ namespace WindowsFormsApp1
             {
                 NewMenuStartCode();
 
-                string menuName = "Current Employee";
+                string menuName = "Update Employee";
                 NewMaintainMenuOperation<Employee>(menuName);
                 DataGridView dataGridView = null;
+                string sql;
+                SqlParameter[] parameters;
                 foreach (Control control in Controls)
                 {
                     if (control is DataGridView)
                     {
                         dataGridView = (DataGridView)control;
-                        break;
+                    }
+                    else if (control is GroupBox)
+                    {
+                        GroupBox inputBox = (GroupBox)control;
+                        ComboBox[] combo = inputBox.Controls.OfType<ComboBox>().ToArray();
+                        if (combo != null)
+                        {
+                            //combo[0].Items.Clear();
+                            sql = "SELECT Ride_Name, Ride_ID FROM Rides";
+                            parameters = new SqlParameter[] { };
+                            DataBaseFuncitons.PopulateComboBox(sql, combo[0], parameters, "Ride_Name", "Ride_ID");
+                        }
+
+
                     }
                 }
-                string sql = "SELECT * FROM Employees";
-                SqlParameter[] parameters = new SqlParameter[0];
+                sql = "SELECT Employees.Employee_ID, Employees.Employee_Name, Employee_Surname, Employee_Emergency_Contact, Employee_Contact, Rides.Ride_Name, Rides.Ride_ID FROM Employees JOIN Rides ON Employees.Ride_ID = Rides.Ride_ID";
+                parameters = new SqlParameter[0];
 
                 DataBaseFuncitons.DisplayData(sql, dataGridView, parameters, "Employees");
+                dataGridView.Columns["Ride_ID"].Visible = false;
+                dataGridView.CellClick += SelectionChangedOnTheDataGridViewEmployee;
                 NewMenuEndCode();
             }
             catch (Exception ex)
@@ -847,7 +870,7 @@ namespace WindowsFormsApp1
             {
                 List<Control> controls = GenericFunctions.getInputs(this);
                 Rides ride = GenericFunctions.CreateObjectFromControls<Rides>(controls.ToArray());
-                MessageBox.Show(ride.ToString());
+                MessageBox.Show("Adding the following ride: \n" + ride.ToString());
                 DataBaseFuncitons.Insert<Rides>(ride, "Rides");
                 BackClickedEvent(this, EventArgs.Empty);
             }
@@ -856,14 +879,14 @@ namespace WindowsFormsApp1
                 MessageBox.Show(ex.Message);
             }
         }
-        private void CurrentRideCurrentRideEvent(object sender, EventArgs e)
+        private void ChangeRideChangeRideEvent(object sender, EventArgs e)
         {
             try
             {
                 List<Control> controls = GenericFunctions.getInputs(this);
 
                 Rides ride = GenericFunctions.CreateObjectFromControls<Rides>(controls.ToArray());
-                MessageBox.Show(ride.ToString());
+                MessageBox.Show("Chaning the following ride: \n" + ride.ToString());
                 DataGridView dataGridView = Controls.OfType<DataGridView>().FirstOrDefault();
                 if (dataGridView.SelectedRows.Count > 0)
                 {
@@ -927,11 +950,35 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void MenuMaintainDeleteRideEvent(object sender, EventArgs e)
+        private void MenuMaintainDeleteSelectedRideEvent(object sender, EventArgs e)
         {
             try
             {
+                DataGridView dataGridView = Controls.OfType<DataGridView>().FirstOrDefault();
+                if (dataGridView.SelectedRows.Count > 0)
+                {
+                    DataGridViewRow selectedRow = dataGridView.SelectedRows[0];
+                    
+                    int ID = Convert.ToInt32(selectedRow.Cells["Ride_ID"].Value.ToString());
+                    string name = selectedRow.Cells["Ride_Name"].Value.ToString();
+                    DialogResult result = MessageBox.Show("Are you sure you want to delete the "+ name + " Ride? (Note this will unassign all employess assigned to the ride)", "Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
+                    if (result == DialogResult.Yes)
+                    {
+                        string sql = "UPDATE Employees SET Ride_ID = NULL WHERE Ride_ID = @Rides_ID";
+                        SqlParameter[] parameters = { new SqlParameter("@Rides_ID", ID) };
+                        DataBaseFuncitons.ChangeData(sql, parameters);
+
+                        sql = "DELETE FROM Rides WHERE Ride_ID = @Rides_ID";
+                        parameters = new SqlParameter[1] { new SqlParameter("@Rides_ID", ID) };
+                        DataBaseFuncitons.ChangeData(sql, parameters);
+
+                        sql = "Select * FROM Rides ";
+                        parameters = new SqlParameter[0];
+                        DataBaseFuncitons.DisplayData(sql, dataGridView, parameters, "Rides");
+
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -970,6 +1017,7 @@ namespace WindowsFormsApp1
         {
             try
             {
+                //event that happens when the button that should add a new employee is pressed
                 List<Control> controls = GenericFunctions.getInputs(this);
                 Employee employee = GenericFunctions.CreateObjectFromControls<Employee>(controls.ToArray());
                 MessageBox.Show(employee.ToString());
@@ -992,16 +1040,68 @@ namespace WindowsFormsApp1
                 MessageBox.Show(ex.Message);
             }
         }
-        private void CurrentEmployeeCurrentEmployeeEvent(object sender, EventArgs e)
+        private void UpdateEmployeeUpdateEmployeeEvent(object sender, EventArgs e)
         {
             try
             {
+                //button that updates a employee is pressed
                 List<Control> controls = GenericFunctions.getInputs(this);
 
                 Employee employee = GenericFunctions.CreateObjectFromControls<Employee>(controls.ToArray());
-                MessageBox.Show(employee.ToString());
+                MessageBox.Show("Chaning the following Employee: \n" + employee.ToString());
+                DataGridView dataGridView = Controls.OfType<DataGridView>().FirstOrDefault();
+                if (dataGridView.SelectedRows.Count > 0)
+                {
+                    DataGridViewRow selectedRow = dataGridView.SelectedRows[0];
+                    int employee_ID = Convert.ToInt32(selectedRow.Cells["Employee_ID"].Value.ToString());
+                    string sql;
+                    SqlParameter[] parameters;
+                    if (employee.Employee_Password != "")
+                    {
+                        sql = "UPDATE Employees SET Employee_Name = @Employee_Name, " +
+                                          "    Employee_Surname = @Employee_Surname, " +
+                                          "    Employee_Emergency_Contact = @Employee_Emergency_Contact, " +
+                                          "    Employee_Contact = @Employee_Contact, " +
+                                          "    Employee_Password = @Employee_Password, "+
+                                          "    Ride_ID = @Ride_ID " +
+                                          "WHERE Employee_ID = @EmployeeID";
+                        parameters = new SqlParameter[]
+                        {
+                        new SqlParameter("@Employee_Name", employee.Employee_Name),
+                        new SqlParameter("@Employee_Surname", employee.Employee_Surname),
+                        new SqlParameter("@Employee_Emergency_Contact", employee.Employee_Emergency_Contact),
+                        new SqlParameter("@Employee_Contact", employee.Employee_Contact),
+                        new SqlParameter("@Employee_Password", employee.Employee_Password),
+                        new SqlParameter("@Ride_ID", employee.Ride_ID.value),
+                        new SqlParameter("@EmployeeID", employee_ID)
+                        };
+                        DataBaseFuncitons.ChangeData(sql, parameters);
+                    }
 
-                BackClickedEvent(this, EventArgs.Empty);
+                    else
+                    {
+                        sql = "UPDATE Employees " + "SET Employee_Name = @Employee_Name, " +
+                                          "    Employee_Surname = @Employee_Surname, " +
+                                          "    Employee_Emergency_Contact = @Employee_Emergency_Contact, " +
+                                          "    Employee_Contact = @Employee_Contact, " +
+                                          "    Ride_ID = @Ride_ID " +
+                                          "WHERE Employee_ID = @EmployeeID";
+                        parameters = new SqlParameter[]
+                        {
+                        new SqlParameter("@Employee_Name", employee.Employee_Name),
+                        new SqlParameter("@Employee_Surname", employee.Employee_Surname),
+                        new SqlParameter("@Employee_Emergency_Contact", employee.Employee_Emergency_Contact),
+                        new SqlParameter("@Employee_Contact", employee.Employee_Contact),
+                        new SqlParameter("@Ride_ID", employee.Ride_ID.value),
+                        new SqlParameter("@EmployeeID", employee_ID)
+                        };
+                        DataBaseFuncitons.ChangeData(sql, parameters);
+                    }
+
+                    
+
+                    BackClickedEvent(this, EventArgs.Empty);
+                }
             }
             catch (Exception ex)
             {
@@ -1014,9 +1114,26 @@ namespace WindowsFormsApp1
             {
                 NewMenuUpdateMaintainEmployee();
                 List<Control> controls = GenericFunctions.getInputs(this);
-                Employee employee = new Employee("Test","Test", "Test", "Test", "Test,", new foreignKey(1));
 
-                GenericFunctions.PopulateControlsFromObject(controls.ToArray(), employee);
+
+                DataGridView dataGridView = Controls.OfType<DataGridView>().FirstOrDefault();
+                if (dataGridView.SelectedRows.Count > 0)
+                {
+                    DataGridViewRow selectedRow = dataGridView.SelectedRows[0];
+                    Employee employee = new Employee()
+                    {
+                        Employee_Name = selectedRow.Cells["Employee_Name"].Value.ToString(),
+                        Employee_Surname = selectedRow.Cells["Employee_Surname"].Value.ToString(),
+                        Employee_Emergency_Contact = selectedRow.Cells["Employee_Emergency_Contact"].Value.ToString(),
+                        Employee_Contact = selectedRow.Cells["Employee_Contact"].Value.ToString(),
+                        Employee_Password = "",
+                        Ride_ID = new foreignKey(Convert.ToInt32(selectedRow.Cells["Ride_ID"].Value.ToString()))
+                    };
+                    GenericFunctions.PopulateControlsFromObject(controls.ToArray(), employee);
+                }
+                else
+                    GenericFunctions.PopulateControlsFromObject(controls.ToArray(), new Employee());
+                
             }
             catch (Exception ex)
             {
@@ -1080,11 +1197,31 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void MenuMaintainDeleteEmployeesEvent(object sender, EventArgs e)
+        private void MenuMaintainDeleteSelectedEmployeesEvent(object sender, EventArgs e)
         {
             try
             {
+                DataGridView dataGridView = Controls.OfType<DataGridView>().FirstOrDefault();
+                if (dataGridView.SelectedRows.Count > 0)
+                {
+                    DataGridViewRow selectedRow = dataGridView.SelectedRows[0];
+                    int ID = Convert.ToInt32(selectedRow.Cells["Employee_ID"].Value.ToString());
+                    string name = selectedRow.Cells["Employee_Name"].Value.ToString();
+                    DialogResult result = MessageBox.Show("Are you sure you want to delete Employee " + name + "?", "Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
+                    if (result == DialogResult.Yes)
+                    {
+
+                        string sql = "DELETE FROM Employees WHERE Employee_ID = @Employee_ID";
+
+                        SqlParameter[] parameters = { new SqlParameter("@Employee_ID", ID) };
+                        DataBaseFuncitons.ChangeData(sql, parameters);
+                        sql = "SELECT Employees.Employee_ID, Employees.Employee_Name, Employee_Surname, Employee_Emergency_Contact, Employee_Contact, Rides.Ride_Name, Rides.Ride_ID FROM Employees JOIN Rides ON Employees.Ride_ID = Rides.Ride_ID";                       
+                        parameters = new SqlParameter[0];
+                        DataBaseFuncitons.DisplayData(sql, dataGridView, parameters, "Employees");
+                        dataGridView.Columns["Ride_ID"].Visible = false;
+                    }
+                }    
             }
             catch (Exception ex)
             {
@@ -1120,11 +1257,31 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void MenuMaintainDeleteCustomersEvent(object sender, EventArgs e)
+        private void MenuMaintainDeleteSelectedCustomersEvent(object sender, EventArgs e)
         {
             try
             {
+                DataGridView dataGridView = Controls.OfType<DataGridView>().FirstOrDefault();
+                if (dataGridView.SelectedRows.Count > 0)
+                {
+                    DataGridViewRow selectedRow = dataGridView.SelectedRows[0];
+                    int ID = Convert.ToInt32(selectedRow.Cells["Customer_ID"].Value.ToString());
+                    string name = selectedRow.Cells["Customer_Name"].Value.ToString();
+                    DialogResult result = MessageBox.Show("Are you sure you want to delete Customer " + name + "?", "Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
+                    if (result == DialogResult.Yes)
+                    {
+
+                        string sql = "DELETE FROM Customers WHERE Customer_ID = @Customer_ID";
+
+                        SqlParameter[] parameters = { new SqlParameter("@Customer_ID", ID) };
+                        DataBaseFuncitons.ChangeData(sql, parameters);
+                        sql = "Select * FROM Customers";
+                        parameters = new SqlParameter[0];
+                        DataBaseFuncitons.DisplayData(sql, dataGridView, parameters, "Customers");
+
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -1158,12 +1315,13 @@ namespace WindowsFormsApp1
      
         }
 
-        private void SelectionChangedOnTheDataGridView(object sender, EventArgs e)
+        private void SelectionChangedOnTheDataGridViewRides(object sender, EventArgs e)
         {
             try
             {
+                //GroupBox inputsGroupBox = Controls.OfType<GroupBox>().FirstOrDefault();
                 List<Control> controls = GenericFunctions.getInputs(this);
-                DataGridView dataGridView = Controls.OfType<DataGridView>().FirstOrDefault();
+                DataGridView dataGridView = (DataGridView)sender;
                 if (dataGridView != null)
                     if (dataGridView.SelectedRows.Count > 0)
                     {
@@ -1179,10 +1337,40 @@ namespace WindowsFormsApp1
                         };
                         GenericFunctions.PopulateControlsFromObject(controls.ToArray(), ride);
                     }
-            
+
             }
-            catch (Exception ex)
+            catch 
             { }
+        }
+
+        private void SelectionChangedOnTheDataGridViewEmployee(object sender, EventArgs e)
+        {
+            try
+            {
+                //GroupBox inputsGroupBox = Controls.OfType<GroupBox>().FirstOrDefault();
+                List<Control> controls = GenericFunctions.getInputs(this);
+                DataGridView dataGridView = (DataGridView)sender;
+                if (dataGridView != null)
+                    if (dataGridView.SelectedRows.Count > 0)
+                    {
+                        DataGridViewRow selectedRow = dataGridView.SelectedRows[0];
+                        Employee employee = new Employee()
+                        {
+                            Employee_Name = selectedRow.Cells["Employee_Name"].Value.ToString(),
+                            Employee_Surname = selectedRow.Cells["Employee_Surname"].Value.ToString(),
+                            Employee_Emergency_Contact = selectedRow.Cells["Employee_Emergency_Contact"].Value.ToString(),
+                            Employee_Contact = selectedRow.Cells["Employee_Contact"].Value.ToString(),
+                            Employee_Password = "",
+                            Ride_ID = new foreignKey()
+                        };
+                        GenericFunctions.PopulateControlsFromObject(controls.ToArray(), employee);
+                    }
+
+            }
+            catch
+            {
+                //MessageBox.Show(ex.ToString());
+            }
         }
     }
 }

@@ -181,6 +181,32 @@ namespace WindowsFormsApp1
             }
         }
 
+        public static string queryDataBase(string sql, SqlParameter[] parameters)
+        {
+            try
+            {
+                using (con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    using (cmd = new SqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddRange(parameters);
+                        object result = cmd.ExecuteScalar();
+                        if (result != null)
+                            return result.ToString(); // Return the result as a string
+                        else
+                            return "No result found"; // Return a message if no result was found
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Err: " + ex.Message);
+                return "Error";
+            }
+
+        }
+
         public static void UpdateDatabase(string rideName, string employeeName)
         {
             try

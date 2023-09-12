@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace WindowsFormsApp1
 {
     class foreignKey
     {
         public int value { get; set; }
+        public string name { get; set; }
         public foreignKey()
         {
             
@@ -17,6 +19,19 @@ namespace WindowsFormsApp1
         public foreignKey(int value)
         {
             this.value = value;
+            name = getName();
+        }
+
+        private string getName()
+        {
+            string sql = "SELECT Ride_Name FROM Rides WHERE Ride_ID = @RideID";
+            SqlParameter[] parameters = { new SqlParameter("@RideID", value) };
+
+            string RideName = DataBaseFuncitons.queryDataBase(sql,parameters);
+            if (RideName != null)
+                return RideName;
+            else
+                return "";
         }
 
         public override string ToString()
@@ -91,7 +106,7 @@ namespace WindowsFormsApp1
         // Override ToString() method
         public override string ToString()
         {
-            return $"Name: {Employee_Name}\nSurname: {Employee_Surname}\nContact: {Employee_Contact}\nEmergency Contact: {Employee_Emergency_Contact}\nPassword: {Employee_Password}\nRide ID: {Ride_ID}";
+            return $"Name: {Employee_Name}\nSurname: {Employee_Surname}\nContact: {Employee_Contact}\nEmergency Contact: {Employee_Emergency_Contact}\nPassword: {Employee_Password}\nRide Name: {Ride_ID.name}";
         }
 
     }
