@@ -11,21 +11,25 @@ namespace WindowsFormsApp1
     {
         public int value { get; set; }
         public string name { get; set; }
+        private string table { get; set; }
+        private string IDName { get; set; }
         public foreignKey()
         {
             
         }
 
-        public foreignKey(int value)
+        public foreignKey(int value, string table, string IDName)
         {
             this.value = value;
-            name = getName();
+            this.table = table;
+            this.IDName = IDName;
+            name = getName(this.table, this.IDName);
         }
 
-        private string getName()
+        private string getName(string table, string IDName)
         {
-            string sql = "SELECT Ride_Name FROM Rides WHERE Ride_ID = @RideID";
-            SqlParameter[] parameters = { new SqlParameter("@RideID", value) };
+            string sql = "SELECT "+ IDName+ "_Name FROM "+ table + " WHERE " + IDName + "_ID = @ID";
+            SqlParameter[] parameters = { new SqlParameter("@ID", value) };
 
             string RideName = DataBaseFuncitons.queryDataBase(sql,parameters);
             if (RideName != null)
@@ -51,7 +55,7 @@ namespace WindowsFormsApp1
         public string Employee_Password { get; set; }
         public foreignKey Ride_ID { get; set; }
 
-        public Employee() : this("","", "", "", "", new foreignKey(1))
+        public Employee() : this("","", "", "", "", new foreignKey(1,"Rides", "Ride"))
         {
             // Initialize properties with default values if desired
         }

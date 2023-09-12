@@ -40,22 +40,24 @@ namespace WindowsFormsApp1
         public List<string> getName()
         {
             List<string> names = new List<string>();
-            names.Add("Email");
+  
             names.Add("Name");
             names.Add("Surname");
             names.Add("Contact");
             names.Add("Birthday");
+            names.Add("Email");
             return names;
 
         }
         public List<string> getDataBaseName()
         {
             List<string> colNames = new List<string>();
-            colNames.Add("Customer_Email");
+            
             colNames.Add("Customer_Name");
             colNames.Add("Cusomer_Surname");
             colNames.Add("Customer_Contact");
             colNames.Add("Customer_Birthday");
+            colNames.Add("Customer_Email");
             return colNames;
         }
 

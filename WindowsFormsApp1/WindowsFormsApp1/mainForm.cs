@@ -636,13 +636,53 @@ namespace WindowsFormsApp1
                 //create menu
                 Point location = new Point(Right - GenericLooks.GetSize(typeof(Button)).Width - margins, Top + margins);
                 GenericFunctions.CreateMenu(MenuOptionType, this, location, 4);
-
-                GenericFunctions.CreateInputs<Transactions>(Controls.OfType<GroupBox>().FirstOrDefault(), -100, 5);
-                MenuType = new List<Type>
+                GroupBox inputGroupBox = Controls.OfType<GroupBox>().FirstOrDefault();
+                List<Control> controls = GenericFunctions.CreateInputs<Transactions>(inputGroupBox, -100, 5);
+                string sql = "SELECT * FROM Transactions";
+                SqlParameter[] parameters = new SqlParameter[0];
+                foreach (Control control in controls)
                 {
-                typeof(Button),
-                typeof(GroupBox)
-                };
+                    if (control is DateTimePicker)
+                    {
+                        DateTimePicker date = (DateTimePicker)control;
+                        date.Value = DateTime.Now;
+                        date.Enabled = false;
+                    }
+                    else if (control is TextBox)
+                    {
+                        TextBox text = (TextBox)control;
+                        text.Text = DateTime.Now.TimeOfDay.ToString();
+                        text.Enabled = false;
+                    }
+                    else if (control is NumericUpDown && control == controls[5])
+                    {
+                        control.Hide();
+                        Label label = inputGroupBox.Controls.OfType<Label>().FirstOrDefault(l => l.Text == "Transaction Amount");
+                        label.Hide();
+                    }
+                    else if (control is ComboBox && control.Name.Contains("Customer"))
+                    {
+                        ComboBox combo = (ComboBox)control;
+                        sql = "SELECT Customer_Name, Customer_ID FROM Customers";
+                        parameters = new SqlParameter[] { };
+                        DataBaseFuncitons.PopulateComboBox(sql, combo, parameters, "Customer_Name", "Customer_ID");
+                        combo.DropDownStyle = ComboBoxStyle.DropDown;
+                        combo.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                        combo.AutoCompleteSource = AutoCompleteSource.ListItems;
+
+                    }
+                    else if (control is ComboBox && control.Name.Contains("Ride"))
+                    {
+                        ComboBox combo = (ComboBox)control;
+                        sql = "SELECT Ride_Name, Ride_ID FROM Rides";
+                        parameters = new SqlParameter[] { };
+                        DataBaseFuncitons.PopulateComboBox(sql, combo, parameters, "Ride_Name", "Ride_ID");
+                        combo.DropDownStyle = ComboBoxStyle.DropDown;
+                        combo.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                        combo.AutoCompleteSource = AutoCompleteSource.ListItems;
+                    }
+                }
+
                 MenuOptions.Clear();
                 MenuType.Clear();
                 MenuOptions.Add("DataGridView");
@@ -665,8 +705,13 @@ namespace WindowsFormsApp1
                         break;
                     }
                 }
-                string sql = "SELECT * FROM Transactions";
-                SqlParameter[] parameters = new SqlParameter[0];
+                sql = "SELECT Transactions.Transaction_ID, Customers.Customer_Name AS Customer_Name, Rides.Ride_Name AS Ride_Name, Transactions.Transaction_Date, Transactions.Transaction_Time, Transactions.Transaction_Amount " +
+                    "FROM Transactions " +
+                    "INNER JOIN Customers ON Transactions.Customer_ID = Customers.Customer_ID " +
+                    "INNER JOIN Rides ON Transactions.Ride_ID = Rides.Ride_ID";
+
+
+                parameters = new SqlParameter[0];
 
                 DataBaseFuncitons.DisplayData(sql, dataGridView, parameters, "Transactions");
                 NewMenuEndCode();
@@ -674,6 +719,7 @@ namespace WindowsFormsApp1
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                NewMenuEndCode();
             }
         }
 
@@ -749,8 +795,6 @@ namespace WindowsFormsApp1
                 MessageBox.Show(ex.Message);
             }
         }
-
-
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -867,6 +911,7 @@ namespace WindowsFormsApp1
                 MessageBox.Show(ex.Message);
             }
         }
+
         private void NewRideNewRideEvent(object sender, EventArgs e)
         {
             try
@@ -882,6 +927,7 @@ namespace WindowsFormsApp1
                 MessageBox.Show(ex.Message);
             }
         }
+
         private void ChangeRideChangeRideEvent(object sender, EventArgs e)
         {
             try
@@ -1013,9 +1059,6 @@ namespace WindowsFormsApp1
             }
         }
 
-        
-        
-
         private void NewEmployeeNewEmployeeEvent(object sender, EventArgs e)
         {
             try
@@ -1043,6 +1086,7 @@ namespace WindowsFormsApp1
                 MessageBox.Show(ex.Message);
             }
         }
+
         private void UpdateEmployeeUpdateEmployeeEvent(object sender, EventArgs e)
         {
             try
@@ -1111,6 +1155,7 @@ namespace WindowsFormsApp1
                 MessageBox.Show(ex.Message);
             }
         }
+
         private void MenuMaintainUpdateEmployeesEvent(object sender, EventArgs e)
         {
             try
@@ -1130,7 +1175,7 @@ namespace WindowsFormsApp1
                         Employee_Emergency_Contact = selectedRow.Cells["Employee_Emergency_Contact"].Value.ToString(),
                         Employee_Contact = selectedRow.Cells["Employee_Contact"].Value.ToString(),
                         Employee_Password = "",
-                        Ride_ID = new foreignKey(Convert.ToInt32(selectedRow.Cells["Ride_ID"].Value.ToString()))
+                        Ride_ID = new foreignKey(Convert.ToInt32(selectedRow.Cells["Ride_ID"].Value.ToString()), "Rides", "Ride")
                     };
                     GenericFunctions.PopulateControlsFromObject(controls.ToArray(), employee);
                 }
@@ -1143,6 +1188,7 @@ namespace WindowsFormsApp1
                 MessageBox.Show(ex.Message);
             }
         }
+
         private void AddCustomersAddCustomersEvent(object sender, EventArgs e)
         {
             try
@@ -1173,6 +1219,7 @@ namespace WindowsFormsApp1
                 MessageBox.Show(ex.Message);
             }
         }
+
         private void CurrentCustomersCurrentCustomersEvent(object sender, EventArgs e)
         {
             try
@@ -1211,6 +1258,7 @@ namespace WindowsFormsApp1
                 MessageBox.Show(ex.Message);
             }
         }
+
         private void MenuMaintainUpdateCustomersEvent(object sender, EventArgs e)
         {
             try
@@ -1343,6 +1391,70 @@ namespace WindowsFormsApp1
             }
         }
 
+        private void SellTicketsSellTicketsEvent(object sender, EventArgs e)
+        {
+            try
+            {
+                List<Control> controls = GenericFunctions.getInputs(this);
+                ComboBox customer = (ComboBox)controls[0];
+                ComboBox ride = (ComboBox)controls[1];
+                NumericUpDown amount = new NumericUpDown();
+                foreach (Control control in controls)
+                {
+                    if (control is NumericUpDown)
+                    {
+                        amount = (NumericUpDown)control;
+                        break;
+                    }
+                }
+                if (amount == new NumericUpDown())
+                {
+                    amount.Value = 0;
+                }
+                Transactions trans = new Transactions(new foreignKey(Convert.ToInt32(customer.SelectedValue),"Customers", "Customer"), new foreignKey(Convert.ToInt32(ride.SelectedValue), "Rides", "Ride"), Convert.ToInt32(amount.Value));
+                MessageBox.Show("New Transaction: "+ trans.ToString());
+                string sql = "INSERT INTO Transactions (Customer_ID, Ride_ID, Transaction_Date, Transaction_Time, Transaction_Amount) "+
+                    "VALUES ((SELECT Customer_ID FROM Customers WHERE Customer_Name = @Customer_Name)," +
+                    " (SELECT Ride_ID FROM Rides WHERE Ride_Name = @Ride_Name), @Transaction_Date, @Transaction_Time, @Transaction_Amount)";
+                SqlParameter[] parameters = new SqlParameter[]
+                {
+                    new SqlParameter("@Customer_Name", trans.Customer_ID.name),
+                    new SqlParameter("@Ride_Name", trans.Ride_ID.name),
+                    new SqlParameter("@Transaction_Date", trans.Transaction_Date),
+                    new SqlParameter("@Transaction_Time", trans.Transaction_Time),
+                    new SqlParameter("@Transaction_Amount", trans.Transaction_Amount)
+                };
+                DataBaseFuncitons.ChangeData(sql, parameters);
+                sql = "SELECT Transactions.Transaction_ID, Customers.Customer_Name AS Customer_Name, Rides.Ride_Name AS Ride_Name, Transactions.Transaction_Date, Transactions.Transaction_Time, Transactions.Transaction_Amount " +
+                    "FROM Transactions " +
+                    "INNER JOIN Customers ON Transactions.Customer_ID = Customers.Customer_ID " +
+                    "INNER JOIN Rides ON Transactions.Ride_ID = Rides.Ride_ID";
+
+
+                parameters = new SqlParameter[0];
+                DataGridView dataGridView = Controls.OfType<DataGridView>().FirstOrDefault();
+                DataBaseFuncitons.DisplayData(sql, dataGridView, parameters, "Transactions");
+                foreach (Control control in controls)
+                {
+                    if (control is NumericUpDown)
+                    {
+                        NumericUpDown num = (NumericUpDown)control;
+                        num.Value = 1;
+                    }
+                    if (control is ComboBox)
+                    {
+                        ComboBox combo = (ComboBox)control;
+                        combo.SelectedIndex = 0;
+                    }
+                }
+                //BackClickedEvent(this, EventArgs.Empty); 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         private void MainMenuAllocateEmployeesEvent(object sender, EventArgs e)
         {
             NewMenuAllocateEmployees();
@@ -1351,12 +1463,8 @@ namespace WindowsFormsApp1
         
         private void MainMenuReportsEvent(object sender, EventArgs e)
         {
-
                 NewMenuRequestReports();
-                
-     
         }
-
         private void SelectionChangedOnTheDataGridViewRides(object sender, EventArgs e)
         {
             try

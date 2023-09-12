@@ -16,6 +16,7 @@ namespace WindowsFormsApp1
         {
             { typeof(int), typeof(NumericUpDown) },
             { typeof(string), typeof(TextBox) },
+            { typeof(TimeSpan), typeof(TextBox) },
             { typeof(bool), typeof(ComboBox)},
             { typeof(DateTime), typeof(DateTimePicker)},
             { typeof(double), typeof(NumericUpDown)},
@@ -101,7 +102,7 @@ namespace WindowsFormsApp1
                             }
                             else
                             {
-                                value = new foreignKey(Convert.ToInt32(comboBox.SelectedValue.ToString()));
+                                value = new foreignKey(Convert.ToInt32(comboBox.SelectedValue.ToString()),"Rides", "Ride");
                                 //string sql = "SELECT * FROM Rides WHERE Ride_ID = @Ride_ID";
                                 //SqlParameter[] parameters = new SqlParameter[]
                                 {
