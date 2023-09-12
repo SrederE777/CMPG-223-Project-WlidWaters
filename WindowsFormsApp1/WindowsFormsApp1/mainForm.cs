@@ -542,6 +542,7 @@ namespace WindowsFormsApp1
                 SqlParameter[] parameters = new SqlParameter[0];
 
                 DataBaseFuncitons.DisplayData(sql, dataGridView, parameters, "Customers");
+                dataGridView.CellClick += SelectionChangedOnTheDataGridViewCustomer;
                 NewMenuEndCode();
             }
             catch (Exception ex)
@@ -571,6 +572,7 @@ namespace WindowsFormsApp1
                 SqlParameter[] parameters = new SqlParameter[0];
 
                 DataBaseFuncitons.DisplayData(sql, dataGridView, parameters, "Customers");
+                dataGridView.CellClick += SelectionChangedOnTheDataGridViewCustomer;
                 NewMenuEndCode();
             }
             catch (Exception ex)
@@ -599,6 +601,7 @@ namespace WindowsFormsApp1
                 SqlParameter[] parameters = new SqlParameter[0];
 
                 DataBaseFuncitons.DisplayData(sql, dataGridView, parameters, "Customers");
+                
                 NewMenuEndCode();
 
             }
@@ -1154,11 +1157,11 @@ namespace WindowsFormsApp1
                                     "VALUES (@CustomerName, @CustomerSurname, @CustomerDOB, @CustomerContact, @CustomerEmail)";
                 SqlParameter[] parameters = new SqlParameter[]
                 {
-                    new SqlParameter("@CustomerName", customer.Name),
-                    new SqlParameter("@CustomerSurname", customer.Surname),
-                    new SqlParameter("@CustomerDOB", customer.Birthday),
-                    new SqlParameter("@CustomerContact", customer.Contact),
-                    new SqlParameter("@CustomerEmail", customer.Email)
+                    new SqlParameter("@CustomerName", customer.Customer_Name),
+                    new SqlParameter("@CustomerSurname", customer.Customer_Surname),
+                    new SqlParameter("@CustomerDOB", customer.Customer_DOB),
+                    new SqlParameter("@CustomerContact", customer.Customer_Contact),
+                    new SqlParameter("@CustomerEmail", customer.Customer_Email)
                 };
                 DataBaseFuncitons.ChangeData(sql, parameters);
 
@@ -1176,9 +1179,32 @@ namespace WindowsFormsApp1
             {
                 List<Control> controls = GenericFunctions.getInputs(this);
                 Customer customer = GenericFunctions.CreateObjectFromControls<Customer>(controls.ToArray());
-                MessageBox.Show(customer.ToString());
 
-                BackClickedEvent(this, EventArgs.Empty);
+                MessageBox.Show("Chaning the following Customer: \n" + customer.ToString());
+                DataGridView dataGridView = Controls.OfType<DataGridView>().FirstOrDefault();
+                if (dataGridView.SelectedRows.Count > 0)
+                {
+                    DataGridViewRow selectedRow = dataGridView.SelectedRows[0];
+                    int Customer_ID = Convert.ToInt32(selectedRow.Cells["Customer_ID"].Value.ToString());
+                    string sql = "UPDATE Customers " + "SET Customer_Name = @Customer_Name, " +
+                                             "Customer_Surname = @Customer_Surname, " +
+                                          "    Customer_DOB = @Customer_DOB, " +
+                                          "    Customer_Contact = @Customer_Contact, " +
+                                          "    Customer_Email = @Customer_Email " +
+                                          "WHERE Customer_ID = @Customer_ID";
+                    SqlParameter[] parameters = new SqlParameter[]
+                    {
+                    new SqlParameter("@Customer_Name", customer.Customer_Name),
+                    new SqlParameter("@Customer_Surname", customer.Customer_Surname),
+                    new SqlParameter("@Customer_DOB", customer.Customer_DOB),
+                    new SqlParameter("@Customer_Contact", customer.Customer_Contact),
+                    new SqlParameter("@Customer_Email", customer.Customer_Email),
+                    new SqlParameter("@Customer_ID", Customer_ID)
+                    };
+                    DataBaseFuncitons.ChangeData(sql, parameters);
+
+                    BackClickedEvent(this, EventArgs.Empty);
+                }
             }
             catch (Exception ex)
             {
@@ -1247,9 +1273,25 @@ namespace WindowsFormsApp1
             {
                 NewMenuAddMaintainCustomers();
                 List<Control> controls = GenericFunctions.getInputs(this);
-                Customer myObject = new Customer("Test", "Test", "Test", DateTime.Now, "Test");
-                GenericFunctions.PopulateControlsFromObject(controls.ToArray(), myObject);
-            
+                
+                DataGridView dataGridView = Controls.OfType<DataGridView>().FirstOrDefault();
+                if (dataGridView.SelectedRows.Count > 0)
+                {
+                    DataGridViewRow selectedRow = dataGridView.SelectedRows[0];
+                    Customer customer = new Customer()
+                    {
+                        Customer_Name = selectedRow.Cells["Customer_Name"].Value.ToString(),
+                        Customer_Surname = selectedRow.Cells["Customer_Surname"].Value.ToString(),
+                        Customer_Contact = selectedRow.Cells["Customer_Contact"].Value.ToString(),
+                        Customer_DOB = Convert.ToDateTime(selectedRow.Cells["Customer_DOB"].Value.ToString()),
+                        Customer_Email = selectedRow.Cells["Customer_Email"].Value.ToString(),
+
+                    };
+                    GenericFunctions.PopulateControlsFromObject(controls.ToArray(), customer);
+                }
+                else
+                    GenericFunctions.PopulateControlsFromObject(controls.ToArray(), new Customer());
+
             }
             catch (Exception ex)
             {
@@ -1364,6 +1406,36 @@ namespace WindowsFormsApp1
                             Ride_ID = new foreignKey()
                         };
                         GenericFunctions.PopulateControlsFromObject(controls.ToArray(), employee);
+                    }
+
+            }
+            catch
+            {
+                //MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void SelectionChangedOnTheDataGridViewCustomer(object sender, EventArgs e)
+        {
+            try
+            {
+                //GroupBox inputsGroupBox = Controls.OfType<GroupBox>().FirstOrDefault();
+                List<Control> controls = GenericFunctions.getInputs(this);
+                DataGridView dataGridView = (DataGridView)sender;
+                if (dataGridView != null)
+                    if (dataGridView.SelectedRows.Count > 0)
+                    {
+                        DataGridViewRow selectedRow = dataGridView.SelectedRows[0];
+                        Customer customer = new Customer()
+                        {
+                            Customer_Name = selectedRow.Cells["Customer_Name"].Value.ToString(),
+                            Customer_Surname = selectedRow.Cells["Customer_Surname"].Value.ToString(),
+                            Customer_DOB = Convert.ToDateTime(selectedRow.Cells["Customer_DOB"].Value.ToString()),
+                            Customer_Email = selectedRow.Cells["Customer_Email"].Value.ToString(),
+                            Customer_Contact = selectedRow.Cells["Customer_Contact"].Value.ToString()
+
+                        };
+                        GenericFunctions.PopulateControlsFromObject(controls.ToArray(), customer);
                     }
 
             }

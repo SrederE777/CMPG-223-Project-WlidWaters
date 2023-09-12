@@ -9,55 +9,35 @@ namespace WindowsFormsApp1
 {
     // Define a class that inherits from the Person class
 
-    internal class Customer : Person
+    class Customer : DataClasses
     {
         // Use the auto-implemented property syntax for the email property
-        public string Email { get; set; }
+        public string Customer_Name { get; set; }
+        public string Customer_Surname { get; set; }
+        public string Customer_Contact { get; set; }
+        public DateTime Customer_DOB  { get; set; }
+        public string Customer_Email { get; set; }
 
-        // Define a public parameterless constructor
-        public Customer() : base()
+        public Customer()
         {
-            // Do some initialization here
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            // Initialization code here
         }
 
-        // Define a constructor that takes an email parameters
-        public Customer(string email) : base()
+        public Customer(string email)
         {
-            try
-            {
-                // Assign the email parameter to the email property
-                Email = email;
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            Customer_Email = email;
         }
 
-        // Define a constructor that takes name, contact, birthday, and email parameters
-        public Customer(string name, string surname, string contact, DateTime birthday, string email) : base(name, surname, contact, birthday)
+        public Customer(string name, string surname, string contact, DateTime birthday, string email)
         {
-            try
-            {
-                // Assign the email parameter to the email property
-                Email = email;
-            }
-            catch (Exception ex) 
-            { 
-                MessageBox.Show(ex.Message); 
-            }
+            Customer_Name = name;
+            Customer_Surname = surname;
+            Customer_Contact = contact;
+            Customer_DOB = birthday;
+            Customer_Email = email;
         }
 
-        public override List<string> getName()
+        public List<string> getName()
         {
             List<string> names = new List<string>();
             names.Add("Email");
@@ -68,7 +48,7 @@ namespace WindowsFormsApp1
             return names;
 
         }
-        public override List<string> getDataBaseName()
+        public List<string> getDataBaseName()
         {
             List<string> colNames = new List<string>();
             colNames.Add("Customer_Email");
@@ -82,7 +62,7 @@ namespace WindowsFormsApp1
         // Override the ToString() method using the string interpolation syntax
         public override string ToString()
         {
-            return $"Name: {Name}\nContact: {Contact}\nBirthday: {Birthday:d}\nEmail: {Email}";
+            return $"Name: {Customer_Name}\nSurname: {Customer_Surname}\nContact: {Customer_Contact}\nBirthday: {Customer_DOB:d}\nEmail: {Customer_Email}";
         }
     }
 
